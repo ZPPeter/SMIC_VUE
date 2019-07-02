@@ -1,0 +1,34 @@
+﻿----------------------------------------------------------
+namespace SMIC.Sessions.Dto
+{
+    [AutoMapFrom(typeof(User))]
+    public class UserLoginInfoDto : EntityDto<long>
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string UserName { get; set; }
+        public string EmailAddress { get; set; }
+    }
+}
+增加 avatarImgPath
+----------------------------------------------------------
+https://www.cnblogs.com/smilexumu/p/10521612.html
+https://www.cnblogs.com/smilexumu/p/10911161.html
+https://www.cnblogs.com/yanzhen/p/9518894.html
+
+https://www.cnblogs.com/zzayne/p/8833516.html
+https://blog.csdn.net/harsima/article/details/77949448
+https://juejin.im/post/591aa14f570c35006961acac
+
+参见 iview-admin routers
+
++ Abplus.ZeroDemo member manager module
+Dapper
+
+LastloginTime -> C#
+
+版本号
+http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations
+Ver:6.4.0.0 [20190628]
+Ver:@(AppVersionHelper.Version) [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]<br />
+release date 发布日期

@@ -1,0 +1,58 @@
+
+图标字体
+===================================
+<span class="iconfont">&#xe668;</span>
+
+main.less
+@font-face {
+  font-family: 'iconfont';  /* project id 224028 */
+  src: url('//at.alicdn.com/t/font_af7jufm3w1rwwmi.eot');
+  src: url('//at.alicdn.com/t/font_af7jufm3w1rwwmi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_af7jufm3w1rwwmi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_af7jufm3w1rwwmi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_af7jufm3w1rwwmi.svg#iconfont') format('svg');
+}
+
+<script lang="ts">
+import Vue from 'vue'
+import '@/assets/fonts/iconfont.css';
+
+或者 main.less 引入 ttf 字体文件，不必再引入 css
+
+
+菜单
+===================================
+src\router\router.ts
+export const appRouters: Array<Router> = [{
+    path: '/setting',
+    name: 'setting',
+    permission: '',
+    meta: { title: 'ManageMenu' },
+    icon: '&#xe68a;',
+    component: main,
+    children: [
+        { path: 'user', icon: '&#xe68a;',permission: 'Pages.Users', meta: { title: '用户' }, name: 'user', component: () => import('../views/setting/user/user.vue') },
+        { path: 'role', icon: '&#xe68a;',permission: 'Pages.Roles', meta: { title: '角色' }, name: 'role', component: () => import('../views/setting/role/role.vue') },
+        { path: 'test', icon: '&#xe68a;',permission: 'Pages.Roles', meta: { title: '测试' }, name: 'test', component: () => import('../views/setting/test/test.vue') },
+        { path: 'tenant', icon: '&#xe68a;',permission: 'Pages.Tenants', meta: { title: '多租户' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') }
+    ]
+}]
+//...appRouters,// 对象展开运算符,二级路由
+
+
+menuList
+this.$store.commit('app/updateMenulist');
+store\app.ts
+
+        updateMenulist(state: AppState) {
+            let menuList: Array<Router> = [];            
+            appRouters.forEach((item, index) => {
+
+appRouters
+import { appRouters, otherRouters } from '../../router/router'
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+public/index.html
+<title>测绘仪器检定数据处理系统3.0</title>
+
+lib/util.ts
+
+    title(title:string){
+        let appname=this.abp.localization.localize('AppName',appconst.localization.defaultLocalizationSourceName);
+        let page=this.abp.localization.localize(title,appconst.localization.defaultLocalizationSourceName);
+        window.document.title = appname+'--'+page;
+    }
