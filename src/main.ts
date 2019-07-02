@@ -36,7 +36,6 @@ if(!abp.utils.getCookieValue('Abp.Localization.CultureName')){
 //alert(navigator.language) -> zh-CN
 //手动修改
 //abp.utils.setCookieValue('Abp.Localization.CultureName',"zh-Hans",new Date(new Date().getTime() + 5 * 365 * 86400000),abp.appPath);
-
 Ajax.get('/AbpUserConfiguration/GetAll').then(data=>{
   //alert(JSON.stringify(data.data.result.localization.languages)) // ABP 内置语言名称，不是 SMIC.Core 里面的 
   //console.log(data.data.result);
@@ -60,6 +59,11 @@ Ajax.get('/AbpUserConfiguration/GetAll').then(data=>{
       }
       this.$store.commit('app/initCachepage');
       this.$store.commit('app/updateMenulist');
+      Ajax.get('/api/services/app/Session/GetCurrentLoginInformations').then(data=>{
+        //console.log(JSON.stringify(data.data.result.application));
+        this.$store.state.app.version = "版本:" + data.data.result.application.version +" 【" + Util.dateFormat(data.data.result.application.releaseDate) +"】";
+      })
+      //let rep = await ajax.get("");
     },
     created () {
       let tagsList:Array<any> = [];

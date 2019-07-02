@@ -37,6 +37,7 @@ class AppModule {
             tagsList: [...otherRouters.children],
             messageCount: 0,
             dontCache: [],
+            version:'版本:1.00',
             noticeList: [{ read: false, type: 0, title: 'First notice', description: 'One day ago' }, { read: false, type: 1 }, { read: false, type: 0, title: 'Second notice', description: 'One month ago' }]
         };
         this.mutations = {
@@ -198,7 +199,7 @@ class AppModule {
                 // ToDo
                 localStorage.avatarImgPath = 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png';
                 //alert(localStorage.avatorImgPath);
-            },
+            },            
         };
     }
 }

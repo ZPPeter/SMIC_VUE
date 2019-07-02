@@ -110,7 +110,7 @@
               </keep-alive>
             </Content>
             <!-- copyfooter :copyright="L('CopyRight')"></copyfooter -->
-            <div class="version"> 版本1.00</div>
+            <div class="version"> {{version}}</div>
           </div>
         </Layout>
       </Content>
@@ -172,7 +172,7 @@ export default class Main extends AbpBase {
   get menuList() {
     return this.$store.state.app.menuList;
   }
-  get pageTagsList() {
+  get pageTagsList() {    
     return this.$store.state.app.pageOpenedList as Array<any>;
   }
   get currentPath() {
@@ -180,6 +180,10 @@ export default class Main extends AbpBase {
   }
   get lang() {
     return this.$store.state.app.lang;
+  }
+  get version(){
+    //alert(this.$store.state.app.version);
+    return this.$store.state.app.version;
   }
   get avatarPath() {
     //alert('ToDO:' + this.$store.state.app.avatarImgPath);
@@ -321,7 +325,7 @@ export default class Main extends AbpBase {
   langChange() {
     util.setCurrentPath(this, this.$route.name as string);
   }
-  mounted() {
+  mounted() {    
     this.init();
   }
   created() {
@@ -484,6 +488,6 @@ export default class Main extends AbpBase {
     margin: 12px 0 6px;
     text-align: right;
     color: rgba(0,0,0,.45);
-    font-size: 14px;
+    font-size: 10px;
   }
 </style>

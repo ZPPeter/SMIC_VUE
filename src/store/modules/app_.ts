@@ -55,6 +55,7 @@ class AppModule implements Module<AppState, any>{
         tagsList: [...otherRouters.children],
         messageCount: 0,
         dontCache: [],
+        version:'版本:1.00',
         noticeList: [{ read: false, type: 0, title: 'First notice', description: 'One day ago' }, { read: false, type: 1 }, { read: false, type: 0, title: 'Second notice', description: 'One month ago' }]
     };
     mutations = {
@@ -67,7 +68,7 @@ class AppModule implements Module<AppState, any>{
         },        
         setTagsList(state: AppState, list: Array<any>) {
             state.tagsList.push(...list);
-        },
+        },        
         updateMenulist(state: AppState) {
             let menuList: Array<Router> = [];            
             appRouters.forEach((item, index) => {
@@ -198,7 +199,7 @@ class AppModule implements Module<AppState, any>{
         }
     }
     actions = {        
-        // 415 (Unsupported Media Type    
+        // 415 (Unsupported Media Type   
         // async login(payload: any) {
         // ActionContext: vuex context参数,vuex 的d.ts 提供有类型 ActionContext
         //async login(content: ActionContext<AppState, any>, payload: any) {
@@ -215,6 +216,11 @@ class AppModule implements Module<AppState, any>{
             //alert(localStorage.avatorImgPath);
 
         },
+        async getVerson(state:any){
+            let rep = await ajax.get("/api/services/app/Session/GetCurrentLoginInformations");
+            alert(rep.data.result);
+            state.version = "Ver 1.oo 生成日期：xxx";
+        }
     }
 }
 const appModule = new AppModule();
