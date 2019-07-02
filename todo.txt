@@ -32,3 +32,5 @@ http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations
 Ver:6.4.0.0 [20190628]
 Ver:@(AppVersionHelper.Version) [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]<br />
 release date 发布日期
+
+VUE 中文资源?
