@@ -22,15 +22,6 @@ https://juejin.im/post/591aa14f570c35006961acac
 
 参见 iview-admin routers
 
-+ Abplus.ZeroDemo member manager module
-Dapper
++ Zero 管理功能
 
-LastloginTime -> C#
-
-版本号
-http://localhost:21021/api/services/app/Session/GetCurrentLoginInformations
-Ver:6.4.0.0 [20190628]
-Ver:@(AppVersionHelper.Version) [@AppVersionHelper.ReleaseDate.ToString("yyyyMMdd")]<br />
-release date 发布日期
-
-VUE 中文资源?
++ vw_sjmx 界面

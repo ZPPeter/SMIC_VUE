@@ -1,0 +1,24 @@
+./node_modules/ts-loader/index.js -> main.ts -> vue-loader
+./node_modules/vue-loader/lib/index.js -> app.vue
+main.ts 挂载 app.vue + router -> router/index.js ->main.vue
+
+在 main.vue 里面有个 <router-view></router-view> 加载路由节点
+
+index.js 第一次登录 -> home -> /main/home
+            next({
+                name: 'home'
+            });
+
+export const otherRouters = {
+    path: '/main',  // 浏览器显示路径
+    name: 'main',
+    permission: '',
+    meta: { title: '管理菜单' },
+    component: main,
+    children: [
+        { path: 'home', meta: { title: '主页' }, name: 'home', component: () => import('../views/home/home.vue') },
+        { path: 'vw_sjmx', icon: '&#xe608;', permission: 'Pages.Tenants', meta: { title: '送检明细' }, name: 'vw_sjmx', component: () => import('../views/sdim/vw_sjmx/vw_sjmx.vue') }
+    ]
+};
+
+permission 在 abp 后台设置

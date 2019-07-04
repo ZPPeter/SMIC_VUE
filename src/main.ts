@@ -39,6 +39,7 @@ if(!abp.utils.getCookieValue('Abp.Localization.CultureName')){
 Ajax.get('/AbpUserConfiguration/GetAll').then(data=>{
   //alert(JSON.stringify(data.data.result.localization.languages)) // ABP 内置语言名称，不是 SMIC.Core 里面的 
   //console.log(data.data.result);
+  //window.abp.auth 等设置初始化
   Util.abp=Util.extend(true,Util.abp,data.data.result);
   new Vue({
     render: h => h(App),

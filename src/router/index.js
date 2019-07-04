@@ -32,11 +32,11 @@ router.beforeEach((to, from, next) => {
         else if (!!Util.abp.session.userId && to.name === 'login') {
             Util.title(to.meta.title);
             next({
-                name: 'home'
+                name: 'home' // 任何 name 都可以,比如 setting 则显示子菜单的第一个 
             });
         }
-        else {
-            const curRouterObj = Util.getRouterObjByName([otherRouters, ...appRouters], to.name);
+        else {            
+            const curRouterObj = Util.getRouterObjByName([otherRouters, ...appRouters], to.name);            
             if (curRouterObj && curRouterObj.permission) {
                 if (window.abp.auth.hasPermission(curRouterObj.permission)) {
                     Util.toDefaultPage([otherRouters, ...appRouters], to.name, router, next);
@@ -48,8 +48,8 @@ router.beforeEach((to, from, next) => {
                     });
                 }
             }
-            else {
-                Util.toDefaultPage([...routers], to.name, router, next);
+            else {                
+                Util.toDefaultPage([...routers], to.name, router, next);  // 无 permission 
             }
         }
     }
