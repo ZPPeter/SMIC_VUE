@@ -1,0 +1,26 @@
+src\store\modules\app.js
+    menuTheme: 'dark', //light dark 只能二选一 
+    themeColor: '',
+
+
+src\components\shrinkable-menu\components\sidebarMenu.vue                  sidebarMenu
+src\components\shrinkable-menu\components\sidebarMenuShrink.vue            sidebarMenuShrink
+
+src\components\shrinkable-menu\shrinkable-menu.vue
+
+import sidebarMenu       from './components/sidebarMenu.vue';
+import sidebarMenuShrink from './components/sidebarMenuShrink.vue';
+
+    @Prop({
+           validator:(val)=>{return util.oneOf(val, ['dark', 'light']);}  // theme 取值
+    }) theme:string;
+    get bgColor(){
+            return this.theme === 'dark' ? '#001529' : '#fff';  // 菜单背景yanse
+    }
+    get shrinkIconColor () {
+        return this.theme === 'dark' ? '#fff' : '#495060';      // shrink Icon Color
+    }
+
+src\theme.less
+@menu-dark-title              : #001529;  // 一级菜单背景色
+@menu-dark-active-bg          : #000c17;  // 未选中一级菜单之外的菜单背景色，选中的是 Blue

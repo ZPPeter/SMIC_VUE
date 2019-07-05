@@ -13,7 +13,7 @@ class AppModule {
             lang: '',
             isFullScreen: false,
             openedSubmenuArr: [],
-            menuTheme: 'light', //dark
+            menuTheme: 'dark', //light
             themeColor: '',
             avatarImgPath: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png',
             pageOpenedList: [{

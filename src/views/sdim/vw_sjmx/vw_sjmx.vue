@@ -6,27 +6,16 @@
                     <Row :gutter="16">
                         <Col span="6">
                             <FormItem :label="L('Keyword')+':'" style="width:100%">
-                                <Input v-model="pagerequest.keyword" :placeholder="L('UserName')+'/'+L('Name')"></Input>
+                                <Input v-model="pagerequest.Filter" placeholder="送检单号/单位名称"></Input>
                             </FormItem>
                         </Col>
                         <Col span="6">
-                            <FormItem :label="L('IsActive')+':'" style="width:100%">
-                                <!--Select should not set :value="'All'" it may not trigger on-change when first select 'NoActive'(or 'Actived') then select 'All'-->
-                                <Select :placeholder="L('Select')" @on-change="isActiveChange">
-                                    <Option value="All">{{L('All')}}</Option>
-                                    <Option value="Actived">{{L('Actived')}}</Option>
-                                    <Option value="NoActive">{{L('NoActive')}}</Option>
-                                </Select>
-                            </FormItem>
-                        </Col>
-                        <Col span="6">
-                            <FormItem :label="L('CreationTime')+':'" style="width:100%">
-                                <DatePicker  v-model="creationTime" type="datetimerange" format="yyyy-MM-dd" style="width:100%" placement="bottom-end" :placeholder="L('SelectDate')"></DatePicker>
+                            <FormItem label="送检日期:" style="width:100%">
+                                <DatePicker  v-model="sendDateTime" type="datetimerange" format="yyyy-MM-dd" style="width:100%" placement="bottom-end" :placeholder="L('SelectDate')"></DatePicker>
                             </FormItem>
                         </Col>
                     </Row>
-                    <Row>
-                        <Button @click="create" icon="android-add" type="primary" size="large">{{L('Add')}}</Button>
+                    <Row :gutter="16">
                         <Button icon="ios-search" type="primary" size="large" @click="getpage" class="toolbar-btn">{{L('Find')}}</Button>
                     </Row>
                 </Form>
@@ -37,8 +26,6 @@
                 </div>
             </div>
         </Card>
-        <create-user v-model="createModalShow" @save-success="getpage"></create-user>
-        <edit-user v-model="editModalShow" @save-success="getpage"></edit-user>
     </div>
 </template>
 <script lang="ts">
@@ -46,51 +33,31 @@
     import Util from '@/lib/util'
     import AbpBase from '@/lib/abpbase'
     import PageRequest from '@/store/entities/page-request'
-    class  PageUserRequest extends PageRequest{
-        keyword:string;
-        isActive:boolean=null;//nullable
-        from:Date;
-        to:Date;
+    class  PageVw_sjmxRequest extends PageRequest{
+        Filter:string;
+        From:Date;
+        To:Date;        
     }
 
     @Component({
         components:{}
     })
-    export default class Users extends AbpBase{
-        edit(){
-            this.editModalShow=true;
-        }
+    export default class Vw_sjmxs extends AbpBase{
         //filters
-        pagerequest:PageUserRequest=new PageUserRequest();
-        creationTime:Date[]=[];
-
-        createModalShow:boolean=false;
-        editModalShow:boolean=false;
+        pagerequest:PageVw_sjmxRequest=new PageVw_sjmxRequest();
+        sendDateTime:Date[]=[]; // 送检日期
         get list(){
-            return this.$store.state.user.list;
+            return this.$store.state.vw_sjmx.list;
         };
         get loading(){
-            return this.$store.state.user.loading;
-        }
-        create(){
-            this.createModalShow=true;
-        }
-        isActiveChange(val:string){
-            console.log(val);
-            if(val==='Actived'){
-                this.pagerequest.isActive=true;
-            }else if(val==='NoActive'){
-                this.pagerequest.isActive=false;
-            }else{
-                this.pagerequest.isActive=null;
-            }
+            return this.$store.state.vw_sjmx.loading;
         }
         pageChange(page:number){
-            this.$store.commit('user/setCurrentPage',page);
+            this.$store.commit('vw_sjmx/setCurrentPage',page);
             this.getpage();
         }
         pagesizeChange(pagesize:number){
-            this.$store.commit('user/setPageSize',pagesize);
+            this.$store.commit('vw_sjmx/setPageSize',pagesize);
             this.getpage();
         }
         async getpage(){
@@ -99,101 +66,44 @@
             this.pagerequest.skipCount=(this.currentPage-1)*this.pageSize;
             //filters
             
-            if (this.creationTime.length>0) {
-                this.pagerequest.from=this.creationTime[0];
+            if (this.sendDateTime.length>0) {
+                this.pagerequest.From=this.sendDateTime[0];
             }
-            if (this.creationTime.length>1) {
-                this.pagerequest.to=this.creationTime[1];
+            if (this.sendDateTime.length>1) {
+                this.pagerequest.To=this.sendDateTime[1];
             }
 
             await this.$store.dispatch({
-                type:'user/getAll',
+                type:'vw_sjmx/getAll',
                 data:this.pagerequest
             })
         }
         get pageSize(){
-            return this.$store.state.user.pageSize;
+            return this.$store.state.vw_sjmx.pageSize;
         }
         get totalCount(){
-            return this.$store.state.user.totalCount;
+            return this.$store.state.vw_sjmx.totalCount;
         }
         get currentPage(){
-            return this.$store.state.user.currentPage;
+            return this.$store.state.vw_sjmx.currentPage;
         }
         columns=[{
-            title:this.L('UserName'),
-            key:'userName'
+            title:'送检单号',
+            key:'送检单号'
         },{
-            title:this.L('Name'),
-            key:'name'
+            title:'单位名称',
+            key:'单位名称'
         },{
-            title:this.L('IsActive'),
+            title:'送检日期',
             render:(h:any,params:any)=>{
-               return h('span',params.row.isActive?this.L('Yes'):this.L('No'))
-            }
+               return h('span',new Date(params.row.送检日期).toLocaleDateString())
+            }        
         },{
-            title:this.L('CreationTime'),
-            key:'creationTime',
-            render:(h:any,params:any)=>{
-                return h('span',new Date(params.row.creationTime).toLocaleDateString())
-            }
-        },{
-            title:this.L('LastLoginTime'),
-            render:(h:any,params:any)=>{
-                return h('span',new Date(params.row.lastLoginTime).toLocaleString())
-            }
-        },{
-            title:this.L('Actions'),
-            key:'Actions',
-            width:150,
-            render:(h:any,params:any)=>{
-                return h('div',[
-                    h('Button',{
-                        props:{
-                            type:'primary',
-                            size:'small'
-                        },
-                        style:{
-                            marginRight:'5px'
-                        },
-                        on:{
-                            click:()=>{
-                                this.$store.commit('user/edit',params.row);
-                                this.edit();
-                            }
-                        }
-                    },this.L('Edit')),
-                    h('Button',{
-                        props:{
-                            type:'error',
-                            size:'small'
-                        },
-                        on:{
-                            click:async ()=>{
-                                this.$Modal.confirm({
-                                        title:this.L('Tips'),
-                                        content:this.L('DeleteUserConfirm'),
-                                        okText:this.L('Yes'),
-                                        cancelText:this.L('No'),
-                                        onOk:async()=>{
-                                            await this.$store.dispatch({
-                                                type:'user/delete',
-                                                data:params.row
-                                            })
-                                            await this.getpage();
-                                        }
-                                })
-                            }
-                        }
-                    },this.L('Delete'))
-                ])
-            }
+            title:'证书编号',
+            key:'证书编号'
         }]
         async created(){
             this.getpage();
-            await this.$store.dispatch({
-                type:'user/getRoles'
-            })
-        }
+        }        
     }
 </script>

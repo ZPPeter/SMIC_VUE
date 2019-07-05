@@ -33,7 +33,7 @@ export default class SidebarMenu extends AbpBase {
     name:string='sidebarMenu';
     @Prop({type:Array}) menuList:Array<any>;
     @Prop({type:Number}) iconSize:number;
-    @Prop({type:String,default:'light'}) menuTheme:string; //dark
+    @Prop({type:String,default:'dark'}) menuTheme:string; //light
     @Prop({type:Array}) openNames:Array<string>;
     itemTitle(item:any):string{
         return this.L(item.meta.title);

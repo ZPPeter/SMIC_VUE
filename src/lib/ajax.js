@@ -25,7 +25,11 @@ ajax.interceptors.response.use((respon) => {
         vm.$Modal.error({ title: error.response.data.error.message, content: error.response.data.error.details });
     }
     else if (!!error.response && !!error.response.data.error && !!error.response.data.error.message) {
-        vm.$Modal.error({ title: window.abp.localization.localize("LoginFailed"), content: error.response.data.error.message });
+        vm.$Modal.error({ 
+            //title: window.abp.localization.localize("LoginFailed"), 
+            title: '发生错误', 
+            content: error.response.data.error.message 
+        });
     }
     else if (!error.response) {
         vm.$Modal.error(window.abp.localization.localize('UnknownError'));

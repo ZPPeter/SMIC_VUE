@@ -33,7 +33,7 @@ export default class extends AbpBase {
     name:string='sidebarMenuShrink';
     @Prop({type:Array}) menuList:Array<any>;
     @Prop({default:'white'}) iconColor:string;
-    @Prop({default:'light'}) menuTheme:string; //dark
+    @Prop({default:'dark'}) menuTheme:string; //light
     @Emit('on-change') changeMenu(active:string){
 
     }

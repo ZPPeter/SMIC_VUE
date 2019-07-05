@@ -35,11 +35,11 @@ export default class ShrinkableMenu extends Vue {
     @Prop({
            validator:(val)=>{return util.oneOf(val, ['dark', 'light']);}
     }) theme:string;
-    get bgColor(){
-            return this.theme === 'dark' ? '#001529' : '#fff';
+    get bgColor(){ // 菜单背景色
+            return this.theme === 'dark' ? '#001529' : '#fff';            
     }
-    get shrinkIconColor () {
-        return this.theme === 'dark' ? '#fff' : '#495060';
+    get shrinkIconColor () { // shrink Icon Color
+        return this.theme === 'dark' ? '#fff' : '#495060';        
     }
     @Emit('on-change')
     handleChange(name:string){
