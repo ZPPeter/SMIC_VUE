@@ -41,6 +41,16 @@ export const appRouters = [{
             { path: 'tenant', icon: '&#xe64d;', permission:  'Pages.Tenants', meta: { title: '多租户' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') },
             { path: 'vw_sjmx', icon: '&#xe608;', permission: 'Pages.Tenants', meta: { title: '送检明细' }, name: 'vw_sjmx', component: () => import('../views/sdim/vw_sjmx/vw_sjmx.vue') }
         ]
+}, {
+    path: '/manage',
+    name: 'manage',
+    permission: '',
+    meta: { title: '会员管理' },
+    icon: '&#xe68a;',
+    component: main,
+    children: [
+        { path: 'member', icon: '&#xe608;', permission: 'Pages.Roles',  meta: { title: '会员' }, name: 'member', component: () => import('../views/setting/test/test.vue') }
+    ]
 }];
 
 // 一级路由不显示在左侧菜单区域

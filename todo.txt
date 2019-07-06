@@ -20,8 +20,6 @@ https://www.cnblogs.com/zzayne/p/8833516.html
 https://blog.csdn.net/harsima/article/details/77949448
 https://juejin.im/post/591aa14f570c35006961acac
 
-参见 iview-admin routers
-
 + Zero 管理功能
 
-+ vw_sjmx 界面
++ vw_sjmx 界面完善
