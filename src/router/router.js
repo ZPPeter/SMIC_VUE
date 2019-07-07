@@ -49,7 +49,7 @@ export const appRouters = [{
     icon: '&#xe68a;',
     component: main,
     children: [
-        { path: 'member', icon: '&#xe608;', permission: 'Pages.Roles',  meta: { title: '会员' }, name: 'member', component: () => import('../views/setting/test/test.vue') }
+        { path: 'member', icon: '&#xe608;', permission: 'Pages.Roles',  meta: { title: '会员' }, name: 'member', component: () => import('../views/manage/member/member.vue') }
     ]
 }];
 
