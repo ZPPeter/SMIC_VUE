@@ -1,0 +1,43 @@
+检查更新
+npm install -g npm-check-updates
+
+执行 命令
+ncu -u 
+
+npm install
+
+npm run dev
+
+如果有问题，需要更新vue.config.js
+在vue.config.js文件中添加如下内容：
+
+// 升级组件的时候添加
+  css: {
+    loaderOptions: { // 向 CSS 相关的 loader 传递选项
+      less: {
+        javascriptEnabled: true
+      }
+    }
+  },
+
+  如下所示：
+  module.exports = {
+    css: {
+        loaderOptions: { // 向 CSS 相关的 loader 传递选项
+          less: {
+            javascriptEnabled: true
+          }
+        }
+      },    
+    configureWebpack: config => {
+      if (process.env.NODE_ENV === 'production') {
+
+再次重新install, run即可，这次可以成功运行了，但是效果并没有成功显示，所以还有问题，差了一步，需要将更新结果保存。
+
+2.4 保存更新组件
+执行如下命令即可：
+
+npm update -S
+npm update -D          
+
+记得更新 node_modules\iview\types\*.* 文件

@@ -11,7 +11,7 @@ import { Component, Vue } from 'vue-property-decorator';
     }
 })
 export default class Footer extends Vue{
-  
+  copyright ='© 2019 SMIC';  // 来自服务器 © 2019 SMIC
 }
 </script>
 <style scoped>
