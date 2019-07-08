@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Poptip extends Vue {
+export declare class Poptip extends Vue {
   /**
    * 触发方式，可选值为hover（悬停）click（点击）focus（聚焦）,
    * 在 confirm 模式下，只有 click 有效
@@ -37,6 +37,11 @@ export interface Poptip extends Vue {
    * @default false
    */
   confirm?: boolean;
+  /**
+   * 是否禁用
+   * @default false
+   */
+  disabled?: boolean;
   /**
    * 确定按钮的文字，只在 confirm 模式下有效
    * @default 确定

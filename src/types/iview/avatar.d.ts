@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue from 'vue';
 
-export interface Avatar extends Vue {
+export declare class Avatar extends Vue {
   /**
    * 指定头像的形状，可选值为 circle、square
    * @default circle
@@ -27,4 +27,8 @@ export interface Avatar extends Vue {
    * 自定义图标
    */
   'custom-icon'?: string;
+  /**
+   * 在设置 src 且图片加载不成功时触发
+   */
+  $emit(eventName: 'on-error', event: Event): this;
 }

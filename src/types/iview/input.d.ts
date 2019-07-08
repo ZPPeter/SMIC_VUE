@@ -1,15 +1,15 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Input extends Vue {
+export declare class Input extends Vue {
   /**
-   * 输入框类型，可选值为 text、password、textarea、url、email、date
+   * 输入框类型，可选值为 text、password、textarea、url、email、date、number、tel
    * @default text
    */
-  type?: 'text' | 'password' | 'textarea' | 'url' | 'email' | 'date';
+  type?: 'text' | 'password' | 'textarea' | 'url' | 'email' | 'date' | 'number' | 'tel';
   /**
    * 绑定的值，可使用 v-model 双向绑定
    * @default 空
@@ -140,6 +140,10 @@ export interface Input extends Vue {
    * 开启 search 时可用，点击搜索或按下回车键时触发
    */
   $emit(eventName: 'on-search', value: string): this;
+  /**
+   * 开启 clearable 时可用，点击清空按钮时触发
+   */
+  $emit(eventName: 'on-clear'): this;
   /**
    * 手动聚焦输入框
    */

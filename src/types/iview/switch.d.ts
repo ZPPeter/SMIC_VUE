@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Switch extends Vue {
+export declare class Switch extends Vue {
   /**
    * 指定当前是否选中，可以使用 v-model 双向绑定数据
    * @default false

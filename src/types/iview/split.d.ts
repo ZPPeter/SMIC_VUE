@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Split extends Vue {
+export declare class Split extends Vue {
   /**
    * 面板位置，可以是 0~1 代表百分比，或具体数值的像素，可用 v-model 双向绑定
    * @default 0.5

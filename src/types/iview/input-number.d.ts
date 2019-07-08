@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue from 'vue';
 
-export interface InputNumber extends Vue {
+export declare class InputNumber extends Vue {
   /**
    * 最大值，默认值Infinity
    */
@@ -60,6 +60,11 @@ export interface InputNumber extends Vue {
    * 给表单元素设置 id，详见 Form 用法。
    */
   'element-id'?: string;
+  /**
+   * 是否实时响应数据，设置为 false 时，只会在失焦时更改数据
+   * @default true
+   */
+  'active-change'?: boolean;
   /**
    * 数值改变时的回调，返回当前值，默认值当前值
    */

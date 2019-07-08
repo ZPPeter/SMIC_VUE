@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface AutoComplete extends Vue {
+export declare class AutoComplete extends Vue {
   /**
    * 绑定的值，可使用 v-model 双向绑定
    */
@@ -72,4 +72,8 @@ export interface AutoComplete extends Vue {
    * 搜索补全项的时候调用
    */
   $emit(eventName: 'on-blur', event: KeyboardEvent): this;
+  /**
+   * 清空时触发
+   */
+  $emit(eventName: 'on-clear'): this;
 }

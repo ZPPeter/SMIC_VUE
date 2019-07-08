@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Upload extends Vue {
+export declare class Upload extends Vue {
   /**
    * 上传的地址，必填
    */
@@ -24,6 +24,11 @@ export interface Upload extends Vue {
    * @default false
    */
   paste?: boolean;
+  /**
+   * 是否禁用
+   * @default false
+   */
+  disabled?: boolean;
   /**
    * 上传时附带的额外参数
    */

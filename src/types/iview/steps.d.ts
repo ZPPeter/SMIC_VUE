@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue from 'vue';
 
-export interface Steps extends Vue {
+export declare class Steps extends Vue {
   /**
    * 当前步骤，从 0 开始计数
    * @default 0
@@ -26,7 +26,7 @@ export interface Steps extends Vue {
   direction?: 'horizontal' | 'vertical';
 }
 
-export interface Step extends Vue {
+export declare class StepsStep extends Vue {
   /**
    * 步骤的状态，可选值为wait、process、finish、error，不设置时自动判断
    * @default process

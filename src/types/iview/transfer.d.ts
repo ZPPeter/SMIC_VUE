@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Transfer extends Vue {
+export declare class Transfer extends Vue {
   /**
    * 数据源，其中的数据将会被渲染到左边一栏中，targetKeys 中指定的除外。
    * @default []

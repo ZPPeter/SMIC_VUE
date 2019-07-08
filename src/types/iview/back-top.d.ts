@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue from 'vue';
 
-export interface BackTop extends Vue {
+export declare class BackTop extends Vue {
   /**
    * 页面滚动高度达到该值时才显示BackTop组件
    * @default 400

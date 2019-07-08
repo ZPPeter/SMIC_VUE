@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue from 'vue';
 
-export interface Divider extends Vue {
+export declare class Divider extends Vue {
   /**
    * 水平还是垂直类型，可选值为 horizontal 或 vertical
    * @default horizontal
@@ -20,4 +20,9 @@ export interface Divider extends Vue {
    * @default false
    */
   dashed?: boolean;
+  /**
+   * 尺寸，可选值为 small 或 default
+   * @default default
+   */
+  size?: string;
 }

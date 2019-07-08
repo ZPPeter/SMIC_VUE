@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface DatePicker extends Vue {
+export declare class DatePicker extends Vue {
   /**
    * 显示类型，可选值为 date、daterange、datetime、datetimerange、year、month'|'默认值date
    */
@@ -40,7 +40,7 @@ export interface DatePicker extends Vue {
   /**
    * 选择器额外配置，比如不可选日期与快捷选项，具体项详见下表
    */
-  options?: object;
+  options?: DatePickerOptions;
   /**
    * 开启后，左右面板不联动，仅在 daterange 和 datetimerange 下可用。
    * @default false
@@ -112,6 +112,10 @@ export interface DatePicker extends Vue {
    */
   'time-picker-options'?: object;
   /**
+   * 两个日期间的分隔符
+   */
+  'separator'?: string;
+  /**
    * 日期发生变化时触发	已经格式化后的日期，比如 2016-01-01
    */
   $emit(eventName: 'on-change', value: string): this;
@@ -128,6 +132,10 @@ export interface DatePicker extends Vue {
    */
   $emit(eventName: 'on-clear'): this;
   /**
+   * 点击外部关闭下拉菜单时触发
+   */
+  $emit(eventName: 'on-clickoutside',event: MouseEvent): this;
+  /**
    * slot插槽对象
    */
   $slots: {
@@ -138,7 +146,7 @@ export interface DatePicker extends Vue {
   };
 }
 
-export interface DatePickerOptions extends Vue {
+export declare class DatePickerOptions {
   /**
    * 设置快捷选项，每项内容：
    * text：显示的文案

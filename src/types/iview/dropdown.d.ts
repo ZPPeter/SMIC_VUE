@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Dropdown extends Vue {
+export declare class Dropdown extends Vue {
   /**
    * 触发方式，可选值为 hover（悬停）click（点击）contextMenu（右键）custom（自定义），使用 custom 时，需配合 visible 一起使用
    * @default hover
@@ -28,6 +28,15 @@ export interface Dropdown extends Vue {
    * @default false
    */
   transfer?: boolean;
+  /**
+   * 开启 transfer 时，给浮层添加额外的 class 名称
+   */
+  'transfer-class-name'?: string;
+  /**
+   * 是否开启 stop-propagation
+   * @default false
+   */
+  'stop-propagation'?: boolean;
   /**
    * 点击菜单项时触发
    * 
@@ -56,7 +65,10 @@ export interface Dropdown extends Vue {
   };
 }
 
-export interface DropdownItem extends Vue {
+export declare class DropdownMenu extends Vue {
+}
+
+export declare class DropdownItem extends Vue {
   /**
    * 用来标识这一项
    */

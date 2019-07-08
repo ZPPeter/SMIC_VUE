@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue from 'vue';
 
-export interface Carousel extends Vue {
+export declare class Carousel extends Vue {
   /**
    * 幻灯片的索引，从 0 开始，可以使用 v-model 双向绑定数据
    * @default 0
@@ -58,4 +58,8 @@ export interface Carousel extends Vue {
    * 幻灯片切换时触发，目前激活的幻灯片的索引，原幻灯片的索引
    */
   $emit(eventName: 'on-change', oldValue: number, value: number): this;
+}
+
+export declare class CarouselItem extends Vue {
+
 }

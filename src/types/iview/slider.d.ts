@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Slider extends Vue {
+export declare class Slider extends Vue {
   /**
    * 滑块选定的值，可以使用 v-model 双向绑定数据。普通模式下，数据格式为数字，
    * 在双滑块模式下，数据格式为长度是2的数组，且每项都为数字,
@@ -59,6 +59,11 @@ export interface Slider extends Vue {
    * 数字输入框的尺寸，可选值为large、small、default或者不填，仅在开启 show-input 时有效
    */
   'input-size'?: '' | 'large' | 'small' | 'default';
+  /**
+   * 同 InputNumber 的 active-change
+   * @default true
+   */
+  'active-change'?: boolean;
   /**
    * 在松开滑动时触发，返回当前的选值，在滑动过程中不会触发
    */

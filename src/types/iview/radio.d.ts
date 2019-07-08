@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Radio extends Vue {
+export declare class Radio extends Vue {
   /**
    * 只在单独使用时有效。可以使用 v-model 双向绑定数据
    * @default false
@@ -39,7 +39,7 @@ export interface Radio extends Vue {
   $emit(eventName: 'on-change', arg: string | number | boolean): this;
 }
 
-export interface RadioGroup extends Vue {
+export declare class RadioGroup extends Vue {
   /**
    * 指定当前选中的项目数据。可以使用 v-model 双向绑定数据
    */

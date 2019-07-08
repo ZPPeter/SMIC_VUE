@@ -1,5 +1,12 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
+    css: {
+        loaderOptions: { // 向 CSS 相关的 loader 传递选项
+          less: {
+            javascriptEnabled: true
+          }
+        }
+      },
     configureWebpack: config => {
       if (process.env.NODE_ENV === 'production') {
         return {

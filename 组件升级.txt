@@ -41,3 +41,7 @@ npm update -S
 npm update -D          
 
 记得更新 node_modules\iview\types\*.* 文件
+
+import { LoadingBar } from 'iview';
+//iView.LoadingBar.start();
+LoadingBar.start();

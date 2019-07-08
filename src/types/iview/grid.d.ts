@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface GridRow extends Vue {
+export declare class Row extends Vue {
   /**
    * 栅格间距，单位 px，左右平分
    * @default 0
@@ -28,7 +28,7 @@ export interface GridRow extends Vue {
   'class-name'?: string;
 }
 
-export interface GridCol extends Vue {
+export declare class Col extends Vue {
   /**
    * 栅格的占位格数，可选值为0~24的整数，为 0 时，相当于display:none
    */
@@ -54,19 +54,27 @@ export interface GridCol extends Vue {
    */
   'class-name'?: string;
   /**
-   * <768px 响应式栅格，可为栅格数或一个包含其他属性的对象
+   * <576px 响应式栅格，可为栅格数或一个包含其他属性的对象
    */
   xs?: number | object;
   /**
-   * ≥768px 响应式栅格，可为栅格数或一个包含其他属性的对象
+   * ≥576px 响应式栅格，可为栅格数或一个包含其他属性的对象
    */
   sm?: number | object;
   /**
-   * ≥992px 响应式栅格，可为栅格数或一个包含其他属性的对象
+   * ≥768px 响应式栅格，可为栅格数或一个包含其他属性的对象
    */
   md?: number | object;
   /**
-   * ≥1200px 响应式栅格，可为栅格数或一个包含其他属性的对象
+   * ≥992px 响应式栅格，可为栅格数或一个包含其他属性的对象
    */
   lg?: number | object;
+  /**
+   * ≥1200px 响应式栅格，可为栅格数或一个包含其他属性的对象
+   */
+  xl?: number | object;
+  /**
+   * ≥1600px 响应式栅格，可为栅格数或一个包含其他属性的对象
+   */
+  xxl?: number | object;
 }

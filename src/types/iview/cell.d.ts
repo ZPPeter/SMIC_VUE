@@ -1,10 +1,10 @@
-// Type definitions for iview 3.0.0
+// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Cell extends Vue {
+export declare class Cell extends Vue {
   /**
    * 用来标识这一项
    */
@@ -46,6 +46,11 @@ export interface Cell extends Vue {
    */
   target?: '_blank' | '_self' | '_parent' | '_top';
   /**
+   * 同 vue-router append
+   * @default false
+   */
+  append?: boolean;
+  /**
    * slot插槽对象
    */
   $slots: {
@@ -72,7 +77,7 @@ export interface Cell extends Vue {
   }
 }
 
-export interface CellGroup extends Vue {
+export declare class CellGroup extends Vue {
   /**
    * 点击单元格时触发
    * 

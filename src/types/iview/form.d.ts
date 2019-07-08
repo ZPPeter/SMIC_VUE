@@ -1,10 +1,10 @@
-﻿// Type definitions for iview 3.0.0
+﻿// Type definitions for iview 3.3.1
 // Project: https://github.com/iview/iview
 // Definitions by: yangdan
 // Definitions: https://github.com/yangdan8/iview.git
-import Vue, { VNode } from "vue";
+import Vue, { VNode } from 'vue';
 
-export interface Form extends Vue {
+export declare class Form extends Vue {
   /**
    * 表单数据对象
    */
@@ -46,7 +46,7 @@ export interface Form extends Vue {
   resetFields(): void;
 }
 
-export interface FormItem extends Vue {
+export declare class FormItem extends Vue {
   /**
    * 对应表单域 model 里的字段
    */
