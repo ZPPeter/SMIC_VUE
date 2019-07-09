@@ -26,7 +26,7 @@
           <img v-show="shrink" :src="minLogo" key="min-logo">
         </div>
       </shrinkable-menu>      
-      <div id="copyright">{{copyright}}</div>
+      <div id="copyright">{{copyRight}}</div>
     </Sider>
     <!-- 
                 <Menu  width="auto" :class="menuitemClasses" accordion theme="light">
@@ -109,7 +109,6 @@
                 <router-view></router-view>
               </keep-alive>
             </Content>
-            <!-- copyfooter :copyright="L('CopyRight')"></copyfooter -->
             <div class="version"> {{version}}</div>
           </div>
         </Layout>
@@ -138,7 +137,7 @@ import config from "@/config";
 //import '@/assets/fonts/iconfont.css'; //main.less 引用 ttf 即可
 @Component({
   props:{
-      copyright:String
+      //copyright:String
   },  
   components: {
     shrinkableMenu,
@@ -158,10 +157,6 @@ import config from "@/config";
 })
 export default class Main extends AbpBase {
 
-  dt:number = parseInt(new Date("YYYY").toString())
-  dc:string = this.dt>2019?'2019-'+this.dt.toString():'2019';
-  copyright ='© '+this.dc+' SMIC';  // 不写此句则来自服务器多语言配置 © 2019 SMIC
-
   shrink: boolean = false;
   get userName() {
     return this.$store.state.session.user
@@ -177,6 +172,11 @@ export default class Main extends AbpBase {
   maxLogo: any = require("../assets/images/logo.png");
   get openedSubmenuArr() {
     return this.$store.state.app.openedSubmenuArr;
+  }
+  get copyRight(){
+    var dt = parseInt(new Date("YYYY").toString())
+    var dc = dt>2019?'2019-'+dt.toString():'2019';
+    return '© '+dc+' SMIC';  // 不写此句则来自服务器多语言配置 © 2019 SMIC
   }
   get menuList() {
     return this.$store.state.app.menuList;

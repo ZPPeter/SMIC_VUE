@@ -37,7 +37,7 @@ export const appRouters = [{
         children: [
             { path: 'user', icon: '&#xe634;', permission: 'Pages.Users', meta: { title: '用户' }, name: 'user', component: () => import('../views/setting/user/user.vue') },
             { path: 'role', icon: '&#xe607;', permission: 'Pages.Roles', meta: { title: '角色' }, name: 'role', component: () => import('../views/setting/role/role.vue') },
-            { path: 'test', icon: '&#xe608;', permission: 'Pages.Roles', meta: { title: '测试' }, name: 'test', component: () => import('../views/setting/test/test.vue') },
+            //{ path: 'test', icon: '&#xe608;', permission: 'Pages.Roles', meta: { title: '测试' }, name: 'test', component: () => import('../views/setting/test/test.vue') },
             { path: 'tenant', icon: '&#xe64d;', permission:  'Pages.Tenants', meta: { title: '多租户' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') },
             { path: 'vw_sjmx', icon: '&#xe608;', permission: 'Pages.Tenants', meta: { title: '送检明细' }, name: 'vw_sjmx', component: () => import('../views/sdim/vw_sjmx/vw_sjmx.vue') }
         ]

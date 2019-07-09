@@ -123,6 +123,10 @@
             return this.$store.state.user.currentPage;
         }
         columns=[{
+            title: "ID",
+            key: "id",
+            width: 80
+        },{
             title:this.L('UserName'),
             key:'userName'
         },{
