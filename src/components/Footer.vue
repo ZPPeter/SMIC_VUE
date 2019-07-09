@@ -11,7 +11,11 @@ import { Component, Vue } from 'vue-property-decorator';
     }
 })
 export default class Footer extends Vue{
-  copyright ='© 2019 SMIC';  // 来自服务器 © 2019 SMIC
+  //copyright ='© 2019 SMIC';  // 不写此句则来自服务器多语言配置 © 2019 SMIC
+  //dt = parseInt(new Date(Date.now()).getFullYear().toString());
+  dt:number = parseInt(new Date("YYYY").toString())
+  dc:string = this.dt>2019?'2019-'+this.dt.toString():'2019';
+  copyright ='© '+this.dc+' SMIC';  // 不写此句则来自服务器多语言配置 © 2019 SMIC
 }
 </script>
 <style scoped>

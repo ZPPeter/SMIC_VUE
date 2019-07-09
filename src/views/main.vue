@@ -26,7 +26,7 @@
           <img v-show="shrink" :src="minLogo" key="min-logo">
         </div>
       </shrinkable-menu>      
-      <div id="copyright">{{L('CopyRight')}}</div>
+      <div id="copyright">{{copyright}}</div>
     </Sider>
     <!-- 
                 <Menu  width="auto" :class="menuitemClasses" accordion theme="light">
@@ -137,6 +137,9 @@ import AbpBase from "../lib/abpbase";
 import config from "@/config";
 //import '@/assets/fonts/iconfont.css'; //main.less 引用 ttf 即可
 @Component({
+  props:{
+      copyright:String
+  },  
   components: {
     shrinkableMenu,
     //siderTrigger,
@@ -154,12 +157,18 @@ import config from "@/config";
   }
 })
 export default class Main extends AbpBase {
+
+  dt:number = parseInt(new Date("YYYY").toString())
+  dc:string = this.dt>2019?'2019-'+this.dt.toString():'2019';
+  copyright ='© '+this.dc+' SMIC';  // 不写此句则来自服务器多语言配置 © 2019 SMIC
+
   shrink: boolean = false;
   get userName() {
     return this.$store.state.session.user
       ? this.$store.state.session.user.name
       : "";
   }
+
   isFullScreen: boolean = false;
   messageCount: string = "10";
   errorCount: Number = 10;
