@@ -25,14 +25,6 @@ class UserModule extends ListModule {
                 let page = reponse.data.result;
                 context.state.totalCount = page.totalCount;
                 context.state.list = page.items;
-                
-                /* abp.dapper 版本需要完善 分页等
-                  let reponse = await Ajax.get('/api/services/app/Person/GetDapperPersons',{params:payload.data});
-                  context.state.loading = false;
-                  context.state.totalCount = 1;//page.totalCount;
-                  context.state.list = reponse.data.result;
-                */
-
             },
             async create(context, payload) {
                 await Ajax.post('/api/services/app/User/Create', payload.data);

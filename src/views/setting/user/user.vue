@@ -108,7 +108,7 @@
                 this.pagerequest.to=this.creationTime[1];
             }
 
-            await this.$store.dispatch({
+            await this.$store.dispatch({ // update -> this.$store.state.user.list
                 type:'user/getAll',
                 data:this.pagerequest
             })
@@ -160,8 +160,9 @@
                         },
                         on:{
                             click:()=>{
-                                this.$store.commit('user/edit',params.row);
-                                this.edit();
+                                //alert(JSON.stringify(params.row) );
+                                this.$store.commit('user/edit',params.row); // id,store->state.editUser = user;
+                                this.edit(); // show edit module page
                             }
                         }
                     },this.L('Edit')),

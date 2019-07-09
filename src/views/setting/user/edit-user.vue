@@ -76,6 +76,7 @@
                 this.$emit('input',value);
             }else{
                 this.user=Util.extend(true,{},this.$store.state.user.editUser);
+                // store->state.editUser = user;
             }
         }
         userRule={

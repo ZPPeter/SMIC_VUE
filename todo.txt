@@ -22,4 +22,4 @@ https://juejin.im/post/591aa14f570c35006961acac
 
 + Zero 管理功能
 
-iView 升级
++ avatarImgPath
