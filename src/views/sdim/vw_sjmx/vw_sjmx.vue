@@ -107,7 +107,12 @@
         get currentPage(){
             return this.$store.state.vw_sjmx.currentPage;
         }
-        columns=[{  //Id 不会显示的
+        columns=[
+        {
+            title: "ID", //Id 不会显示?
+            key: "id",
+            width: 80
+        },{  
             title:'送检单号',
             key:'送检单号',
             sortable: true
