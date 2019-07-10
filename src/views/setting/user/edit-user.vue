@@ -49,10 +49,9 @@
         @Prop({type:Boolean,default:false}) value:boolean;
         user:User=new User();
         created(){
-            
         }
-        get roles(){
-            return this.$store.state.user.roles;
+        get roles(){            
+            return this.$store.state.user.roles; // 所有角色列表
         }
         save(){
             (this.$refs.userForm as any).validate(async (valid:boolean)=>{
@@ -75,15 +74,25 @@
             if(!value){
                 this.$emit('input',value);
             }else{
+                //alert(JSON.stringify(this.$store.state.user.editUser));
                 this.user=Util.extend(true,{},this.$store.state.user.editUser);
                 // store->state.editUser = user;
             }
         }
+        validateEmail = (rule, value, callback) => {
+            var szReg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/; 
+            if (!szReg.test(value)) {
+                    callback(new Error('请输入有效电子邮箱地址'));
+            } else {
+                    callback();
+            }
+        };        
         userRule={
             userName:[{required: true,message:this.L('FieldIsRequired',undefined,this.L('UserName')),trigger: 'blur'}],
             name:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Name')),trigger: 'blur'}],
             surname:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Surname')),trigger: 'blur'}],
-            emailAddress:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Email')),trigger: 'blur'},{type: 'email'}],
+            //emailAddress:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Email')),trigger: 'blur'},{type: 'email'}],
+            emailAddress:[{required:true,message: '内容不能为空', trigger: 'blur' },{validator:this.validateEmail,trigger: 'blur'}],
         }
     }
 </script>

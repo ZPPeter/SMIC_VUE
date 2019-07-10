@@ -56,8 +56,8 @@ class UserModule extends ListModule {
             setPageSize(state, pagesize) {
                 state.pageSize = pagesize;
             },
-            edit(state, user) {
-                state.editUser = user;
+            async edit(state, user) {
+                state.editUser = user;             
             }
         };
     }
