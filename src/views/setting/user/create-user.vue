@@ -19,7 +19,7 @@
                             <Input v-model="user.surname" :maxlength="1024"></Input>
                         </FormItem>
                         <FormItem :label="L('EmailAddress')" prop="emailAddress">
-                            <Input v-model="user.emailAddress" type="email" :maxlength="32"></Input>
+                            <Input v-model="user.emailAddress" type="text" :maxlength="32"></Input>
                         </FormItem>
                         <FormItem :label="L('Password')" prop="password">
                             <Input v-model="user.password" type="password" :maxlength="32"></Input>
@@ -88,11 +88,19 @@
                 callback();
             }
         };
+        validateMobile = (rule, value, callback) => {               
+                if (!Number.isInteger(+value)) {
+                    callback(new Error('请输入数字值'));
+                } else {
+                    callback();
+                }
+            };        
         userRule={
             userName:[{required: true,message:this.L('FieldIsRequired',undefined,this.L('UserName')),trigger: 'blur'}],
             name:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Name')),trigger: 'blur'}],
             surname:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Surname')),trigger: 'blur'}],
-            emailAddress:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Email')),trigger: 'blur'},{type: 'email'}],
+            //emailAddress:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Email')),trigger: 'blur'},{type: 'email'}],
+            emailAddress:[{required:true,message: '内容不能为空', trigger: 'blur' }],
             password:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Password')),trigger: 'blur'}],
             confirmPassword:{validator:this.validatePassCheck,trigger: 'blur'}
         }

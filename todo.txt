@@ -26,3 +26,6 @@ https://juejin.im/post/591aa14f570c35006961acac
 + avatarImgPath - menuIcon
 
 user/getdapperall - +role
+
+密码验证中文
+https://www.jianshu.com/p/5f9300437038
