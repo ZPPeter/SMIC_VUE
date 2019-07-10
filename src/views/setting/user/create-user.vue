@@ -83,24 +83,26 @@
             if (!value) {
                 callback(new Error(this.L('ConfirmPasswordMsg')));
             } else if (value !== this.user.password) {
-                callback(new Error(this.L('ConfirmPasswordNotMatch')));
+                callback(new Error('两次输入密码不一致'));
             } else {
                 callback();
             }
         };
-        validateMobile = (rule, value, callback) => {               
-                if (!Number.isInteger(+value)) {
-                    callback(new Error('请输入数字值'));
-                } else {
+        //Number.isInteger(+value)
+        validateEmail = (rule, value, callback) => {
+            var szReg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/; 
+            if (!szReg.test(value)) {
+                    callback(new Error('请输入有效电子邮箱地址'));
+            } else {
                     callback();
-                }
-            };        
+            }
+        };        
         userRule={
             userName:[{required: true,message:this.L('FieldIsRequired',undefined,this.L('UserName')),trigger: 'blur'}],
             name:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Name')),trigger: 'blur'}],
             surname:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Surname')),trigger: 'blur'}],
             //emailAddress:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Email')),trigger: 'blur'},{type: 'email'}],
-            emailAddress:[{required:true,message: '内容不能为空', trigger: 'blur' }],
+            emailAddress:[{required:true,message: '内容不能为空', trigger: 'blur' },{validator:this.validateEmail,trigger: 'blur'}],
             password:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('Password')),trigger: 'blur'}],
             confirmPassword:{validator:this.validatePassCheck,trigger: 'blur'}
         }
