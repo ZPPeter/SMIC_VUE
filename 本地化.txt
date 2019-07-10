@@ -1,0 +1,11 @@
+﻿node_modules\iview\dist\locale\zh-CN.js
+ABP 服务器设置
+
+<div class="ivu-form-item-error-tip">
+emailAddress is not a valid email
+</div>
+
+IE10 -> F12 -> elements -> CTRL+F查找  emailAddress is not a valid email 可以找到该字符
+
+打开 iview.js 源码，可看到 email: '%s is not a valid %s', 没有中文化
+

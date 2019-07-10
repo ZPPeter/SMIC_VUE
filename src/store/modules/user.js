@@ -19,12 +19,14 @@ class UserModule extends ListModule {
         this.actions = {
             async getAll(context, payload) {
                 context.state.loading = true;
-                let reponse = await Ajax.get('/api/services/app/User/GetDapperAll', { params: payload.data });                
+                //let reponse = await Ajax.get('/api/services/app/User/GetAll', { params: payload.data });
+                let reponse = await Ajax.get('/api/services/app/MemberUser/GetPagedMemberUsers', { params: payload.data });
                 context.state.loading = false;
                 let page = reponse.data.result;
-                //alert(JSON.stringify(page));
+                //alert(JSON.stringify(page.items[2]));
                 context.state.totalCount = page.totalCount;
                 context.state.list = page.items;
+                //alert(JSON.stringify(context.state.list[2]));
             },
             async create(context, payload) {
                 await Ajax.post('/api/services/app/User/Create', payload.data);

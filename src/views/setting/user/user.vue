@@ -33,7 +33,7 @@
                 <div class="margin-top-10">
                     <Table :loading="loading" :columns="columns" :no-data-text="L('NoDatas')" border :data="list">
                     </Table>
-                    <Page  show-sizer class-name="fengpage" :total="totalCount" class="margin-top-10" @on-change="pageChange" @on-page-size-change="pagesizeChange" :page-size="pageSize" :current="currentPage"></Page>
+                    <Page show-total show-sizer class-name="fengpage" :total="totalCount" class="margin-top-10" @on-change="pageChange" @on-page-size-change="pagesizeChange" :page-size="pageSize" :current="currentPage"></Page>
                 </div>
             </div>
         </Card>
@@ -69,6 +69,7 @@
         createModalShow:boolean=false;
         editModalShow:boolean=false;
         get list(){
+            //alert("Here:"+JSON.stringify(this.$store.state.user.list[2].lastLoginTime));
             return this.$store.state.user.list;
         };
         get loading(){
@@ -146,7 +147,10 @@
         },{
             title:this.L('LastLoginTime'),
             render:(h:any,params:any)=>{
-                return h('span',new Date(params.row.lastLoginTime).toLocaleString())
+                if( params.row.lastLoginTime)
+                    return h('span',new Date(params.row.lastLoginTime).toLocaleString())
+                else
+                    return h('span','');
             }
         },{
             title:this.L('Actions'),

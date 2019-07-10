@@ -20,11 +20,9 @@ https://www.cnblogs.com/zzayne/p/8833516.html
 https://blog.csdn.net/harsima/article/details/77949448
 https://juejin.im/post/591aa14f570c35006961acac
 
+
 + Zero 管理功能
 
 + avatarImgPath - menuIcon
 
-VW_SJMX:ID
-
-user/getdapperall - 改造为分页显示
-LastLoginTime 完善登录写内容，最近登录时间：1970/1/1 上午8:00:00 - NULL
+user/getdapperall - +role

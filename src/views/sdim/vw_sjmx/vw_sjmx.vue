@@ -109,9 +109,9 @@
         }
         columns=[
         {
-            title: "ID", //Id 不会显示?
+            title: "ID", 
             key: "id",
-            width: 80
+            width: 110
         },{  
             title:'送检单号',
             key:'送检单号',

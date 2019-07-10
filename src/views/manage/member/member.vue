@@ -55,6 +55,7 @@
           </Table>
           <Page
             show-sizer
+            show-total
             class-name="fengpage"
             :total="totalCount"
             class="margin-top-10"
@@ -123,11 +124,13 @@ export default class Members extends AbpBase {
   }
   columns = [
     {
-      title: this.L("Id"),
+      title: this.L("ID"),
       key: "id",
       width: 80
-    },
-    {
+    },{
+            title:'用户名称',
+            key:'userName'
+    },{
       title: this.L("昵称"),
       key: "nickName"
     },

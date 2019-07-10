@@ -6,6 +6,7 @@ import installPlugin from '@/plugin'
 import {router} from './router/index';
 import 'famfamfam-flags/dist/sprite/famfamfam-flags.css';
 import './theme.less';
+//import './language';
 import Ajax from './lib/ajax';
 import Util from './lib/util';
 import SignalRAspNetCoreHelper from './lib/SignalRAspNetCoreHelper';
@@ -27,16 +28,24 @@ Vue.config.productionTip = false;
 Vue.prototype.$config = config
 
 import { appRouters,otherRouters} from './router/router';
+
 if(!abp.utils.getCookieValue('Abp.Localization.CultureName')){
-  //let language=navigator.language;
+  //let language=navigator.language;  
   let language="zh-Hans";
   abp.utils.setCookieValue('Abp.Localization.CultureName',language,new Date(new Date().getTime() + 5 * 365 * 86400000),abp.appPath);
 }
+
+if(abp.utils.getCookieValue('Abp.Localization.CultureName')=='zh-CN'){
+  let language="zh-Hans";
+  abp.utils.setCookieValue('Abp.Localization.CultureName',language,new Date(new Date().getTime() + 5 * 365 * 86400000),abp.appPath);  
+}
+
 //navigator.language 获得的语言不一定正确
 //alert(navigator.language) -> zh-CN
+//服务器是 zh-Hans
 //手动修改
 //abp.utils.setCookieValue('Abp.Localization.CultureName',"zh-Hans",new Date(new Date().getTime() + 5 * 365 * 86400000),abp.appPath);
-Ajax.get('/AbpUserConfiguration/GetAll').then(data=>{
+Ajax.get('/AbpUserConfiguration/GetAll').then(data=>{  
   //alert(JSON.stringify(data.data.result.localization.languages)) // ABP 内置语言名称，不是 SMIC.Core 里面的 
   //console.log(data.data.result);
   //window.abp.auth 等设置初始化

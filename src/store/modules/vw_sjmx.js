@@ -18,7 +18,7 @@ class VW_SJMXModule extends ListModule {
                 context.state.loading = true;
                 //alert(JSON.stringify(payload.data));
                 //alert(JSON.stringify(payload.data));
-                let reponse = await Ajax.get('/api/services/app/Person/GetPagedVwSjmxs', { params: payload.data });
+                let reponse = await Ajax.get('/api/services/app/VWSJMXAppServices/GetPagedVwSjmxs', { params: payload.data });
                 context.state.loading = false;
                 let page = reponse.data.result;
                 context.state.totalCount = page.totalCount;
