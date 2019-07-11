@@ -19,6 +19,7 @@ class UserModule extends ListModule {
         this.actions = {
             async getAll(context, payload) {
                 context.state.loading = true;
+                //alert(JSON.stringify(payload.data));
                 //let reponse = await Ajax.get('/api/services/app/User/GetAll', { params: payload.data });
                 let reponse = await Ajax.get('/api/services/app/MemberUser/GetPagedMemberUsers', { params: payload.data });
                 context.state.loading = false;
