@@ -5,9 +5,11 @@
             v-for="item in list" 
             :to="item" 
             :key="item.name"
-        >        
-        <common-icon style="margin-right: 4px;" :type="item.icon || 'md-menu'"/>
-        {{ itemTitle(item) }}</BreadcrumbItem>
+        >
+          <!-- <common-icon style="margin-right: 4px;" :type="item.icon || 'ios-apps'" size="48"/> -->
+          <Icon style="margin-right: 4px;" :type="item.icon || 'ios-apps'" size="18"></Icon>
+          {{ itemTitle(item) }}
+        </BreadcrumbItem>
     </Breadcrumb>
 
   </div>

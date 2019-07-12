@@ -8,7 +8,7 @@
                 <img class="unlock-avator-img" src="../../../images/usericon.jpg">
                 <div  class="unlock-avator-cover">
                     <span><Icon type="unlocked" :size="30"></Icon></span>
-                    <p>{{L('UnLock')}}</p>
+                    <p>解锁屏幕</p>
                 </div>
             </div>
             <div class="unlock-avator-under-back" :style="{marginLeft: avatorLeft}"></div>
@@ -16,11 +16,13 @@
                 <div class="unlock-input-overflow-con">
                     <div class="unlock-overflow-body" :style="{right: inputLeft}">
                         <input ref="inputEle" v-model="password" class="unlock-input" type="password" :placeholder="L('PasswordPlaceholder')" />
-                        <button ref="unlockBtn" @mousedown="unlockMousedown" @mouseup="unlockMouseup" @click="handleUnlock" class="unlock-btn"><Icon color="white" type="key"></Icon></button>
+                        <button ref="unlockBtn" @mousedown="unlockMousedown" @mouseup="unlockMouseup" @click="handleUnlock" class="unlock-btn">
+                            <Icon color="white" type="md-key"></Icon>
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="unlock-locking-tip-con">{{L('Locked')}}</div>
+            <div class="unlock-locking-tip-con">屏幕已锁</div>
         </div>
     </transition>
 </template>
@@ -40,19 +42,20 @@ export default class UnLock extends AbpBase {
     get avatorPath(){
         return localStorage.avatorImgPath;
     }
-    async validator () {
+    async validator () {        
         let loginModel={
             userNameOrEmailAddress:this.$store.state.session.user.userName,
             password:this.password,
             rememberMe:false
-        }
+        };
+        //alert(JSON.stringify(loginModel));
         if(sessionStorage.getItem('rememberMe')==='1'){
             loginModel.rememberMe=true;
-        }
-        await this.$store.dispatch({
+        };
+        await this.$store.dispatch({            
             type:'app/login',
             data:loginModel
-        }) 
+        }); 
         return true;         
     }
     handleClickAvator () {

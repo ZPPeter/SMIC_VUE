@@ -5,18 +5,19 @@
     <Menu ref="sideMenu" :active-name="$route.name" :open-names="openNames" :theme="menuTheme" width="auto" @on-select="changeMenu">
         <template v-for="item in menuList">
             <MenuItem v-if="item.children.length<=0" :name="item.children[0].name" :key="item.name">
-                <!-- <Icon :type="item.icon" :size="iconSize"></Icon> -->
-                <span class="iconfont">{{item.icon}}</span>
+                <Icon :type="item.icon" :size="iconSize"></Icon>
+                <!-- span class="iconfont">{{item.icon}}</span -->                
                 <span>{{ itemTitle(item) }}</span>
             </MenuItem>
             <Submenu v-if="item.children.length > 0" :name="item.name" :key="item.name">
                 <template slot="title">
-                    <i class="iconfont" v-html="item.icon"></i>
+                    <Icon :type="item.icon" :size="iconSize"></Icon>
                     <span >{{ itemTitle(item) }}</span>
                 </template>
                 <template v-for="child in item.children">
                     <MenuItem :name="child.name" :key="child.name"> 
-                        <i class="iconfont" v-html="child.icon"></i>                       
+                        <!-- i class="iconfont" v-html="child.icon"></i -->
+                        <Icon :type="child.icon" size="18"></Icon>
                         <span>{{ L(child.meta.title) }}</span>
                     </MenuItem>
                 </template>
@@ -32,7 +33,7 @@ import AbpBase from '../../../lib/abpbase'
 export default class SidebarMenu extends AbpBase {
     name:string='sidebarMenu';
     @Prop({type:Array}) menuList:Array<any>;
-    @Prop({type:Number}) iconSize:number;
+    @Prop({type:Number,default:20}) iconSize:number;
     @Prop({type:String,default:'dark'}) menuTheme:string; //light
     @Prop({type:Array}) openNames:Array<string>;
     itemTitle(item:any):string{

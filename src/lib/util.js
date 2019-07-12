@@ -113,7 +113,8 @@ class Util {
                 {
                     meta: { title: this.handleTitle(vm, this.getRouterObjByName(vm.$store.state.app.routers, 'home')) },
                     path: 'main/home',
-                    name: 'home'
+                    name: 'home',
+                    icon: 'ios-home'
                 }
             ];
         }
@@ -122,12 +123,14 @@ class Util {
                 {
                     meta: { title: this.handleTitle(vm, this.getRouterObjByName(vm.$store.state.app.routers, 'home')) },
                     path: 'main/home',
-                    name: 'home'
+                    name: 'home',
+                    icon: 'ios-home'
                 },
                 {
                     meta: { title: title },
                     path: '',
-                    name: name
+                    name: name,
+                    icon: ''
                 }
             ];
         }
@@ -154,7 +157,8 @@ class Util {
                     {
                         meta: { title: 'HomePage' },
                         path: 'main/home',
-                        name: 'home'
+                        name: 'home',
+                        icon: 'ios-home'
                     }
                 ];
             }
@@ -163,12 +167,14 @@ class Util {
                     {
                         meta: { title: 'HomePage' },
                         path: 'main/home',
-                        name: 'home'
+                        name: 'home',
+                        icon: 'ios-home'
                     },
                     {
                         meta: { title: currentPathObj.meta.title },
                         path: '',
-                        name: name
+                        name: name,
+                        icon: ''
                     }
                 ];
             }
@@ -180,17 +186,20 @@ class Util {
                     {
                         meta: { title: 'HomePage' },
                         path: 'main/home',
-                        name: 'home'
+                        name: 'home',
+                        icon: 'ios-home'
                     },
                     {
                         meta: { title: currentPathObj.meta.title },
                         path: '',
-                        name: ''
+                        name: '',
+                        icon: ''
                     },
                     {
                         meta: { title: childObj.meta.title },
                         path: currentPathObj.path + '/' + childObj.path,
-                        name: name
+                        name: name,
+                        icon: childObj.icon
                     }
                 ];
             }

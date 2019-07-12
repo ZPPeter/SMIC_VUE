@@ -1,8 +1,7 @@
 <template>
     <div @click="lock" class="lock-screen-btn-con">
         <Tooltip :content="L('LockScreen')" placement="bottom">
-            <!-- <Icon type="locked" :size="20"></Icon> -->
-            <i class="iconfont" style="font-size:20px">&#xe6c0;</i>
+            <Icon type="md-unlock" :size="24"/>
         </Tooltip>
     </div>
 </template>

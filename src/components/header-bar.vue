@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     breadCrumbList () {
-      //alert(this.$store.state.app.currentPath);
+      //alert(JSON.stringify(this.$store.state.app.currentPath));
       return this.$store.state.app.currentPath //breadCrumbList
     }
   },

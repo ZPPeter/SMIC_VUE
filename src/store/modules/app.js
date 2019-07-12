@@ -15,7 +15,8 @@ class AppModule {
             openedSubmenuArr: [],
             menuTheme: 'dark', //light
             themeColor: '',
-            avatarImgPath: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png',
+            //avatarImgPath: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png',
+            avatarImgPath: '/img/logo_', //.png
             pageOpenedList: [{
                     meta: { title: '主页' },
                     path: '',
@@ -26,7 +27,8 @@ class AppModule {
                 {
                     meta: { title: '主页' },
                     path: '',
-                    name: 'home'
+                    name: 'home',
+                    icon: 'ios-apps-outline'
                 }
             ],
             menuList: [],
@@ -197,7 +199,8 @@ class AppModule {
                 Util.abp.auth.setToken(rep.data.result.accessToken, tokenExpireDate);
                 Util.abp.utils.setCookieValue(appconst.authorization.encrptedAuthTokenName, rep.data.result.encryptedAccessToken, tokenExpireDate, Util.abp.appPath);
                 // ToDo
-                localStorage.avatarImgPath = 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png';
+                //localStorage.avatarImgPath = 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png';
+                //localStorage.avatarImgPath = '/img/logo.png';
                 //alert(localStorage.avatorImgPath);
             },            
         };

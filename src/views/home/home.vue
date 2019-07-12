@@ -1,8 +1,8 @@
 <template>
     <div>
         <Card dis-hover>
-            Hello
-            <span class="iconfont">&#xe668;</span>
+            Hello            
+            <Icon custom="iconfont icon-earth2" size="18" />
         </Card>
     </div>
 </template>

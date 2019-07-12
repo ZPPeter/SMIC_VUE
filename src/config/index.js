@@ -13,8 +13,8 @@ export default {
    *              用来在菜单中显示文字
    */
   useI18n: true,
-  showLock:false,
-  showAlert:false,
+  showLock: true,
+  showAlert: true,
   /**
    * @description api请求基础路径
    */
