@@ -198,7 +198,10 @@ export default class Main extends AbpBase {
     //alert(this.$store.state.app.avatarImgPath + this.$store.state.session.user.id + '.png');
     //alert('ToDO:' + this.$store.state.app.avatarImgPath);
     //return localStorage.avatarImgPath;
-    return this.$store.state.app.avatarImgPath + this.$store.state.session.user.id + '.png';
+    if(this.$store.state.session.user)
+      return this.$store.state.app.avatarImgPath + this.$store.state.session.user.id + '.png';
+    else{
+      return '';}
   }
   get cachePage() {
     return this.$store.state.app.cachePage;

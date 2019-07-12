@@ -7,7 +7,7 @@
          @on-visible-change="visibleChange"
         >
             <Form ref="userForm"  label-position="top" :rules="userRule" :model="user">
-                <Tabs value="detail">
+                <Tabs v-model="selectFirst">
                     <TabPane :label="L('UserDetails')" name="detail">
                         <FormItem :label="L('UserName')" prop="userName">
                             <Input v-model="user.userName" :maxlength="32" :minlength="2"></Input>
@@ -48,6 +48,7 @@
     export default class EditUser extends AbpBase{
         @Prop({type:Boolean,default:false}) value:boolean;
         user:User=new User();
+        selectFirst:string = 'detail';
         created(){
         }
         get roles(){            
@@ -61,22 +62,25 @@
                         data:this.user
                     });
                     (this.$refs.userForm as any).resetFields();
-                    this.$emit('save-success');
-                    this.$emit('input',false);
+                    this.$emit('save-success'); // -> getpage 刷新列表
+                    this.$emit('input',false);  // 保存完关闭编辑界面，true 界面不关闭
                 }
-            })
+            });            
         }
         cancel(){
             (this.$refs.userForm as any).resetFields();
             this.$emit('input',false);
         }
         visibleChange(value:boolean){
-            if(!value){
-                this.$emit('input',value);
-            }else{
-                //alert(JSON.stringify(this.$store.state.user.editUser));
-                this.user=Util.extend(true,{},this.$store.state.user.editUser);
-                // store->state.editUser = user;
+            this.selectFirst="detail";
+            if(!value){ // value=false
+                this.$emit('input',value); // value=false 界面关闭
+            }else{ // value = true -> user 赋值
+                // user:User=new User(); 默认没有数据
+                // value = true -> this.user 赋值 -> v-model="user.userName"
+                // alert(JSON.stringify(this.$store.state.user.editUser));
+                this.user = Util.extend(true,{},this.$store.state.user.editUser); 
+                // store->state.editUser = user;                
             }
         }
         validateEmail = (rule, value, callback) => {

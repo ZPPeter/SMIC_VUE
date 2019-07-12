@@ -54,7 +54,6 @@
         from:Date;
         to:Date;
     }
-
     @Component({
         components:{CreateUser,EditUser}
     })
@@ -65,7 +64,6 @@
         //filters
         pagerequest:PageUserRequest=new PageUserRequest();
         creationTime:Date[]=[];
-
         createModalShow:boolean=false;
         editModalShow:boolean=false;
         get list(){
@@ -79,7 +77,7 @@
             this.createModalShow=true;
         }
         isActiveChange(val:string){
-            console.log(val);
+            //console.log(val);
             if(val==='Actived'){
                 this.pagerequest.isActive=true;
             }else if(val==='NoActive'){

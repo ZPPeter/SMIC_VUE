@@ -7,7 +7,7 @@
          @on-visible-change="visibleChange"
         >
             <Form ref="userForm"  label-position="top" :rules="userRule" :model="user">
-                <Tabs value="detail">
+                <Tabs v-model="selectFirst">
                     <TabPane :label="L('UserDetails')" name="detail">
                         <FormItem :label="L('UserName')" prop="userName">
                             <Input v-model="user.userName" :maxlength="32" :minlength="2"></Input>
@@ -53,7 +53,8 @@
     @Component
     export default class CreateUser extends AbpBase{
         @Prop({type:Boolean,default:false}) value:boolean;
-        user:User=new User();
+        user:User = new User();
+        selectFirst:string = 'detail';
         get roles(){
             return this.$store.state.user.roles;
         }
@@ -66,7 +67,7 @@
                     });
                     (this.$refs.userForm as any).resetFields();
                     this.$emit('save-success');
-                    this.$emit('input',false);
+                    this.$emit('input',false); // <input> 标签内容为空
                 }
             })
         }
@@ -75,9 +76,10 @@
             this.$emit('input',false);
         }
         visibleChange(value:boolean){
+            this.selectFirst="detail";
             if(!value){
                 this.$emit('input',value);
-            }
+            };            
         }
         validatePassCheck = (rule:any, value:any, callback:any) => {
             if (!value) {

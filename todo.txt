@@ -22,6 +22,4 @@ https://juejin.im/post/591aa14f570c35006961acac
 
 + Zero 管理功能
 
-Tab 初始位置
-
 Menu 美化
