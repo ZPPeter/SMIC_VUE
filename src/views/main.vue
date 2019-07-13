@@ -7,7 +7,7 @@
     <Sider
       hide-trigger
       collapsible
-      :width="256"
+      :width="210"
       :collapsed-width="80"
       v-model="shrink"
       class="left-sider"
@@ -21,12 +21,14 @@
         :open-names="openedSubmenuArr"
         :menu-list="menuList"
       >
+      <!-- 
         <div slot="top" class="logo-con">
           <img v-show="!shrink" :src="maxLogo" key="max-logo">
           <img v-show="shrink" :src="minLogo" key="min-logo">
         </div>
+      -->
       </shrinkable-menu>      
-      <div id="copyright">{{copyRight}}</div>
+      <div class="copyright" :class="shrink?'copyright_a':'copyright_b'">{{copyRight}}</div>
     </Sider>
     <!-- 
                 <Menu  width="auto" :class="menuitemClasses" accordion theme="light">
@@ -168,8 +170,8 @@ export default class Main extends AbpBase {
   messageCount: string = "10";
   errorCount: Number = 10;
   //collapsed: boolean = false;
-  minLogo: any = require("../assets/images/logo-min.jpg");
-  maxLogo: any = require("../assets/images/logo.png");
+  //minLogo: any = require("../assets/images/logo-min.png");
+  //maxLogo: any = require("../assets/images/logo.png");
   get openedSubmenuArr() {
     return this.$store.state.app.openedSubmenuArr;
   }
@@ -481,8 +483,7 @@ export default class Main extends AbpBase {
 .bg {
   background: #dcdee2;
 }
-#copyright {
-  width: 256px;
+.copyright {
   height: 32px;
   position: fixed;
   text-align: center;  
@@ -495,6 +496,12 @@ export default class Main extends AbpBase {
   */
   font-size: 12px;
   line-height: 32px;  
+}
+.copyright_b {
+  width: 210px;
+}
+.copyright_a {
+  width: 80px;
 }
   .version{
     padding: 0 2px;

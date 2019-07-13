@@ -29,14 +29,15 @@ export const otherRouters = {
 // [{...}];
 export const appRouters = [
     {
-        path: '/manage',
-        name: 'manage',
+        path: '/main',
+        name: 'business',
         permission: '',
-        meta: { title: '会员管理' },
-        icon: 'md-people',
+        meta: { title: '业务数据管理' },  
+        icon: 'ios-construct-outline',
         component: main,
         children: [
-            { path: 'member', icon: 'ios-man', permission: 'Pages.Roles', meta: { title: '会员' }, name: 'member', component: () => import('../views/manage/member/member.vue') }
+            { path: 'tenant', icon: 'ios-people', permission: 'Pages.Tenants', meta: { title: '多租户' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') },
+            { path: 'vw_sjmx', icon: 'ios-list-box-outline', permission: 'Pages.Tenants', meta: { title: '送检明细查询' }, name: 'vw_sjmx', component: () => import('../views/sdim/vw_sjmx/vw_sjmx.vue') }
         ]
     },
     {
@@ -47,13 +48,24 @@ export const appRouters = [
         icon: 'ios-construct-outline',
         component: main,
         children: [
-            { path: 'user', icon: 'md-contacts', permission: 'Pages.Users', meta: { title: '用户' }, name: 'user', component: () => import('../views/setting/user/user.vue') },
-            { path: 'role', icon: 'ios-contacts', permission: 'Pages.Roles', meta: { title: '角色' }, name: 'role', component: () => import('../views/setting/role/role.vue') },
+            { path: 'user', icon: 'md-contacts', permission: 'Pages.Users', meta: { title: '系统用户管理' }, name: 'user', component: () => import('../views/setting/user/user.vue') },
+            { path: 'role', icon: 'ios-contacts', permission: 'Pages.Roles', meta: { title: '系统角色管理' }, name: 'role', component: () => import('../views/setting/role/role.vue') },
             //{ path: 'test', icon: '&#xe608;', permission: 'Pages.Roles', meta: { title: '测试' }, name: 'test', component: () => import('../views/setting/test/test.vue') },
-            { path: 'tenant', icon: 'ios-people', permission: 'Pages.Tenants', meta: { title: '多租户' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') },
-            { path: 'vw_sjmx', icon: 'ios-list-box-outline', permission: 'Pages.Tenants', meta: { title: '送检明细' }, name: 'vw_sjmx', component: () => import('../views/sdim/vw_sjmx/vw_sjmx.vue') }
+            //{ path: 'tenant', icon: 'ios-people', permission: 'Pages.Tenants', meta: { title: '多租户' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') },
         ]
-    }
+    },    
+    {
+        path: '/manage',
+        name: 'manage',
+        permission: '',
+        meta: { title: '会员管理' },
+        icon: 'md-people',
+        component: main,
+        children: [
+            { path: 'member', icon: 'ios-man', permission: 'Pages.Roles', meta: { title: '微信会员' }, name: 'member', component: () => import('../views/manage/member/member.vue') },
+            { path: 'member2', icon: 'ios-man', permission: 'Pages.Roles', meta: { title: 'QQ会员' }, name: 'member2', component: () => import('../views/setting/user/user.vue') }
+        ]
+    }    
 ];
 
 // 一级路由不显示在左侧菜单区域

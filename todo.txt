@@ -21,5 +21,6 @@ https://blog.csdn.net/harsima/article/details/77949448
 https://juejin.im/post/591aa14f570c35006961acac
 
 + Zero 管理功能
-
-Menu 美化
++ 页面功能完善
++ SmartAdmin
++ uni-app 学习
