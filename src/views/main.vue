@@ -105,7 +105,7 @@
           <div class="tag-nav-wrapper">
             <tags-page-opened :pageTagsList="pageTagsList"></tags-page-opened>
           </div>
-          <div class="single-page-con" :style="{left: shrink?'80px':'256px'}">
+          <div class="single-page-con" :style="{left: shrink?'80px':'210px'}">
             <Content class="content-wrapper">
               <keep-alive :include="cachePage">
                 <router-view></router-view>
@@ -375,7 +375,7 @@ export default class Main extends AbpBase {
   }
   .tag-nav-wrapper {
     padding: 0;
-    height: 40px;
+    height: 42px!important;
     background: #f0f0f0;
   }
   .content-wrapper {

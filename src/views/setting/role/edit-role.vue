@@ -7,7 +7,7 @@
          @on-visible-change="visibleChange"
         >
             <Form ref="roleForm"  label-position="top" :rules="roleRule" :model="role">
-                <Tabs value="detail">
+                <Tabs value="detail" v-model="selectFirst">
                     <TabPane :label="L('RoleDetails')" name="detail">
                         <FormItem :label="L('RoleName')" prop="name">
                             <Input v-model="role.name" :maxlength="32" :minlength="2"></Input>
@@ -42,6 +42,7 @@
     export default class EditRole extends AbpBase{
         @Prop({type:Boolean,default:false}) value:boolean;
         role:Role=new Role();
+        selectFirst:string = 'detail';
         get permissions(){
             return this.$store.state.role.permissions
         }
@@ -63,6 +64,7 @@
             this.$emit('input',false);
         }
         visibleChange(value:boolean){
+            this.selectFirst="detail";
             if(!value){
                 this.$emit('input',value);
             }else{
