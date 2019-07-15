@@ -10,7 +10,7 @@
                 <Tabs v-model="selectFirst">
                     <TabPane :label="L('UserDetails')" name="detail">
                         <FormItem :label="L('UserName')" prop="userName">
-                            <Input autofocus v-model="user.userName" :maxlength="32" :minlength="2" id="userName"></Input>
+                            <Input v-model="user.userName" :maxlength="32" :minlength="2"></Input>
                         </FormItem>
                         <FormItem :label="L('Surname')" prop="surname">
                             <Input v-model="user.surname" :maxlength="1024"></Input>
@@ -66,6 +66,8 @@
                     this.$emit('save-success');
                     this.$emit('input',false); // <input> 标签内容为空
                 }
+                else
+                    this.selectFirst="detail";
             })
         }
         cancel(){
@@ -74,7 +76,7 @@
         }
         visibleChange(value:boolean){
             //alert(JSON.stringify(this.user));
-            this.selectFirst="detail";            
+            this.selectFirst="detail";
             if(!value){
                 //alert("True:"+JSON.stringify(this.user));
                 this.$emit('input',value); // value = false <input> 标签内容为空                

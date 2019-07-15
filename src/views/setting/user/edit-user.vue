@@ -62,6 +62,8 @@
                     this.$emit('save-success'); // -> getpage 刷新列表
                     this.$emit('input',false);  // 保存完关闭编辑界面，true 界面不关闭
                 }
+                else
+                    this.selectFirst="detail";
             });            
         }
         cancel(){
