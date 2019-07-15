@@ -129,8 +129,8 @@
             title:this.L('UserName'),
             key:'userName'
         },{
-            title:this.L('Name'),
-            key:'name'
+            title:this.L('Surname'),
+            key:'surName'
         },{
             title:this.L('IsActive'),
             render:(h:any,params:any)=>{

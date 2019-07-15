@@ -12,9 +12,6 @@
                         <FormItem :label="L('UserName')" prop="userName">
                             <Input v-model="user.userName" :maxlength="32" :minlength="2"></Input>
                         </FormItem>
-                        <FormItem :label="L('Name')" prop="name">
-                            <Input v-model="user.name" :maxlength="32"></Input>
-                        </FormItem>
                         <FormItem :label="L('Surname')" prop="surname">
                             <Input v-model="user.surname" :maxlength="1024"></Input>
                         </FormItem>
