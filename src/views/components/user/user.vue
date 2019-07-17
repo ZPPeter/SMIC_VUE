@@ -1,15 +1,28 @@
 <template>
   <div class="user-avatar-dropdown">
     <Dropdown @on-click="handleClick">
-      <Badge :dot="!!messageUnreadCount">
-        <Avatar :src="userAvatar"/>
-      </Badge>
-      <Icon :size="18" type="md-arrow-dropdown"></Icon>      
+      <Avatar :src="userAvatar" />
+      <Icon :size="18" type="md-arrow-dropdown"></Icon>
       <DropdownMenu slot="list">
-        <DropdownItem name="message">
-          消息中心<Badge style="margin-left: 10px" :count="messageUnreadCount"></Badge>
+        <DropdownItem name="changePassword_">
+          <Poptip placement="bottom-end" @on-popper-show="getNotices">
+            修改密码
+            <div slot="content" class="content">
+              <div>修改密码界面</div>
+              <div>修改密码界面</div>
+              <div>修改密码界面</div>
+              <div>修改密码界面</div>
+            </div>
+          </Poptip>
         </DropdownItem>
-        <DropdownItem name="ownSpace">ownSpace</DropdownItem>
+        <DropdownItem name="changePassword">
+          <Poptip placement="bottom-end">
+            修改密码_新页面
+            <div slot="content" class="content">
+              <div>...</div>
+            </div>
+          </Poptip>
+        </DropdownItem>        
         <DropdownItem name="logout">退出登录</DropdownItem>
       </DropdownMenu>
     </Dropdown>
@@ -17,26 +30,23 @@
 </template>
 
 <script>
-import './user.less'
+import "./user.less";
 import util from "../../../lib/util";
 // import { mapActions } from 'vuex'
 export default {
-  name: 'User',
+  noticeSpinShow:true,
+  name: "User",
   props: {
     userAvatar: {
       type: String,
-      default: ''
-    },
-    messageUnreadCount: {
-      type: Number,
-      default: 5
+      default: ""
     }
   },
   methods: {
-    logout () {
+    logout() {
       this.$store.commit("app/logout", this);
       util.abp.auth.clearToken();
-      location.reload();      
+      location.reload();
       /*
       this.handleLogOut().then(() => {
         this.$router.push({
@@ -44,27 +54,38 @@ export default {
         })
       }) */
     },
-    message () {
+    changePassword() {
       this.$router.push({
-        name: 'message_page'
-      })
+        // 修改 url，完成跳转
+        name: "changePassword"
+      });
     },
-    ownSpace() {
+    getNotices(){
+        setTimeout(()=>{
+            this.noticeSpinShow=false;
+        },2000)
+    },
+    /*ownSpace() {
       util.openNewPage(this, "ownspace_index", null, null);
       this.$router.push({
         name: "ownspace_index"
       });
-    },
-    handleClick (name) {
-      switch (name) {    
-        case 'ownSpace':this.ownSpace()
+    },*/
+    handleClick(name) {
+      switch (name) {
+        case "logout":
+          this.logout();
           break;
-        case 'logout': this.logout()
-          break
-        case 'message': this.message()
-          break
-      }
-    }
+        case "changePassword":
+          this.changePassword();
+          break;
+      }    
+    }    
   }
-}
+};
 </script>
+<style scoped>
+    .content{
+        padding:-8px -16px;
+    }
+</style>

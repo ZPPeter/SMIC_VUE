@@ -1,9 +1,11 @@
 <template>
     <div class="notice-avatar-dropdown">        
-        <Poptip placement="bottom-end" @on-popper-show="getNotices">            
-            <Badge :count="unReadCount" dot>
-                <Icon type="md-alert" size="24" />
-            </Badge>
+        <Poptip placement="bottom-end" @on-popper-show="getNotices">
+            <Tooltip content="用户消息和任务" placement="bottom">
+                <Badge :count="unReadCount" dot>
+                    <Icon type="md-alert" size="24" />
+                </Badge>
+            </Tooltip>
             <div slot="content" class="content">
                 <Tabs value="notice">
                         <TabPane :label="noticeLabel" name="notice">

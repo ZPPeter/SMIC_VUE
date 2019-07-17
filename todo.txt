@@ -20,7 +20,15 @@ https://www.cnblogs.com/zzayne/p/8833516.html
 https://blog.csdn.net/harsima/article/details/77949448
 https://juejin.im/post/591aa14f570c35006961acac
 
-+ Zero 管理功能
-+ 页面功能完善
-+ 找回密码
+
+密码修改 changePassword -> 版本二.不打开新界面 
+登录记录
+修改密码
+修改头像
+我的设置
+退出登录 -> 确认
+
+密码恢复 resetPassword - > 用户管理页面
 + uni-app 学习
+
+插件：错误收集器调试

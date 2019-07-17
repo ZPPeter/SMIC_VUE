@@ -96,7 +96,7 @@
             @on-change="fullscreenChange"
             style="margin-right: 15px;"
           ></full-screen>
-          <notice v-if="$config.showAlert" style="margin-right: 20px;"></notice>
+          <notice v-if="$config.showNotice" style="margin-right: 20px;"></notice>
         </header-bar>
       </Header>
 

@@ -40,7 +40,9 @@ class AppModule {
             messageCount: 0,
             dontCache: [],
             version:'版本:1.00',
-            noticeList: [{ read: false, type: 0, title: 'First notice', description: 'One day ago' }, { read: false, type: 1 }, { read: false, type: 0, title: 'Second notice', description: 'One month ago' }]
+            noticeList: [{ read: false, type: 0, title: 'First notice', description: 'One day ago' }, { read: false, type: 1 }, { read: false, type: 0, title: 'Second notice', description: 'One month ago' }],
+            errorList: [],
+            hasReadErrorPage: false
         };
         this.mutations = {
             logout(state) {
@@ -184,7 +186,13 @@ class AppModule {
                     localStorage.cachePage = JSON.stringify(state.cachePage);
                 }
                 state.pageOpenedList.push(tagObj);
-            }
+            },
+            setHasReadErrorLoggerStatus (state, status = true) {
+                state.hasReadErrorPage = status
+            },
+            addError (state, error) {
+                state.errorList.push(error)
+            },            
         };
         this.actions = {
             // 415 (Unsupported Media Type    
@@ -202,10 +210,38 @@ class AppModule {
                 //localStorage.avatarImgPath = 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png';
                 //localStorage.avatarImgPath = '/img/logo.png';
                 //alert(localStorage.avatorImgPath);
-            },            
+            },
+            addErrorLog ({ commit, rootState }, info) {
+                alert('addErrorLog');
+                if (!window.location.href.includes('error_logger_page')) {                    
+                    commit('setHasReadErrorLoggerStatus', false);
+                }                
+                const { user: { token, userId, userName } } = rootState
+                let data = {
+                  ...info,
+                  time: Date.parse(new Date()),
+                  token,
+                  userId,
+                  userName
+                };
+                //saveErrorLogger(info).then(() => {
+                    commit('addError', data)
+                //})
+              }            
         };
     }
 }
 const appModule = new AppModule();
 export default appModule;
-//# sourceMappingURL=app.js.map
+
+// Error Log 保存到服务器
+export const saveErrorLogger = info => {
+    return 'success';
+    //return ajax.post("/api/...", info);
+    /*
+    return axios.request({
+      url: 'save_error_logger',
+      data: info,
+      method: 'post'
+    })*/
+}

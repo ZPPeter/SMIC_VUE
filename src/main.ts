@@ -2,7 +2,7 @@ import Vue from 'vue';
 import App from './app.vue';
 import iView from 'iview';
 import config from '@/config'
-import installPlugin from '@/plugin'
+import installPlugins from '@/plugin'
 import {router} from './router/index';
 import 'famfamfam-flags/dist/sprite/famfamfam-flags.css';
 import './theme.less';
@@ -16,7 +16,7 @@ import store from './store/index';
 /**
  * @description 注册admin内置插件
  */
-installPlugin(Vue)
+installPlugins(Vue)
 /**
  * @description 生产环境关掉提示
  */
@@ -39,6 +39,11 @@ if(abp.utils.getCookieValue('Abp.Localization.CultureName')=='zh-CN'){
   let language="zh-Hans";
   abp.utils.setCookieValue('Abp.Localization.CultureName',language,new Date(new Date().getTime() + 5 * 365 * 86400000),abp.appPath);  
 }
+
+//默认 NODE_ENV 为环境变量名称
+//可自行在 process.env 对象下定义需要使用的变量,在项目中可以根据
+//不同的 env 值设置 defaultUrl 或者其他值
+//alert('当前 process.env.NODE_ENV 环境变量:' + process.env.NODE_ENV);  // yarn serve -> dev
 
 //navigator.language 获得的语言不一定正确
 //alert(navigator.language) -> zh-CN

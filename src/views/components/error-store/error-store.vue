@@ -1,6 +1,6 @@
 <template>
   <div class="error-store">
-    <Tooltip content="错误信息收集器" placement="bottom">
+    <Tooltip content="查看错误信息" placement="bottom">
     <Badge dot :count="countComputed">
       <Button type="text" @click="openErrorLoggerPage">
         <Icon :size="20" type="ios-bug"/>

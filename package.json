@@ -11,6 +11,7 @@
     "@types/vue-i18n": "^7.0.0",
     "abp-web-resources": "^3.8.5",
     "axios": "^0.19.0",
+    "dayjs": "^1.8.15",
     "famfamfam-flags": "^1.0.0",
     "iview": "~3.4.2",
     "js-cookie": "^2.2.0",

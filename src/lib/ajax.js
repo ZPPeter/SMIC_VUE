@@ -1,11 +1,30 @@
 import axios from 'axios';
 import appconst from './appconst';
 import Vue from 'vue';
+import store from '@/store';
+
 // 使用自定义配置新建一个 axios 实例
 const ajax = axios.create({
     baseURL: appconst.remoteServiceBaseUrl,
     timeout: 30000
 });
+
+// Ajax 错误手机
+const addErrorLog = errorInfo => {
+    const { statusText, status, request: { responseURL } } = errorInfo
+    let info = {
+      type: 'ajax',
+      code: status,
+      mes: statusText,
+      url: responseURL
+    }    
+    if (!responseURL.includes('save_error_logger')){
+        alert('responseURL1:' + info);
+        store.dispatch('addErrorLog', info);
+        alert('responseURL2:' + info);
+    }
+}
+
 // axios interceptors 拦截器中添加headers 属性
 ajax.interceptors.request.use(function (config) {
     if (!!window.abp.auth.getToken()) {
@@ -17,7 +36,10 @@ ajax.interceptors.request.use(function (config) {
 }, function (error) {
     return Promise.reject(error);
 });
+
 let vm = new Vue({});
+
+// response
 ajax.interceptors.response.use((respon) => {
     return respon;
 }, (error) => {
@@ -37,6 +59,7 @@ ajax.interceptors.response.use((respon) => {
     setTimeout(() => {
         vm.$Message.destroy();
     }, 1000);
+    addErrorLog(error.response);
     return Promise.reject(error);
 });
 export default ajax;
