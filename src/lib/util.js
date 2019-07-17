@@ -296,6 +296,14 @@ class Util {
     }
     dateFormat(o){
         return  (new Date(o)).Format("yyyy.MM.dd");
+    }
+    debugObjectAttr(o,status = true){
+        var obj = o;
+        for(var n in obj){                 
+            console.log("属性名:"+n);
+            if(!n.startsWith('_') && status)
+              console.log("属性值:"+obj[n]);                 
+        }        
     }      
 }
 const util = new Util();

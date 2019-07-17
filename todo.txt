@@ -31,4 +31,4 @@ https://juejin.im/post/591aa14f570c35006961acac
 密码恢复 resetPassword - > 用户管理页面
 + uni-app 学习
 
-插件：错误收集器调试
+插件：app.js 最后 服务端接口实现

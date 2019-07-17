@@ -10,8 +10,8 @@ export default {
         mes: error.message,
         url: window.location.href
       }
-      alert(JSON.stringify(info));
-      Vue.nextTick(() => { // Error 循环起来了      
+      //alert(JSON.stringify(info));
+      Vue.nextTick(() => {  
         store.dispatch('app/addErrorLog', info)
         //this.$store.dispatch({
         //  type:'app/addErrorLog',

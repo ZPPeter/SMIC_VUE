@@ -9,7 +9,7 @@ const ajax = axios.create({
     timeout: 30000
 });
 
-// Ajax 错误手机
+// Ajax 错误收集
 const addErrorLog = errorInfo => {
     const { statusText, status, request: { responseURL } } = errorInfo
     let info = {
@@ -18,10 +18,9 @@ const addErrorLog = errorInfo => {
       mes: statusText,
       url: responseURL
     }    
+    //alert(JSON.stringify(info));
     if (!responseURL.includes('save_error_logger')){
-        alert('responseURL1:' + info);
-        store.dispatch('addErrorLog', info);
-        alert('responseURL2:' + info);
+        store.dispatch('app/addErrorLog', info);
     }
 }
 
@@ -63,4 +62,3 @@ ajax.interceptors.response.use((respon) => {
     return Promise.reject(error);
 });
 export default ajax;
-//# sourceMappingURL=ajax.js.map

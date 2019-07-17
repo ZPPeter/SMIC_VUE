@@ -9,7 +9,8 @@
 <script>
 import dayjs from 'dayjs'
 import { mapMutations } from 'vuex'
-import store from '@/store';
+import store from '@/store'
+import util from '../../lib/util'
 export default {
   name: 'error_logger_page',
   data () {
@@ -69,9 +70,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations([
-      'setHasReadErrorLoggerStatus'
-    ]),
+    // ...mapMutations(['setHasReadErrorLoggerStatus']), // setHasReadErrorLoggerStatus 方法 在 store.modules.app 中，所以不能此处引用
     exportData () {
       this.$refs.table.exportCsv({
         filename: '错误日志.csv'
@@ -79,10 +78,15 @@ export default {
     }
   },
   activated () {
-    this.setHasReadErrorLoggerStatus()
+    //util.debugObjectAttr(this.$store,false);
+    //this.setHasReadErrorLoggerStatus() x   
+    this.$store.commit('app/setHasReadErrorLoggerStatus'); //OK , app 是 modules
+    //this.$store.commit('setHasReadErrorLoggerStatus');
   },
   mounted () {
-    this.setHasReadErrorLoggerStatus()
+    //this.setHasReadErrorLoggerStatus() x
+    this.$store.commit('app/setHasReadErrorLoggerStatus');
+    //this.$store.commit('setHasReadErrorLoggerStatus'); x
   }
 }
 </script>

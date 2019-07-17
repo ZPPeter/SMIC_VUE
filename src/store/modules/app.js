@@ -188,7 +188,7 @@ class AppModule {
                 state.pageOpenedList.push(tagObj);
             },
             setHasReadErrorLoggerStatus (state, status = true) {
-                state.hasReadErrorPage = status
+                state.hasReadErrorPage = status   // 错误收集器新消息提示 Badge 角标
             },
             addError (state, error) {
                 state.errorList.push(error)
@@ -212,7 +212,6 @@ class AppModule {
                 //alert(localStorage.avatorImgPath);
             },
             addErrorLog ({ commit, rootState }, info) {
-                alert('addErrorLog');
                 if (!window.location.href.includes('error_logger_page')) {                    
                     commit('setHasReadErrorLoggerStatus', false);
                 }                
@@ -236,12 +235,5 @@ export default appModule;
 
 // Error Log 保存到服务器
 export const saveErrorLogger = info => {
-    return 'success';
-    //return ajax.post("/api/...", info);
-    /*
-    return axios.request({
-      url: 'save_error_logger',
-      data: info,
-      method: 'post'
-    })*/
+    return ajax.post("/api/save_error_logger/...", info);
 }

@@ -165,10 +165,9 @@ export default class Main extends AbpBase {
       ? this.$store.state.session.user.name
       : "";
   }
-
   isFullScreen: boolean = false;
   messageCount: string = "10";
-  errorCount: Number = 10;
+  errorCount: Number = 0;
   //collapsed: boolean = false;
   //minLogo: any = require("../assets/images/logo-min.png");
   //maxLogo: any = require("../assets/images/logo.png");

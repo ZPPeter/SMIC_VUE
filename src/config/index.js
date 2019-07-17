@@ -14,7 +14,7 @@ export default {
    */
   useI18n: false,
   showLock: true,
-  showNotice: true,
+  showNotice: false,
   /**
    * @description api请求基础路径
    */
