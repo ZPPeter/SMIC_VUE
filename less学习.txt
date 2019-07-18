@@ -1,0 +1,6 @@
+.user{
+  &-avatar-dropdown{
+
+等同于
+
+.user-avatar-dropdown      

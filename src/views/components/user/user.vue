@@ -1,18 +1,48 @@
 <template>
   <div class="user-avatar-dropdown">
     <div class="notice-avatar-dropdown">
-      <Poptip trigger="hover" placement="top-start" v-model="visible">
+      <Poptip trigger="hover" placement="top-start" v-model="visible" style="cursor:auto;">
         <Avatar :src="userAvatar" />
         <Icon :size="18" type="md-arrow-dropdown"></Icon>
-        <div slot="content">
-          这是我的自定义内容
-          <hr />
-          <Button type="parimary" @click="handleClick('changePassword')">修改密码</Button>
+        <div slot="content" class="content">
+          <Avatar :src="userAvatar" id="avatar" />
+          {{userSurename}}
+          <hr />          
+          <Button @click="changePwdModel=true">修改密码</Button>
+          <!-- <Button type="primary" @click="handleClick('changePassword')">修改密码</Button> -->
           <br />
           <Button @click="handleClick('logout')">退出登录</Button>
         </div>
       </Poptip>
     </div>
+    <Modal
+      title="修改登录密码"
+      v-model="changePwdModel"
+      :mask-closable="false"
+      @on-ok="save"
+    >
+      <Card dis-hover>
+        <div class="page-body">
+          <Form ref="pwdForm" :label-width="120" label-position="left" inline :rules="rules">
+            <Row>
+              <FormItem label="原密码:" style="width:320px;" prop="oldPwd">
+                <Input placeholder="原密码" :maxlength="12" :minlength="5"></Input>
+              </FormItem>
+            </Row>
+            <Row>
+              <FormItem label="新密码:" style="width:320px" prop="newPwd1">
+                <Input placeholder="新密码" :maxlength="12" :minlength="5"></Input>
+              </FormItem>
+            </Row>
+            <Row>
+              <FormItem label="确认新密码:" style="width:320px" prop="newPwd2">
+                <Input placeholder="确认新密码" :maxlength="12" :minlength="5"></Input>
+              </FormItem>
+            </Row>            
+          </Form>
+        </div>
+      </Card>
+    </Modal>
   </div>
 </template>
 
@@ -26,14 +56,44 @@ export default {
     userAvatar: {
       type: String,
       default: ""
+    },
+    userSurename: {
+      type: String,
+      default: ""
+    },
+    passwordRules: {
+      type: Array,
+      default: () => {
+        return [
+          { required: true, message: '密码不能为空', trigger: 'blur' }
+        ]
+      }
     }
   },
   data() {
     return {
-      visible: false
+      visible: false,
+      changePwdModel: false,
+      loading: true
     };
   },
   methods: {
+    save() {
+      (this.$refs.pwdForm).validate(async (valid) => {
+        if (valid) {
+          //await this.$store.dispatch({
+          //    type:'role/create',
+          //    data:this.role
+          //});
+          (this.$refs.pwdForm).resetFields();
+          this.$emit("save-success");
+          this.$emit("input", false);
+
+          this.changePwdModel = false;
+          this.$Message.info("密码修改完毕！");
+        }
+      });
+    },
     close() {
       this.visible = false;
     },
@@ -70,193 +130,35 @@ export default {
           this.changePassword();
           break;
       }
+    },
+  },
+  computed: {
+    rules () {
+      return {
+        oldPwd: this.passwordRules,
+        newPwd1: this.passwordRules,
+        newPwd2: this.passwordRules,
+      }
     }
-  }
+  },  
 };
 </script>
 
+<!-- scoped 不起作用??? -->
 <style scoped>
-.ivu-poptip {
-  display: inline-block;
-}
-.ivu-poptip-rel {
-  display: inline-block;
-  position: relative;
-}
-.ivu-poptip-title {
-  margin: 0;
-  padding: 8px 16px;
-  position: relative;
-}
-.ivu-poptip-title:after {
-  content: "";
-  display: block;
-  height: 1px;
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  bottom: 0;
-  background-color:red !important;
-}
-.ivu-poptip-title-inner {
-  color: #17233d;
-  font-size: 14px;
-}
 .ivu-poptip-body {
-  padding: 8px 16px;
-  background-color:red !important;
+  padding: 2px 2px;
 }
 .ivu-poptip-body-content {
   overflow: auto;
-  background-color:red !important;
+  background-color: cadetblue;
 }
-.ivu-poptip-body-content-word-wrap {
-  white-space: pre-wrap;
-  text-align: justify;
+</style>
+<style>
+.content {
+  cursor: auto;
+  padding: 5px;
+  line-height: 50px;
+  margin: 0px;
 }
-.ivu-poptip-body-content-inner {
-  color: #515a6e;
-}
-.ivu-poptip-inner {
-  width: 100%;
-  background-color:red !important;
-  background-clip: padding-box;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
-  white-space: nowrap;
-}
-.ivu-poptip-popper {
-  min-width: 150px;
-  display: block;
-  visibility: visible;
-  font-size: 12px;
-  line-height: 1.5;
-  position: absolute;
-  z-index: 1060;
-  background-color:red !important;
-}
-.ivu-poptip-popper[x-placement^="top"] {
-  padding: 7px 0 10px 0;
-}
-.ivu-poptip-popper[x-placement^="right"] {
-  padding: 0 7px 0 10px;
-}
-.ivu-poptip-popper[x-placement^="bottom"] {
-  padding: 10px 0 7px 0;
-}
-.ivu-poptip-popper[x-placement^="left"] {
-  padding: 0 10px 0 7px;
-}
-.ivu-poptip-popper[x-placement^="top"] .ivu-poptip-arrow {
-  bottom: 3px;
-  border-width: 7px 7px 0;
-  border-top-color: rgba(217, 217, 217, 0.5);
-}
-.ivu-poptip-popper[x-placement="top"] .ivu-poptip-arrow {
-  left: 50%;
-  margin-left: -7px;
-}
-.ivu-poptip-popper[x-placement="top-start"] .ivu-poptip-arrow {
-  left: 16px;
-  background-color:red !important;
-}
-.ivu-poptip-popper[x-placement="top-end"] .ivu-poptip-arrow {
-  right: 16px;
-}
-.ivu-poptip-popper[x-placement^="right"] .ivu-poptip-arrow {
-  left: 3px;
-  border-width: 7px 7px 7px 0;
-  border-right-color: rgba(217, 217, 217, 0.5);
-}
-.ivu-poptip-popper[x-placement="right"] .ivu-poptip-arrow {
-  top: 50%;
-  margin-top: -7px;
-}
-.ivu-poptip-popper[x-placement="right-start"] .ivu-poptip-arrow {
-  top: 8px;
-}
-.ivu-poptip-popper[x-placement="right-end"] .ivu-poptip-arrow {
-  bottom: 8px;
-}
-.ivu-poptip-popper[x-placement^="left"] .ivu-poptip-arrow {
-  right: 3px;
-  border-width: 7px 0 7px 7px;
-  border-left-color: rgba(217, 217, 217, 0.5);
-}
-.ivu-poptip-popper[x-placement="left"] .ivu-poptip-arrow {
-  top: 50%;
-  margin-top: -7px;
-}
-.ivu-poptip-popper[x-placement="left-start"] .ivu-poptip-arrow {
-  top: 8px;
-}
-.ivu-poptip-popper[x-placement="left-end"] .ivu-poptip-arrow {
-  bottom: 8px;
-}
-.ivu-poptip-popper[x-placement^="bottom"] .ivu-poptip-arrow {
-  top: 3px;
-  border-width: 0 7px 7px;
-  border-bottom-color: rgba(217, 217, 217, 0.5);
-}
-.ivu-poptip-popper[x-placement="bottom"] .ivu-poptip-arrow {
-  left: 50%;
-  margin-left: -7px;
-}
-.ivu-poptip-popper[x-placement="bottom-start"] .ivu-poptip-arrow {
-  left: 16px;
-}
-.ivu-poptip-popper[x-placement="bottom-end"] .ivu-poptip-arrow {
-  right: 16px;
-  background-color:red !important;
-}
-.ivu-poptip-popper[x-placement^="top"] .ivu-poptip-arrow:after {
-  content: " ";
-  bottom: 1px;
-  margin-left: -7px;
-  border-bottom-width: 0;
-  border-top-width: 7px;
-  border-top-color: #fff;
-}
-.ivu-poptip-popper[x-placement^="right"] .ivu-poptip-arrow:after {
-  content: " ";
-  left: 1px;
-  bottom: -7px;
-  border-left-width: 0;
-  border-right-width: 7px;
-  border-right-color: #fff;
-}
-.ivu-poptip-popper[x-placement^="bottom"] .ivu-poptip-arrow:after {
-  content: " ";
-  top: 1px;
-  margin-left: -7px;
-  border-top-width: 0;
-  border-bottom-width: 7px;
-  border-bottom-color: #fff;
-}
-.ivu-poptip-popper[x-placement^="left"] .ivu-poptip-arrow:after {
-  content: " ";
-  right: 1px;
-  border-right-width: 0;
-  border-left-width: 7px;
-  border-left-color: #fff;
-  bottom: -7px;
-}
-.ivu-poptip-arrow,
-.ivu-poptip-arrow:after {
-  display: block;
-  width: 0;
-  height: 0;
-  position: absolute;
-  border-color: transparent;
-  border-style: solid;
-}
-.ivu-poptip-arrow {
-  border-width: 8px;
-}
-.ivu-poptip-arrow:after {
-  content: "";
-  border-width: 7px;
-}
-
 </style>

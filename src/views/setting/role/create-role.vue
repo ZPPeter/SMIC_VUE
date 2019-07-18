@@ -40,7 +40,7 @@
     import Role from '@/store/entities/role';
     @Component
     export default class CreateRole extends AbpBase{
-        @Prop({type:Boolean,default:false}) value:boolean;
+        @Prop({type:Boolean,default:false}) value:boolean; // <create-role v-model="createModalShow"
         role:Role=new Role();
         selectFirst:string = 'detail';
         get permissions(){

@@ -42,7 +42,8 @@ class AppModule {
             version:'版本:1.00',
             noticeList: [{ read: false, type: 0, title: 'First notice', description: 'One day ago' }, { read: false, type: 1 }, { read: false, type: 0, title: 'Second notice', description: 'One month ago' }],
             errorList: [],
-            hasReadErrorPage: false
+            hasReadErrorPage: false,
+            errorCount: 0
         };
         this.mutations = {
             logout(state) {
@@ -191,7 +192,8 @@ class AppModule {
                 state.hasReadErrorPage = status   // 错误收集器新消息提示 Badge 角标
             },
             addError (state, error) {
-                state.errorList.push(error)
+                state.errorList.push(error);
+                state.errorCount = state.errorList.length;
             },            
         };
         this.actions = {
@@ -211,9 +213,9 @@ class AppModule {
                 //localStorage.avatarImgPath = '/img/logo.png';
                 //alert(localStorage.avatorImgPath);
             },
-            addErrorLog ({ commit, rootState }, info) {
+            addErrorLog ({ commit, rootState }, info) {                
                 if (!window.location.href.includes('error_logger_page')) {                    
-                    commit('setHasReadErrorLoggerStatus', false);
+                    commit('setHasReadErrorLoggerStatus', false);                    
                 }                
                 const { user: { token, userId, userName } } = rootState
                 let data = {

@@ -82,11 +82,13 @@
           <user
             :message-unread-count="unreadCount"
             :user-avatar="avatarPath"
+            :user-surename="userSurename"
             style="margin-right: 5px;"
           />
           <language-list v-if="$config.useI18n" style="margin-right: 10px;" :lang="local"></language-list>
+          <!-- v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader" -->
           <error-store
-            v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader"
+            v-if="isAdminUser"
             :has-read="hasReadErrorPage"
             :count="errorCount"
             style="margin-right: 15px;"
@@ -160,14 +162,22 @@ import config from "@/config";
 export default class Main extends AbpBase {
 
   shrink: boolean = false;
+  get userSurename(){
+    return this.$store.state.session.user
+      ? this.$store.state.session.user.surname
+      : "";    
+  }
+  get isAdminUser(){
+    return this.userName==='admin';
+  }
   get userName() {
     return this.$store.state.session.user
-      ? this.$store.state.session.user.name
+      ? this.$store.state.session.user.userName
       : "";
   }
   isFullScreen: boolean = false;
   messageCount: string = "10";
-  errorCount: Number = 0;
+  //errorCount: Number = 0;
   //collapsed: boolean = false;
   //minLogo: any = require("../assets/images/logo-min.png");
   //maxLogo: any = require("../assets/images/logo.png");
@@ -221,6 +231,9 @@ export default class Main extends AbpBase {
   }
   get hasReadErrorPage() {
     return this.$store.state.app.hasReadErrorPage;
+  }
+  get errorCount(){
+    return this.$store.state.app.errorCount; 
   }
   get unreadCount() {
     return this.$store.state.user.unreadCount;

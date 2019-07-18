@@ -25,6 +25,7 @@ export default {
   },
   computed: {
     countComputed () {
+      //alert(this.hasRead + " - " + this.count);
       return this.hasRead ? 0 : this.count
     }
   },

@@ -20,15 +20,14 @@ https://www.cnblogs.com/zzayne/p/8833516.html
 https://blog.csdn.net/harsima/article/details/77949448
 https://juejin.im/post/591aa14f570c35006961acac
 
+//util.debugObjectAttr(this.$store,false);
 
-密码修改 changePassword -> 版本二.不打开新界面 
-登录记录
-修改密码
-修改头像
-我的设置
-退出登录 -> 确认
-
-密码恢复 resetPassword - > 用户管理页面
 + uni-app 学习
 
-插件：app.js 最后 服务端接口实现
+密码恢复 resetPassword - > 用户管理页面,管理员权限
+我的设置
+
+修改头像
+密码修改 changePassword
+
+插件：app.js 最后 服务端接口实现 - UI界面.管理员

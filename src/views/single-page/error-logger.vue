@@ -1,7 +1,7 @@
 <template>
   <div>
     <Button @click="exportData" type="primary" style="margin: 0 10px 10px 0;">导出日志记录</Button>
-    <b>注：这里只会显示成功保存到服务端的错误日志，而且页面错误日志不会在浏览器持久化存储，刷新页面即会丢失</b>
+    <b>注：这里只会显示当前进程的错误日志，而且页面错误日志不会在浏览器持久化存储，刷新页面即会丢失</b>
     <Table ref="table" :columns="columns" :data="errorList"></Table>
   </div>
 </template>

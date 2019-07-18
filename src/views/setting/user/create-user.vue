@@ -83,7 +83,9 @@
             }
             else{
                 if(this.user.emailAddress==="string") this.user.emailAddress = "";
-                if(this.user.password==="string") this.user.password = "";                
+                if(this.user.password==="string") this.user.password = "";
+                if(this.user.emailAddress==="admin") this.user.emailAddress = "";
+                if(this.user.password==="123qwe") this.user.password = "";
             }            
             // document.getElementById('userName').focus();
         }
