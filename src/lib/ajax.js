@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+//import '@babel/polyfill';
 import axios from 'axios';
 import appconst from './appconst';
 import Vue from 'vue';
@@ -19,6 +19,7 @@ const addErrorLog = errorInfo => {
       mes: statusText,
       url: responseURL
     }    
+    
     //if (!responseURL.includes('save_error_logger')){
     if (responseURL && !responseURL.includes('save_error_logger')){    
         store.dispatch('app/addErrorLog', info);
@@ -62,7 +63,17 @@ ajax.interceptors.response.use((respon) => {
     setTimeout(() => {
         vm.$Message.destroy();
     }, 1000);
-    addErrorLog(error.response);
+    
+    //alert((error.response.status===404));
+    if(error.response.status===404){
+        vm.$Modal.error({
+            title: '404 错误',
+            content: '请求的服务器资源不存在！'
+        });        
+        return;
+    }
+    else
+        addErrorLog(error.response);
     return Promise.reject(error);
 });
 export default ajax;

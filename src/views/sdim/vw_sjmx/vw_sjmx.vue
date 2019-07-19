@@ -35,7 +35,7 @@
 </template>
 <script lang="ts">
     import { Component, Vue,Inject, Prop,Watch } from 'vue-property-decorator';
-    import '@babel/polyfill'
+    //import '@babel/polyfill'
     import Util from '@/lib/util'
     import AbpBase from '@/lib/abpbase'
     import PageRequest from '@/store/entities/page-request'

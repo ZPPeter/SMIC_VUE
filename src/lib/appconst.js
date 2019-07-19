@@ -9,7 +9,7 @@ const AppConsts = {
     authorization: {
         encrptedAuthTokenName: 'enc_auth_token'
     },
-    appBaseUrl: "http://192.168.1.148:8080", //localhost
+    appBaseUrl: "http://localhost:8080",
     remoteServiceBaseUrl: url
 };
 export default AppConsts;
