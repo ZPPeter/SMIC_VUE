@@ -44,7 +44,7 @@ export const appRouters = [
     name: 'business',
     permission: '',
     meta: { title: '业务数据管理' },
-    icon: 'ios-construct-outline',
+    icon: 'md-desktop',
     component: main,
     children: [
       { path: 'tenant', icon: 'ios-people', permission: 'Pages.Tenants', meta: { title: '多租户' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') },

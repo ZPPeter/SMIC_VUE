@@ -7,11 +7,12 @@ export default {
       let info = {
         type: 'script',
         code: 0,
-        mes: error.message,
+        //mes: error.message,
+        mes: error, //详细
         url: window.location.href
-      }
-      //alert(JSON.stringify(info));
+      }      
       Vue.nextTick(() => {  
+        //alert(JSON.stringify(info));
         store.dispatch('app/addErrorLog', info)
         //this.$store.dispatch({
         //  type:'app/addErrorLog',

@@ -29,6 +29,10 @@ class UserModule extends ListModule {
                 context.state.list = page.items;
                 //alert(JSON.stringify(context.state.list[2]));
             },
+            async changepassword(context, payload) {
+                //alert(JSON.stringify(payload.data));
+                await Ajax.post('/api/services/app/User/ChangePassword', payload.data);
+            },
             async create(context, payload) {
                 await Ajax.post('/api/services/app/User/Create', payload.data);
             },

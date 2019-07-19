@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import axios from 'axios';
 import appconst from './appconst';
 import Vue from 'vue';
@@ -10,7 +11,7 @@ const ajax = axios.create({
 });
 
 // Ajax 错误收集
-const addErrorLog = errorInfo => {
+const addErrorLog = errorInfo => {    
     const { statusText, status, request: { responseURL } } = errorInfo
     let info = {
       type: 'ajax',
@@ -18,10 +19,13 @@ const addErrorLog = errorInfo => {
       mes: statusText,
       url: responseURL
     }    
-    //alert(JSON.stringify(info));
-    if (!responseURL.includes('save_error_logger')){
+    //if (!responseURL.includes('save_error_logger')){
+    if (responseURL && !responseURL.includes('save_error_logger')){    
         store.dispatch('app/addErrorLog', info);
     }
+    if (!responseURL){  // for IE
+        store.dispatch('app/addErrorLog', info);
+    }    
 }
 
 // axios interceptors 拦截器中添加headers 属性

@@ -8,61 +8,35 @@
           <Avatar :src="userAvatar" id="avatar" />&nbsp;
           {{userSurename}}        
           <hr />
-          <hr style="height:15px;border:0px;" />
-          <Icon type="md-key" size="21"/>
-          <Button type="text" @click="changePwdModel=true">修改密码</Button>
-          <!-- <Button type="primary" @click="handleClick('changePassword')">修改密码</Button> -->
+          <hr style="height:15px;border:0px;" />          
+          <a href='javascript:;' @click="changePwdModelShow=true" style="color:rgb(100, 100, 100);">
+            <Icon type="md-key" size="21"/>&nbsp;&nbsp;&nbsp;修改密码</a>
+          <!-- 
+            <Button type="text" @click="changePwdModelShow=true">修改密码</Button>
+            <Button type="primary" @click="handleClick('changePassword')">修改密码</Button> -->
           <br />
           <Icon type="md-person" size="21"/>
-          <Button type="text" @click="changePwdModel=true">修改头像</Button>
+          <Button type="text" @click="change=true">修改头像</Button>
           <br />
           <Icon type="md-settings" size="21"/>
-          <Button type="text" @click="changePwdModel=true">我的设置</Button>
+          <Button type="text" @click="change=true">我的设置</Button>
           <br />                    
           <Button shape="circle" icon="md-exit" @click="handleClick('logout')">注销</Button>
         </div>
       </Poptip>
     </div>
-    <Modal
-      title="修改登录密码"
-      v-model="changePwdModel"
-      :mask-closable="false"
-      @on-ok="save"
-    >
-      <Card dis-hover>
-        <div class="page-body">
-          <Form ref="pwdForm" :label-width="120" label-position="left" inline :rules="rules">
-            <Row>
-              <FormItem label="原密码:" style="width:320px;" prop="oldPwd">
-                <Input placeholder="原密码" :maxlength="12" :minlength="5"></Input>
-              </FormItem>
-            </Row>
-            <Row>
-              <FormItem label="新密码:" style="width:320px" prop="newPwd1">
-                <Input placeholder="新密码" :maxlength="12" :minlength="5"></Input>
-              </FormItem>
-            </Row>
-            <Row>
-              <FormItem label="确认新密码:" style="width:320px" prop="newPwd2">
-                <Input placeholder="确认新密码" :maxlength="12" :minlength="5"></Input>
-              </FormItem>
-            </Row>            
-          </Form>
-        </div>
-      </Card>
-            <div slot="footer">
-                <Button @click="cancel">取消</Button>
-                <Button @click="save" type="primary">确定</Button>
-            </div>      
-    </Modal>
+    <change-pwd v-model="changePwdModelShow" @save-success="logout"></change-pwd>
   </div>
 </template>
 
-<script>
+<script type="ts">
 import "./user.less";
 import util from "../../../lib/util";
-// import { mapActions } from 'vuex'
+import ChangePwd from "./change-pwd.vue";
 export default {
+  components: {
+    ChangePwd
+  },
   name: "User",
   props: {
     userAvatar: {
@@ -73,57 +47,15 @@ export default {
       type: String,
       default: ""
     },
-    oldpasswordRules: {
-      type: Array,
-      default: () => {
-        return [
-          { required: true, message: '原密码不能为空', trigger: 'blur' }
-        ]
-      }
-    },new1passwordRules: {
-      type: Array,
-      default: () => {
-        return [
-          { required: true, message: '新密码不能为空', trigger: 'blur' }
-        ]
-      }
-    },new2passwordRules: {
-      type: Array,
-      default: () => {
-        return [
-          { required: true, message: '确认密码不能为空', trigger: 'blur' }
-        ]
-      }
-    },
   },
   data() {
     return {
       visible: false,
-      changePwdModel: false,
+      changePwdModelShow: false,
       loading: true
     };
   },
   methods: {
-    save() {
-      (this.$refs.pwdForm).validate(async (valid) => {
-        if (valid) {
-          //await this.$store.dispatch({
-          //    type:'role/create',
-          //    data:this.role
-          //});
-          (this.$refs.pwdForm).resetFields();
-          this.$emit("save-success");
-          this.$emit("input", false);
-
-          this.changePwdModel = false;
-          this.$Message.info("密码修改完毕！");
-        }
-      });
-    },
-    cancel(){
-            (this.$refs.pwdForm).resetFields();
-            this.$emit('input',false);
-    },
     close() {
       this.visible = false;
     },
@@ -162,15 +94,6 @@ export default {
       }
     },
   },
-  computed: {
-    rules () {
-      return {
-        oldPwd: this.oldpasswordRules,
-        newPwd1: this.new1passwordRules,
-        newPwd2: this.new2passwordRules,
-      }
-    }
-  },  
 };
 </script>
 
@@ -191,5 +114,6 @@ export default {
   padding: 0px;
   line-height: 50px;
   margin: 0px;
+  font-size: 14px;    
 }
 </style>

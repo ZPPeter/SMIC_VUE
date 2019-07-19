@@ -1,6 +1,7 @@
 import Entity from './entity';
 export default class User extends Entity {
     password='';
-    emailAddress='';    
+    emailAddress='';
+    newPassword='';
 }
 //# sourceMappingURL=user.js.map

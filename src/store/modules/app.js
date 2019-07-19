@@ -204,7 +204,7 @@ class AppModule {
             async login(state, payload) {
                 //alert(JSON.stringify(payload.data));
                 let rep = await ajax.post("/api/TokenAuth/Authenticate", payload.data);
-                //alert(JSON.stringify(rep));
+                alert(JSON.stringify(rep));
                 var tokenExpireDate = payload.data.rememberMe ? (new Date(new Date().getTime() + 1000 * rep.data.result.expireInSeconds)) : undefined;
                 Util.abp.auth.setToken(rep.data.result.accessToken, tokenExpireDate);
                 Util.abp.utils.setCookieValue(appconst.authorization.encrptedAuthTokenName, rep.data.result.encryptedAccessToken, tokenExpireDate, Util.abp.appPath);

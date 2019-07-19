@@ -7,7 +7,7 @@ module.exports = {
           }
         }
       },
-    configureWebpack: config => {
+    configureWebpack: config => {      
       if (process.env.NODE_ENV === 'production') {
         return {
             plugins:[
@@ -39,5 +39,14 @@ module.exports = {
             ]
         }
       }
-    }
+    },
+    chainWebpack: config => {
+      // ie 错误处理用
+      config.module
+        .rule('iview')
+        .test(/iview.src.*?js$/)
+        .use('babel')
+          .loader('babel-loader')
+          .end()
+    }    
 }
