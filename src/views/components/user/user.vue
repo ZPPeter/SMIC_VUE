@@ -4,14 +4,22 @@
       <Poptip trigger="hover" placement="top-start" v-model="visible" style="cursor:auto;">
         <Avatar :src="userAvatar" />
         <Icon :size="18" type="md-arrow-dropdown"></Icon>
-        <div slot="content" class="content">
-          <Avatar :src="userAvatar" id="avatar" />
-          {{userSurename}}
-          <hr />          
-          <Button @click="changePwdModel=true">修改密码</Button>
+        <div slot="content" class="content">        
+          <Avatar :src="userAvatar" id="avatar" />&nbsp;
+          {{userSurename}}        
+          <hr />
+          <hr style="height:15px;border:0px;" />
+          <Icon type="md-key" size="21"/>
+          <Button type="text" @click="changePwdModel=true">修改密码</Button>
           <!-- <Button type="primary" @click="handleClick('changePassword')">修改密码</Button> -->
           <br />
-          <Button @click="handleClick('logout')">退出登录</Button>
+          <Icon type="md-person" size="21"/>
+          <Button type="text" @click="changePwdModel=true">修改头像</Button>
+          <br />
+          <Icon type="md-settings" size="21"/>
+          <Button type="text" @click="changePwdModel=true">我的设置</Button>
+          <br />                    
+          <Button shape="circle" icon="md-exit" @click="handleClick('logout')">注销</Button>
         </div>
       </Poptip>
     </div>
@@ -42,6 +50,10 @@
           </Form>
         </div>
       </Card>
+            <div slot="footer">
+                <Button @click="cancel">取消</Button>
+                <Button @click="save" type="primary">确定</Button>
+            </div>      
     </Modal>
   </div>
 </template>
@@ -61,14 +73,28 @@ export default {
       type: String,
       default: ""
     },
-    passwordRules: {
+    oldpasswordRules: {
       type: Array,
       default: () => {
         return [
-          { required: true, message: '密码不能为空', trigger: 'blur' }
+          { required: true, message: '原密码不能为空', trigger: 'blur' }
         ]
       }
-    }
+    },new1passwordRules: {
+      type: Array,
+      default: () => {
+        return [
+          { required: true, message: '新密码不能为空', trigger: 'blur' }
+        ]
+      }
+    },new2passwordRules: {
+      type: Array,
+      default: () => {
+        return [
+          { required: true, message: '确认密码不能为空', trigger: 'blur' }
+        ]
+      }
+    },
   },
   data() {
     return {
@@ -93,6 +119,10 @@ export default {
           this.$Message.info("密码修改完毕！");
         }
       });
+    },
+    cancel(){
+            (this.$refs.pwdForm).resetFields();
+            this.$emit('input',false);
     },
     close() {
       this.visible = false;
@@ -135,9 +165,9 @@ export default {
   computed: {
     rules () {
       return {
-        oldPwd: this.passwordRules,
-        newPwd1: this.passwordRules,
-        newPwd2: this.passwordRules,
+        oldPwd: this.oldpasswordRules,
+        newPwd1: this.new1passwordRules,
+        newPwd2: this.new2passwordRules,
       }
     }
   },  
@@ -155,9 +185,10 @@ export default {
 }
 </style>
 <style>
-.content {
+.content {  
+  width:158px;
   cursor: auto;
-  padding: 5px;
+  padding: 0px;
   line-height: 50px;
   margin: 0px;
 }

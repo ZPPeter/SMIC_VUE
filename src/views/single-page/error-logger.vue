@@ -51,6 +51,10 @@ export default {
           title: 'URL'
         },
         {
+          key: 'surname',
+          title: '操作用户'
+        },        
+        {
           key: 'time',
           title: '时间',
           render: (h, { row }) => {

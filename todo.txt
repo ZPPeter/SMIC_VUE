@@ -29,5 +29,3 @@ https://juejin.im/post/591aa14f570c35006961acac
 
 修改头像
 密码修改 changePassword
-
-插件：app.js 最后 服务端接口实现 - UI界面.管理员

@@ -202,7 +202,7 @@ class AppModule {
             // ActionContext: vuex context参数,vuex 的d.ts 提供有类型 ActionContext
             //async login(content: ActionContext<AppState, any>, payload: any) {
             async login(state, payload) {
-                //alert(JSON.stringify(payload));
+                //alert(JSON.stringify(payload.data));
                 let rep = await ajax.post("/api/TokenAuth/Authenticate", payload.data);
                 //alert(JSON.stringify(rep));
                 var tokenExpireDate = payload.data.rememberMe ? (new Date(new Date().getTime() + 1000 * rep.data.result.expireInSeconds)) : undefined;
@@ -216,18 +216,22 @@ class AppModule {
             addErrorLog ({ commit, rootState }, info) {                
                 if (!window.location.href.includes('error_logger_page')) {                    
                     commit('setHasReadErrorLoggerStatus', false);                    
-                }                
-                const { user: { token, userId, userName } } = rootState
+                }
+                //const { user: { token, userId, userName } } = rootState // null                                
+                //const { user: { token, userId, userName } } = rootState.session                
+                const { user: { id, surname, userName } } = rootState.session
                 let data = {
                   ...info,
                   time: Date.parse(new Date()),
-                  token,
-                  userId,
+                  //token,   // null
+                  //userId,  // null
+                  id,
+                  surname,
                   userName
                 };
-                //saveErrorLogger(info).then(() => {
+                saveErrorLogger(data).then(() => {
                     commit('addError', data)
-                //})
+                })
               }            
         };
     }
@@ -236,6 +240,11 @@ const appModule = new AppModule();
 export default appModule;
 
 // Error Log 保存到服务器
-export const saveErrorLogger = info => {
-    return ajax.post("/api/save_error_logger/...", info);
+export const saveErrorLogger = info => {    
+    let errorInfo={
+        Detail:''
+    };
+    errorInfo.Detail = JSON.stringify(info);
+    //alert(JSON.stringify(errorInfo));
+    return ajax.post("/api/services/save_error_logger/VueErrorLog/LoggerErr", errorInfo );
 }
