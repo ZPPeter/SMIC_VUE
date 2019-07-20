@@ -304,7 +304,7 @@ class Util {
             if(!n.startsWith('_') && status)
               console.log("属性值:"+obj[n]);                 
         }        
-    }      
+    }  
 }
 const util = new Util();
 export default util;

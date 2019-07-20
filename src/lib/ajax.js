@@ -69,11 +69,11 @@ ajax.interceptors.response.use((respon) => {
         vm.$Modal.error({
             title: '404 错误',
             content: '请求的服务器资源不存在！'
-        });        
-        return;
+        });       
     }
-    else
-        addErrorLog(error.response);
+   
+    addErrorLog(error.response);
+    
     return Promise.reject(error);
 });
 export default ajax;

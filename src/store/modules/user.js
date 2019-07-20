@@ -1,10 +1,11 @@
 import ListModule from './list-module';
 import User from '../entities/user';
 import Ajax from '../../lib/ajax';
+import Vue from 'vue';
 import ListMutations from './list-mutations';
 class UserMutations extends ListMutations {
 }
-class UserModule extends ListModule {
+class UserModule extends ListModule {    
     constructor() {
         super(...arguments);
         this.state = {
@@ -42,6 +43,14 @@ class UserModule extends ListModule {
             async delete(context, payload) {
                 await Ajax.delete('/api/services/app/User/Delete?Id=' + payload.data.id);
             },
+            async resetpassword(context, payload) {
+                let vm = new Vue({});
+                //alert(JSON.stringify(payload.data));
+                let reponse = await Ajax.post('/api/services/app/User/ResetPassword', payload.data);
+                if(reponse.data.result===true){
+                    vm.$Message.success('密码重置成功！'); //  this.$Message 不会显示的
+                }
+            },            
             async get(context, payload) {
                 let reponse = await Ajax.get('/api/services/app/User/Get?Id=' + payload.id);
                 return reponse.data.result;

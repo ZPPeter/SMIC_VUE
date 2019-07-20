@@ -21,13 +21,13 @@
         :open-names="openedSubmenuArr"
         :menu-list="menuList"
       >
-      <!-- 
+        <!-- 
         <div slot="top" class="logo-con">
           <img v-show="!shrink" :src="maxLogo" key="max-logo">
           <img v-show="shrink" :src="minLogo" key="min-logo">
         </div>
-      -->
-      </shrinkable-menu>      
+        -->
+      </shrinkable-menu>
       <div class="copyright" :class="shrink?'copyright_a':'copyright_b'">{{copyRight}}</div>
     </Sider>
     <!-- 
@@ -113,7 +113,7 @@
                 <router-view></router-view>
               </keep-alive>
             </Content>
-            <div class="version"> {{version}}</div>
+            <div class="version">{{version}}</div>
           </div>
         </Layout>
       </Content>
@@ -140,9 +140,9 @@ import AbpBase from "../lib/abpbase";
 import config from "@/config";
 //import '@/assets/fonts/iconfont.css'; //main.less 引用 ttf 即可
 @Component({
-  props:{
-      //copyright:String
-  },  
+  props: {
+    //copyright:String
+  },
   components: {
     shrinkableMenu,
     //siderTrigger,
@@ -160,15 +160,14 @@ import config from "@/config";
   }
 })
 export default class Main extends AbpBase {
-
   shrink: boolean = false;
-  get userSurename(){
+  get userSurename() {
     return this.$store.state.session.user
       ? this.$store.state.session.user.surname
-      : "";    
+      : "";
   }
-  get isAdminUser(){
-    return this.userName==='admin';
+  get isAdminUser() {
+    return this.userName === "admin";
   }
   get userName() {
     return this.$store.state.session.user
@@ -184,15 +183,15 @@ export default class Main extends AbpBase {
   get openedSubmenuArr() {
     return this.$store.state.app.openedSubmenuArr;
   }
-  get copyRight(){
-    var dt = parseInt(new Date("YYYY").toString())
-    var dc = dt>2019?'2019-'+dt.toString():'2019';
-    return '© '+dc+' SMIC';  // 不写此句则来自服务器多语言配置 © 2019 SMIC
+  get copyRight() {
+    var dt = parseInt(new Date("YYYY").toString());
+    var dc = dt > 2019 ? "2019-" + dt.toString() : "2019";
+    return "© " + dc + " SMIC"; // 不写此句则来自服务器多语言配置 © 2019 SMIC
   }
   get menuList() {
     return this.$store.state.app.menuList;
   }
-  get pageTagsList() {    
+  get pageTagsList() {
     return this.$store.state.app.pageOpenedList as Array<any>;
   }
   get currentPath() {
@@ -201,18 +200,23 @@ export default class Main extends AbpBase {
   get lang() {
     return this.$store.state.app.lang;
   }
-  get version(){
+  get version() {
     //alert(this.$store.state.app.version);
     return this.$store.state.app.version;
   }
   get avatarPath() {
-    //alert(this.$store.state.app.avatarImgPath + this.$store.state.session.user.id + '.png');
+    //alert(this.$store.state.app.avatarImgPath + this.$store.state.session.user.id + '.png'); //Error id is null
     //alert('ToDO:' + this.$store.state.app.avatarImgPath);
     //return localStorage.avatarImgPath;
-    if(this.$store.state.session.user)
-      return this.$store.state.app.avatarImgPath + this.$store.state.session.user.id + '.png';
-    else{
-      return '';}
+    if (this.$store.state.session.user) {
+      var picStr =
+        this.$store.state.app.avatarImgPath +
+        this.$store.state.session.user.id +
+        ".png";
+      return picStr;
+    } else {
+      return "";
+    }
   }
   get cachePage() {
     return this.$store.state.app.cachePage;
@@ -232,8 +236,8 @@ export default class Main extends AbpBase {
   get hasReadErrorPage() {
     return this.$store.state.app.hasReadErrorPage;
   }
-  get errorCount(){
-    return this.$store.state.app.errorCount; 
+  get errorCount() {
+    return this.$store.state.app.errorCount;
   }
   get unreadCount() {
     return this.$store.state.user.unreadCount;
@@ -318,7 +322,7 @@ export default class Main extends AbpBase {
     }
   }
   handleCollapsedChange(state) {
-    this.shrink = state;    
+    this.shrink = state;
   }
   handleCloseTag(res, type, route) {
     /*
@@ -352,7 +356,7 @@ export default class Main extends AbpBase {
   langChange() {
     util.setCurrentPath(this, this.$route.name as string);
   }
-  mounted() {    
+  mounted() {
     this.init();
   }
   created() {
@@ -387,7 +391,7 @@ export default class Main extends AbpBase {
   }
   .tag-nav-wrapper {
     padding: 0;
-    height: 42px!important;
+    height: 42px !important;
     background: #f0f0f0;
   }
   .content-wrapper {
@@ -498,16 +502,16 @@ export default class Main extends AbpBase {
 .copyright {
   height: 32px;
   position: fixed;
-  text-align: center;  
+  text-align: center;
   left: 0;
   right: 0;
   bottom: 0;
-  color:silver;
+  color: silver;
   /*background: #7a7979;
   z-index: 6666;
   */
   font-size: 12px;
-  line-height: 32px;  
+  line-height: 32px;
 }
 .copyright_b {
   width: 210px;
@@ -515,11 +519,11 @@ export default class Main extends AbpBase {
 .copyright_a {
   width: 80px;
 }
-  .version{
-    padding: 0 2px;
-    margin: 12px 0 6px;
-    text-align: right;
-    color: rgba(0,0,0,.45);
-    font-size: 10px;
-  }
+.version {
+  padding: 0 2px;
+  margin: 12px 0 6px;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 10px;
+}
 </style>

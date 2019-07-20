@@ -25,8 +25,5 @@ https://juejin.im/post/591aa14f570c35006961acac
 + uni-app 学习
 
 主页内容丰富
-密码恢复 resetPassword - > 用户管理页面,管理员权限
 我的设置
 修改头像
-
-密码错误登录死机
