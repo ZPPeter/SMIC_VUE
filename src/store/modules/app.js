@@ -222,12 +222,13 @@ class AppModule {
                 const { user: { id, surname, userName } } = rootState.session
                 let data = {
                   ...info,
-                  time: Date.parse(new Date()),
+                  //time: Date.parse(new Date()),
+                  time: new Date(),
                   //token,   // null
                   //userId,  // null
-                  id,
+                  //id,
                   surname,
-                  userName
+                  //userName
                 };
                 saveErrorLogger(data).then(() => {
                     commit('addError', data)

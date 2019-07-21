@@ -50,7 +50,16 @@ class UserModule extends ListModule {
                 if(reponse.data.result===true){
                     vm.$Message.success('密码重置成功！'); //  this.$Message 不会显示的
                 }
-            },            
+            },
+            async uploadavatar(context,payload){
+                let vm = new Vue({});
+                alert(JSON.stringify(payload.data));
+                let reponse = await Ajax.post('/api/services/app/UploadAvatar/UploadFile', payload.data);
+                alert(reponse.data.result);
+                //if(reponse.data.result==="OK"){
+                    vm.$Message.success('头像修改成功！'); //  this.$Message 不会显示的
+                //}                
+            },
             async get(context, payload) {
                 let reponse = await Ajax.get('/api/services/app/User/Get?Id=' + payload.id);
                 return reponse.data.result;

@@ -15,17 +15,15 @@
             <Button type="text" @click="changePwdModelShow=true">修改密码</Button>
             <Button type="primary" @click="handleClick('changePassword')">修改密码</Button> -->
           <br />
-          <Icon type="md-person" size="21"/>
-          <Button type="text" @click="change=true">修改头像</Button>
+          <a href='javascript:;' @click="changeAwatarModelShow=true" style="color:rgb(100, 100, 100);">
+            <Icon type="md-person" size="21"/>&nbsp;&nbsp;&nbsp;修改头像</a>
           <br />
-          <Icon type="md-settings" size="21"/>
-          <Button type="text" @click="change=true">我的设置</Button>
-          <br />                    
           <Button shape="circle" icon="md-exit" @click="handleClick('logout')">注销</Button>
         </div>
       </Poptip>
     </div>
     <change-pwd v-model="changePwdModelShow" @save-success="logout"></change-pwd>
+    <change-awatar v-model="changeAwatarModelShow"></change-awatar>
   </div>
 </template>
 
@@ -33,9 +31,11 @@
 import "./user.less";
 import util from "../../../lib/util";
 import ChangePwd from "./change-pwd.vue";
+import ChangeAwatar from "./change-awatar.vue";
 export default {
   components: {
-    ChangePwd
+    ChangePwd,
+    ChangeAwatar
   },
   name: "User",
   props: {
@@ -52,6 +52,7 @@ export default {
     return {
       visible: false,
       changePwdModelShow: false,
+      changeAwatarModelShow: false,
       loading: true
     };
   },
@@ -70,13 +71,13 @@ export default {
         })
       }) */
     },
-    changePassword() {
+    /*changePassword() {
       this.$router.push({
         // 修改 url，完成跳转
         name: "changePassword"
       });
     },
-    /*ownSpace() {
+    ownSpace() {
       util.openNewPage(this, "ownspace_index", null, null);
       this.$router.push({
         name: "ownspace_index"
@@ -88,9 +89,9 @@ export default {
         case "logout":
           this.logout();
           break;
-        case "changePassword":
+        /*case "changePassword":
           this.changePassword();
-          break;
+          break;*/
       }
     },
     created() {

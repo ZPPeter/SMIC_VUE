@@ -1,0 +1,10 @@
+    reader.onload = e => {
+      //console.log(reader.result)
+      this.imgSrc = Base64.decode(Base64.encode(reader.result));
+      //console.log(this.imgSrc);
+    };
+
+     this.$Message.error('This is an error tip');
+     Alert
+     Notice
+     Modal

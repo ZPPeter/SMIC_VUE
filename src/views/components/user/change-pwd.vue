@@ -4,6 +4,7 @@
          title="修改密码"
          :value="value"
          @on-ok="save"
+         :mask-closable="false"
          @on-visible-change="visibleChange"
         >
             <Form ref="userForm"  label-position="top" :rules="userRule" :model="user">
