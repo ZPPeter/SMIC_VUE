@@ -22,7 +22,7 @@
               :max-size="32"
               :on-format-error="handleFormatError"
               :on-exceeded-size="handleMaxSize"
-              action=""
+              action="http://localhost:21021/api/services/app/UploadAvatar/UploadFile"
               style="display: inline-block;width:58px;"
             >
               <Button icon="ios-camera-outline" type="info" size="small">新头像</Button>
@@ -71,10 +71,11 @@ export default class ChangeAwatar extends AbpBase {
     this.$emit("input", false);
   }
   handleSuccess(res, file) {
+    //alert(JSON.stringify(res));
     this.isdisabled = false;
-    file.url =
-      "https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar";
-    file.name = "7eb99afb9d5f317c912f08b5212fd69a";
+    //file.url =
+    //  "https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar";
+    //file.name = "7eb99afb9d5f317c912f08b5212fd69a";
   }
   handleFormatError(file) {
     this.$Notice.warning({
@@ -116,14 +117,22 @@ export default class ChangeAwatar extends AbpBase {
     else{
       this.$Message.error("头像文件格式有误！");
       this.isdisabled = true;
-    }
-    return;
+    }     
+
+    // 编辑器不知道你的upload是什么，上面加上一句 // @ts-ignore
+
+    // @ts-ignore
+    (this.$refs.upload as HTMLElement).post(file); 
+    //this.$refs.upload.post(file); //编译不报错，运行错
+    
+    /* Base64 模式
     this.avatarDto.file = file;
     this.avatarDto.desc = "TEST";
     this.$store.dispatch({
       type: "user/uploadavatar",
       data: this.avatarDto
     });
+    */
   }
 }
 </script>
