@@ -233,7 +233,7 @@ export default class Users extends AbpBase {
               on: {
                 click: async () => {
                   this.$Modal.confirm({
-                    title: "确认要重置用户【"+params.row.surname+"】的登录密码吗？",
+                    title: "密码重置",
                     //content: "密码重置",
                     //okText: this.L("Yes"),
                     //cancelText: this.L("No"),
@@ -241,14 +241,15 @@ export default class Users extends AbpBase {
                       return [
                         h("hr"),
                         h("br"),
-                        h("div", "管理员密码(非用户新密码)："),
+                        h("div", "确认要重置用户【"+params.row.surname+"】的登录密码为默认密码吗？"),                        
+                        h("br"),
                         h("Input", {
                           props: {
                             type: "password",
                             value: this.adminPassword,
                             autofocus: true,
                             placeholder: "请输入管理员密码"
-                          },
+                          },                          
                           on: {
                             input: val => {
                               this.adminPassword = val;
@@ -256,8 +257,11 @@ export default class Users extends AbpBase {
                             //'on-blur': (event) => {
                             //alert(params.index + '-' + event.target.value);
                             //}
-                          }
-                        })
+                          }                        
+                        }                        
+                        ),
+                        h("br"),                        
+                        h("div", "注意：请输入管理员密码进行确认，非用户新密码。"),
                       ];
                     },
                     onOk: async () => {

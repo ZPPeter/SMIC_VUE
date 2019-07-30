@@ -26,4 +26,6 @@ https://juejin.im/post/591aa14f570c35006961acac
 
 主页内容丰富
 我的设置
-修改头像:保存在WebAPI
+
+nginx-gui
+winscp

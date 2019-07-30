@@ -52,12 +52,12 @@ class UserModule extends ListModule {
                 }
             },
             async uploadavatar(context,payload){
-                let vm = new Vue({});
-                alert(JSON.stringify(payload.data));
+                //let vm = new Vue({});
+                //alert(JSON.stringify(payload.data));
                 let reponse = await Ajax.post('/api/services/app/UploadAvatar/UploadFile', payload.data);
-                alert(reponse.data.result);
+                return reponse.data.result;
                 //if(reponse.data.result==="OK"){
-                    vm.$Message.success('头像修改成功！'); //  this.$Message 不会显示的
+                //    vm.$Message.success('头像修改成功！'); //  this.$Message 不会显示的
                 //}                
             },
             async get(context, payload) {

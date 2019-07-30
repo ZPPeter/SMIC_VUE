@@ -4,6 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import ajax from '../../lib/ajax';
 import appconst from '../../lib/appconst';
+import url from '../../lib/url';
 Vue.use(Vuex);
 class AppModule {
     constructor() {
@@ -16,12 +17,12 @@ class AppModule {
             menuTheme: 'dark', //light
             themeColor: '',
             //avatarImgPath: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png',
-            avatarImgPath: '/img/logo_', //.png
+            avatarImgPath: url + 'images/logo_', //.png
             pageOpenedList: [{
-                    meta: { title: '主页' },
-                    path: '',
-                    name: 'home'
-                }],
+                meta: { title: '主页' },
+                path: '',
+                name: 'home'
+            }],
             currentPageName: '',
             currentPath: [
                 {
@@ -39,7 +40,7 @@ class AppModule {
             tagsList: [...otherRouters.children],
             messageCount: 0,
             dontCache: [],
-            version:'版本:1.00',
+            version: '版本:1.00',
             noticeList: [{ read: false, type: 0, title: 'First notice', description: 'One day ago' }, { read: false, type: 1 }, { read: false, type: 0, title: 'Second notice', description: 'One month ago' }],
             errorList: [],
             hasReadErrorPage: false,
@@ -188,13 +189,13 @@ class AppModule {
                 }
                 state.pageOpenedList.push(tagObj);
             },
-            setHasReadErrorLoggerStatus (state, status = true) {
+            setHasReadErrorLoggerStatus(state, status = true) {
                 state.hasReadErrorPage = status   // 错误收集器新消息提示 Badge 角标
             },
-            addError (state, error) {
+            addError(state, error) {
                 state.errorList.push(error);
                 state.errorCount = state.errorList.length;
-            },            
+            },
         };
         this.actions = {
             // 415 (Unsupported Media Type    
@@ -213,27 +214,35 @@ class AppModule {
                 //localStorage.avatarImgPath = '/img/logo.png';
                 //alert(localStorage.avatorImgPath);
             },
-            addErrorLog ({ commit, rootState }, info) {                 
-                if (!window.location.href.includes('error_logger_page')) {                    
-                    commit('setHasReadErrorLoggerStatus', false);                    
+            addErrorLog({ commit, rootState }, info) {
+                if (!window.location.href.includes('error_logger_page')) {
+                    commit('setHasReadErrorLoggerStatus', false);
                 }
                 //const { user: { token, userId, userName } } = rootState // null                                
                 //const { user: { token, userId, userName } } = rootState.session                
-                const { user: { id, surname, userName } } = rootState.session
-                let data = {
-                  ...info,
-                  //time: Date.parse(new Date()),
-                  time: new Date(),
-                  //token,   // null
-                  //userId,  // null
-                  //id,
-                  surname,
-                  //userName
-                };
-                saveErrorLogger(data).then(() => {
-                    commit('addError', data)
-                })
-              }            
+                //alert(JSON.stringify(rootState.session))
+
+                if (Object.prototype.toString.call(info).toLowerCase() === '[object object]')
+                {
+                    const { user: { id, surname, userName } } = rootState.session
+                    let data = {
+                        ...info,
+                        //time: Date.parse(new Date()),
+                        time: new Date(),
+                        //token,   // null
+                        //userId,  // null
+                        //id,
+                        surname,
+                        //userName
+                    };
+                    saveErrorLogger(data).then(() => {
+                        commit('addError', data) // 显示在主页 错误收集按钮
+                    })
+                }                    
+                else{
+                    saveErrorLoggerInfo(info);
+                }
+            }
         };
     }
 }
@@ -241,11 +250,19 @@ const appModule = new AppModule();
 export default appModule;
 
 // Error Log 保存到服务器
-export const saveErrorLogger = info => {    
-    let errorInfo={
-        Detail:''
+export const saveErrorLogger = info => {
+    let errorInfo = {
+        Detail: ''
     };
     errorInfo.Detail = JSON.stringify(info);
     //alert(JSON.stringify(errorInfo));
-    return ajax.post("/api/services/save_error_logger/VueErrorLog/LoggerErr", errorInfo );
+    return ajax.post("/api/services/save_error_logger/VueErrorLog/LoggerErr", errorInfo);
+}
+
+export const saveErrorLoggerInfo = info => {
+    let errorInfo = {
+        Detail: ''
+    };    
+    errorInfo.Detail = info;
+    return ajax.post("/api/services/save_error_logger/VueErrorLog/LoggerErr", errorInfo);
 }

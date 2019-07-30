@@ -23,7 +23,7 @@
       </Poptip>
     </div>
     <change-pwd v-model="changePwdModelShow" @save-success="logout"></change-pwd>
-    <change-awatar v-model="changeAwatarModelShow"></change-awatar>
+    <change-awatar v-model="changeAwatarModelShow" @save-success="reload_"></change-awatar>
   </div>
 </template>
 
@@ -59,6 +59,9 @@ export default {
   methods: {
     close() {
       this.visible = false;
+    },
+    reload_(){      
+      location.reload();  //this.reload() 无效
     },
     logout() {
       this.$store.commit("app/logout", this);

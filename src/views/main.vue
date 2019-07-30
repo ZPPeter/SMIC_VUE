@@ -206,13 +206,13 @@ export default class Main extends AbpBase {
   }
   get avatarPath() {
     //alert(this.$store.state.app.avatarImgPath + this.$store.state.session.user.id + '.png'); //Error id is null
-    //alert('ToDO:' + this.$store.state.app.avatarImgPath);
     //return localStorage.avatarImgPath;
+    //picStr = "http://localhost:21021/images/logo.png?t="+(+new Date());
     if (this.$store.state.session.user) {
       var picStr =
         this.$store.state.app.avatarImgPath +
         this.$store.state.session.user.id +
-        ".png";
+        ".png?t="+(+new Date());
       return picStr;
     } else {
       return "";
