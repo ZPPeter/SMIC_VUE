@@ -10,13 +10,14 @@ class SessionStore {
         };
         this.actions = {
             async init(content) {
+                //alert('session.js')
                 let rep = await ajax.get('/api/services/app/Session/GetCurrentLoginInformations', {
                     headers: {
                         'Abp.TenantId': util.abp.multiTenancy.getTenantIdCookie()
-                    }
-                });
+                    }                    
+                });                
                 content.state.application = rep.data.result.application;
-                content.state.user = rep.data.result.user;
+                content.state.user = rep.data.result.user;                
                 // ToDo
                 // content.state.user.avatarImgPath = 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png';            
                 // localStorage.avatarImgPath = 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png';
@@ -29,4 +30,3 @@ class SessionStore {
 }
 const session = new SessionStore();
 export default session;
-//# sourceMappingURL=session.js.map

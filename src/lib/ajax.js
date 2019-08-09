@@ -18,8 +18,7 @@ const addErrorLog = errorInfo => {
       code: status,
       mes: statusText,
       url: responseURL
-    }    
-    
+    } 
     //if (!responseURL.includes('save_error_logger')){
     if (responseURL && !responseURL.includes('save_error_logger')){    
         store.dispatch('app/addErrorLog', info);
@@ -71,8 +70,14 @@ ajax.interceptors.response.use((respon) => {
             content: '请求的服务器资源不存在！'
         });       
     }
-   
-    addErrorLog(error.response);
+    if(error.response.status===500){
+        vm.$Modal.error({
+            title: '500 错误',
+            content: '未知错误！'
+        });       
+    }
+    else
+        addErrorLog(error.response);    
     
     return Promise.reject(error);
 });

@@ -1,0 +1,87 @@
+<script lang="ts">
+import Vue from "vue";
+export default Vue.extend{
+
+<script lang="ts">
+import {Component,Vue} from "vue-property-decorator";
+import ECharts from "vue-echarts";
+@Component({
+    components: {
+      'chart': ECharts
+    }
+})
+export default class Home extends Vue {
+
+<template>
+  <div>
+    <input v-model="msg">
+    <p>msg: {{ msg }}</p>
+    <p>computed msg: {{ computedMsg }}</p>
+    <button @click="greet">Greet</button>
+  </div>
+</template>
+
+<script lang="ts">
+  import Vue from 'vue'
+  import Component from 'vue-class-component'
+
+  @Component
+  export default class App extends Vue {
+    // 初始化数据
+    private number: number = 0;
+    msg = 123  // 在模板{{引用方式}}
+
+    // 声明周期钩子
+    mounted () {
+      this.greet()
+    }
+beforeCreate() {
+  console.log('before create');
+}
+created() {
+  console.log('created');：
+}
+beforeMount() {
+  console.log('before mount');
+}
+
+    // 计算属性   // 在模板{{引用方式}}
+    get computedMsg () {
+      return 'computed ' + this.msg
+    }	
+	  get age(): string {   // 计算属性的get
+	    return `I am ${this.number} years old`;
+	  }
+	  set age(value) {      // 计算属性的set
+	    this.number = Number(value);
+  	}
+//分享个小技巧，如果想要传参给 computed，可以令计算属性返回一个函数：
+get foo() {
+  // ...
+  return (params: any) => {
+  	let returnValue;
+    // ...
+    return returnValue; 
+  }
+}
+@Watch('number') // 侦听属性 watch
+changeAge(newValue: number, oldValue: number)  {
+    console.log(`newValue: ${newValue}, oldValue: ${oldValue}`);
+}
+/*
+这样的写法等同于之前的：
+
+watch: {
+  changeAge: function (newValue, oldValue) {
+    console.log(`newValue: ${newValue}, oldValue: ${oldValue}`);          	
+  }
+}
+*/
+
+    // 方法  // 在模板引用方式 @click="greet"
+    greet () {
+      alert('greeting: ' + this.msg)
+    }
+
+  }
+</script>

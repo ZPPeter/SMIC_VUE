@@ -74,10 +74,11 @@ Ajax.get('/AbpUserConfiguration/GetAll').then(data=>{
         }
       }
       this.$store.commit('app/initCachepage');
-      this.$store.commit('app/updateMenulist');
+      this.$store.commit('app/updateMenulist');      
       Ajax.get('/api/services/app/Session/GetCurrentLoginInformations').then(data=>{
         //console.log(JSON.stringify(data.data.result.application));
         this.$store.state.app.version = "版本:" + data.data.result.application.version +" 【" + Util.dateFormat(data.data.result.application.releaseDate) +"】";
+        console.log(this.$store.state.app.version);
       })
       //let rep = await ajax.get("");
     },

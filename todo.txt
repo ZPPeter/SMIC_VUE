@@ -10,22 +10,20 @@ namespace SMIC.Sessions.Dto
         public string EmailAddress { get; set; }
     }
 }
-增加 avatarImgPath
+
 ----------------------------------------------------------
+iView-admin2.0动态菜单路由
 https://www.cnblogs.com/smilexumu/p/10521612.html
 https://www.cnblogs.com/smilexumu/p/10911161.html
 https://www.cnblogs.com/yanzhen/p/9518894.html
-
 https://www.cnblogs.com/zzayne/p/8833516.html
-https://blog.csdn.net/harsima/article/details/77949448
-https://juejin.im/post/591aa14f570c35006961acac
 
 //util.debugObjectAttr(this.$store,false);
 
-+ uni-app 学习
+Destroy.On.Off
+E:\JLMISIII\Examples\iview-admin-master\iview-admin-master\src\view\single-page\home\example.vue
 
-主页内容丰富
-我的设置
 
-nginx-gui
-winscp
+消息
+DPII 移植到 SMIC
+主页统计[缓存] - 按器具名称(动态刷新) - 后台数据库变化再刷新

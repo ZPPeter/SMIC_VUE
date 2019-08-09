@@ -215,6 +215,7 @@ class AppModule {
                 //alert(localStorage.avatorImgPath);
             },
             addErrorLog({ commit, rootState }, info) {
+                //alert('1:'+window.location.href + JSON.stringify(info));
                 if (!window.location.href.includes('error_logger_page')) {
                     commit('setHasReadErrorLoggerStatus', false);
                 }
@@ -255,7 +256,6 @@ export const saveErrorLogger = info => {
         Detail: ''
     };
     errorInfo.Detail = JSON.stringify(info);
-    //alert(JSON.stringify(errorInfo));
     return ajax.post("/api/services/save_error_logger/VueErrorLog/LoggerErr", errorInfo);
 }
 
