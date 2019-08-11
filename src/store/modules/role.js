@@ -15,6 +15,7 @@ class RoleModule extends ListModule {
         };
         this.actions = {
             async getAll(context, payload) {
+                //alert(JSON.stringify(payload.data))
                 context.state.loading = true;
                 let reponse = await Ajax.get('/api/services/app/Role/GetAll', { params: payload.data });
                 context.state.loading = false;

@@ -102,6 +102,7 @@ export default class Users extends AbpBase {
   adminPassword: string = "";
   resetPasswordDto:ResetPasswordDto = new ResetPasswordDto();
   get list() {
+    //alert('2:'+this.$store.state.user.list)
     //alert("Here:"+JSON.stringify(this.$store.state.user.list[2].lastLoginTime));
     return this.$store.state.user.list;
   }
@@ -316,6 +317,7 @@ export default class Users extends AbpBase {
     }
   ];
   async created() {
+    //alert('1')
     this.getpage();
     await this.$store.dispatch({
       type: "user/getRoles"

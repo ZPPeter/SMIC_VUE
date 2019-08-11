@@ -18,7 +18,7 @@
           <a href='javascript:;' @click="changeAwatarModelShow=true" style="color:rgb(100, 100, 100);">
             <Icon type="md-person" size="21"/>&nbsp;&nbsp;&nbsp;修改头像</a>
           <br />
-          <Button shape="circle" icon="md-exit" @click="handleClick('logout')">注销</Button>
+          <Button size="large" shape="circle" icon="md-exit" @click="handleClick('logout')">注销</Button>
         </div>
       </Poptip>
     </div>

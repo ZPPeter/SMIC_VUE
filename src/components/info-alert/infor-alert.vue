@@ -7,6 +7,9 @@
 
 <script>
 export default {
-  name: 'InforAlert'
+  name: 'InforAlert',
+  mounted () {
+    //alert('I came from info alert')
+  }  
 }
 </script>

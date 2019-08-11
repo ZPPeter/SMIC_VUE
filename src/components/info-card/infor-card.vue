@@ -1,5 +1,5 @@
 <template>
-  <Card :shadow="shadow" class="info-card-wrapper" :padding="0">
+<Card :shadow="shadow" class="info-card-wrapper" :padding="0">
     <div class="content-con">
       <div class="left-area" :style="{background: color, width: leftWidth}">
         <common-icon class="icon" :type="icon" :size="iconSize" color="#fff"/>
@@ -49,6 +49,8 @@ export default {
     rightWidth () {
       return `${100 - this.left}%`
     }
+  },
+  methods:{
   }
 }
 </script>
@@ -59,6 +61,7 @@ export default {
   height: 100%;
   display: table;
   text-align: center;
+  background-color: lightgrey;
 }
 .size{
   width: 100%;
