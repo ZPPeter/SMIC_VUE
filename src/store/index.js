@@ -7,6 +7,8 @@ import account from './modules/account';
 import user from './modules/user';
 import member from './modules/member';
 import vw_sjmx from './modules/vw_sjmx';
+import wtd from './modules/wtd';
+import sjmx from './modules/sjmx';
 import role from './modules/role';
 import tenant from './modules/tenant';
 const store = new Vuex.Store({
@@ -25,7 +27,9 @@ const store = new Vuex.Store({
         member,
         role,
         tenant,
-        vw_sjmx
+        vw_sjmx,
+        wtd,
+        sjmx
     }
 });
 export default store;

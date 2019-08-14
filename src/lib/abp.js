@@ -1,7 +1,7 @@
 ﻿var abp = abp || {};
 (function () {
     
-    //alert('1122333')
+    //alert('hello abp!')
 
     abp.test = function () {
         alert('OKOKOKOKOKOKO')
@@ -344,7 +344,11 @@
         if (logLevel != undefined && logLevel < abp.log.level) {
             return;
         }
-
+        if(logObject.indexOf('Could not find localization source')>-1){
+            // console.log(abp);
+            // \n\r
+            // alert('服务器连接失败！请检查数据服务是否正常工作！');
+        }
         console.log(logObject);
     };
 

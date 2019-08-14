@@ -1,0 +1,9 @@
+DIV 居中
+<div slot="title" style="width:100%;height:32px;text-align: center;">
+
+      <Row slot="title" justify="center" align="bottom" style="display: flex;align-items: center;">
+        <Col span="12"><Icon size="21" type="md-apps"></Icon>近期送检单位： </Col>
+        <Col span="12" style="text-align: right;">
+        <Input @on-search="search" search v-model="ccbh" placeholder="委托单号/单位名称" style="width:210px;" />
+        </Col>
+      </Row>

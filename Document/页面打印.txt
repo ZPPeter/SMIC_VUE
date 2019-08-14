@@ -1,0 +1,12 @@
+1、main.ts
+import Print from './libs/print.js';
+Vue.use(Print) // 注册打印插件
+
+2、template
+<section ref="print">
+	打印内容
+	<div class="no-print">不要打印我</div>
+</section>    
+
+3、js
+this.$print(this.$refs.print) // 打印测试

@@ -14,8 +14,8 @@
       >
         <div v-on:click="showChart(i)" style="height: 120px;">
           <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">
-            <count-to :end="infor.count" count-class="count-style" />
-            <p class="total-style">T:{{ infor.count * 100 }}</p>
+            <count-to :end="data_tj[i*2]" count-class="count-style" />
+            <p class="total-style">T:{{ data_tj[i*2+1] }}</p>
             <p>{{ infor.title }}</p>
           </infor-card>
         </div>
@@ -23,6 +23,9 @@
     </Row>
     <Row>
       <chart :type="type" style="height: 310px;width:100%;margin-top:10px;" />
+    </Row>
+    <Row>
+      <div style="height:5px;"></div>
     </Row>
     <Row :gutter="16">
       <i-col span="12">        
@@ -61,7 +64,7 @@ export default {
         {
           title: "全站仪",
           icon: "md-locate",
-          count: 803,
+          count: 879,
           color: "#2d8cf0"
         },
         {
@@ -93,6 +96,13 @@ export default {
     };
   },
   methods: {
+    async getpage() {
+      //alert('2')
+      await this.$store.dispatch({
+        type: "sjmx/getStatistics"
+      });     
+      //alert('6') 
+    },    
     onClick: function() {
       console.log("clicked");
     },
@@ -110,8 +120,21 @@ export default {
       }
     }
   },
-  mounted () {
-  }  
+  computed: {
+    data_tj() { 
+      //alert('4')      
+      console.log(this.$store.state.sjmx.datas);
+      return this.$store.state.sjmx.datas;      
+    }
+  },
+  mounted () {    
+    //alert('5')
+  },
+  async created() {    
+    //alert('1')
+    this.getpage();
+    //alert('3')
+  }    
 };
 </script>
 

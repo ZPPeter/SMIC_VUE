@@ -23,9 +23,10 @@ https://www.cnblogs.com/zzayne/p/8833516.html
 Destroy.On.Off
 E:\JLMISIII\Examples\iview-admin-master\iview-admin-master\src\view\single-page\home\example.vue
 
+developmentOff: false 死循环继续调试
 
-主页统计[缓存] - 按器具名称(动态刷新) - 后台数据库变化再刷新
-最近送检仪器 - 不分页，查询
-最近送检单位 - 不分页，查询
+主页缓存：1、VUE缓存  keep-alive
+         2、后台数据库变化再刷新(cache - entity)
+真实统计数字
 
-DPII 移植到 SMIC
+home 统计拿出来写组件

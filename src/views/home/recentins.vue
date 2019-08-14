@@ -1,14 +1,16 @@
 <template>
   <div>
     <Card dis-hover :shadow="shadow" :padding="padding">
-    <p slot="title">
-      <Icon type="md-apps"></Icon>
-      近期送检仪器：</p>
+      <Row slot="title" style="display: flex;align-items: center;">
+        <Col span="12" style="align:center;"><Icon size="21" type="md-apps"></Icon>近期送检仪器：</Col>
+        <Col span="12" style="text-align: right;">
+        <Input @on-search="search" search v-model="q" placeholder="委托单号/出厂编号" style="width:210px;" />
+        </Col>
+      </Row>
     <Table :columns="columns" :data="lists"></Table>
     </Card>
   </div>
 </template>
-
 <script>
 export default {
   name: "RecentIns",
@@ -24,37 +26,61 @@ export default {
   },
   data() {
     return {
+      q:'',
       columns: [
         {
-          title: "单位",
-          key: "userName"
+          title: "委托单号",
+          key: "sjdid"
         },
         {
-          title: "显示名称",
-          key: "surname"
+          title: "器具名称",
+          key: "qjmc"
         },
         {
-          title: "详情",
-          key: "emailAddress"
+          title: "型号规格",
+          key: "xhggmc"
+        },
+        {
+          title: "出厂编号",
+          key: "ccbh"
+        },
+        {
+          title: "检定状态",
+          key: "jdzt"
+        },
+        {
+          title: "送检日期",
+          key: "djrq",
+          width: 180,
+          render: (h, params) => {
+            return h("span", new Date(params.row.djrq).toLocaleString());
+          }
         }
       ],
       datas: new Array()
     };
   },
   methods: {
-    onClick: function() {},
     async getpage() {
       await this.$store.dispatch({
-        // update -> this.$store.state.user.list
-        type: "user/getAll",
-        data: { keyword: "", maxResultCount: 10, skipCount: 0 }
+        type: "sjmx/getRecentSJMX"
       });
+    },
+    async search(){
+      //this.q = this.q.trim();
+      //if(this.q.length==0)
+      //  return;
+      //else{
+      await this.$store.dispatch({
+        type: "sjmx/getRecentSJMXBy",
+        data:this.q
+      });        
+      //}
     }
   },
   computed: {
     lists() {
-      //alert("2-5:" + this.$store.state.user.list);
-      return this.$store.state.user.list;
+      return this.$store.state.sjmx.list;
     }
   },
   mounted() {

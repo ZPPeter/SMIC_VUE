@@ -5,7 +5,11 @@ export default {
   install (Vue, options) {    
     if (options.developmentOff && process.env.NODE_ENV === 'development') return    
     Vue.config.errorHandler = (error, vm, mes) => {     
-
+      //alert(error.message.includes('Cannot read property'))
+      if(error.message.includes('Cannot read property')){
+        new Vue({}).$Modal.error({ title: '客户端源码错误', content: error.message + '<br>请联系管理员解决!'}); // 不处理会 endless loop
+        return;
+      }
       console.error('Vue errorHandler：' + error); //详情,内有回车换行等
       //console.log(error); //详情,内有回车换行等
 

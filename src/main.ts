@@ -11,8 +11,12 @@ import './theme.less';
 import Ajax from './lib/ajax';
 import Util from './lib/util';
 import SignalRAspNetCoreHelper from './lib/SignalRAspNetCoreHelper';
+
 Vue.use(iView);
 import store from './store/index';
+
+import Print from './libs/print.js';
+Vue.use(Print) // 注册打印插件
 
 /**
  * @description 注册admin内置插件
@@ -94,5 +98,11 @@ Ajax.get('/AbpUserConfiguration/GetAll').then(data=>{
       this.$store.commit('app/setTagsList', tagsList);
     }
   }).$mount('#app')
-})
+},function(){
+  console.log('数据服务器连接失败！请尝试如下操作：')
+  console.log('1、启动SQLServer服务；')
+  console.log('2、重新启动IIS服务！')
+  alert('数据服务器连接失败！\n请检查后台数据服务是否已启动！');
+});
+
 
