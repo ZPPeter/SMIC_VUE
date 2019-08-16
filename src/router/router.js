@@ -42,7 +42,7 @@ export const appRouters = [
   {
     path: '/main',
     name: 'business',
-    permission: '',
+    permission: '', // 可以控制 children 子菜单是否显示,permission 此处不定义为 null，则子菜单 permission 定义失效
     meta: { title: '业务数据管理' },
     icon: 'md-desktop',
     component: main,
@@ -64,7 +64,7 @@ export const appRouters = [
   }, {
     path: '/main',
     name: 'setting',
-    permission: '',
+    permission: '', // Pages.HomeInfo
     meta: { title: '系统管理' },  // 中文化名称在 abp 后台设置 window.abp
     icon: 'ios-construct-outline',
     component: main,
@@ -75,7 +75,6 @@ export const appRouters = [
     ]
   },
 ];
-
 // 一级路由不显示在左侧菜单区域
 export const routers = [
   loginRouter,
@@ -83,4 +82,3 @@ export const routers = [
   ...appRouters,//...appRouters, 对象展开运算符,二级路由，显示与左侧
   otherRouters
 ];
-//# sourceMappingURL=router.js.map

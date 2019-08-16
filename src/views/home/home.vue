@@ -1,25 +1,15 @@
 <template>
   <div>
-    <Row>
+    <Row :gutter="16" type="flex">
+      <i-col span="19">        
       <info-alert></info-alert>
+      </i-col>
+      <i-col span="5" style="text-align:right;">
+      <clock></clock>
+      </i-col>      
     </Row>
     <Row :gutter="20">
-      <i-col
-        :xs="12"
-        :md="8"
-        :lg="4"
-        v-for="(infor, i) in inforCardData"
-        :key="`infor-${i}`"
-        style="height: 120px;padding-bottom: 10px;"
-      >
-        <div v-on:click="showChart(i)" style="height: 120px;">
-          <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">
-            <count-to :end="data_tj[i*2]" count-class="count-style" />
-            <p class="total-style">T:{{ data_tj[i*2+1] }}</p>
-            <p>{{ infor.title }}</p>
-          </infor-card>
-        </div>
-      </i-col>
+      <stats @showChart="showChart"></stats>
     </Row>
     <Row>
       <chart :type="type" style="height: 310px;width:100%;margin-top:10px;" />
@@ -43,69 +33,27 @@ import InforCard from "@/components/info-card";
 import CountTo from "@/components/count-to";
 import InfoAlert from "@/components/info-alert";
 import Chart from "./chart.vue";
-
+import Clock from "@/components/clock";
+import Stats from "./stats.vue";
 import RecentClients from "./recentclients.vue";
 import RecentIns from "./recentins.vue";
 
 export default {
   name: "home",
   components: {
-    InforCard,
-    CountTo,
     Chart,
     InfoAlert,
     RecentIns,
-    RecentClients
+    RecentClients,
+    Stats,
+    Clock    
   },
   data() {
     return {
       type: "qzy",
-      inforCardData: [
-        {
-          title: "全站仪",
-          icon: "md-locate",
-          count: 879,
-          color: "#2d8cf0"
-        },
-        {
-          title: "GPS接收机",
-          icon: "_yiqixinxisvg",
-          count: 232,
-          color: "#19be6b"
-        },
-        {
-          title: "经纬仪",
-          icon: "_theodolite",
-          count: 142,
-          color: "#ff9900"
-        },
-        { title: "水准仪", icon: "ios-swap", count: 657, color: "#ed3f14" },
-        {
-          title: "手持测距仪",
-          icon: "_distance",
-          count: 12,
-          color: "#E46CBB"
-        },
-        {
-          title: "其它仪器",
-          icon: "ios-apps-outline",
-          count: 14,
-          color: "#9A66E4"
-        }
-      ]
     };
   },
   methods: {
-    async getpage() {
-      //alert('2')
-      await this.$store.dispatch({
-        type: "sjmx/getStatistics"
-      });     
-      //alert('6') 
-    },    
-    onClick: function() {
-      console.log("clicked");
-    },
     showChart(it) {
       switch (it) {
         case 0:
@@ -121,18 +69,14 @@ export default {
     }
   },
   computed: {
-    data_tj() { 
       //alert('4')      
-      console.log(this.$store.state.sjmx.datas);
-      return this.$store.state.sjmx.datas;      
-    }
   },
   mounted () {    
     //alert('5')
   },
   async created() {    
     //alert('1')
-    this.getpage();
+    //this.getpage();
     //alert('3')
   }    
 };

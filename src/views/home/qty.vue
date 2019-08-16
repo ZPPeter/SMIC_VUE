@@ -7,18 +7,21 @@
 import echarts from "echarts";
 import { on, off } from "@/libs/tools";
 export default {
-  name: "serviceRequests",
+  name: "qzyStats",
   data() {
     return {
-      dom: null
+      dom: null,
+      yearNow: new Date().getFullYear()
     };
   },
+  computed: {
+  },  
   methods: {
-    resize() {
-      this.dom.resize();
-    }
-  },
-  mounted() {
+    async getStatsData() {
+      await this.$store.dispatch({
+        type: "sjmx/getQtyStatsData"
+      });  
+      //alert(this.$store.state.sjmx.datas_0);
     const option = {
       title: {
         text: "近两年其它各类仪器送检情况",
@@ -35,7 +38,7 @@ export default {
         }
       },
       legend: {
-        data: ["2018年", "2019年", "GR"],
+        data: [(this.yearNow-1) + "年", this.yearNow + "年", "GR"],
         top: "18"
       },
       toolbox: {
@@ -54,7 +57,7 @@ export default {
         right: "5%",
         bottom: "3%",
         containLabel: true,
-        show: false // 网格边框是否显示，上和右边框
+        show: true // 网格边框是否显示，上和右边框
       },
       xAxis: {
         type: "category",
@@ -78,7 +81,6 @@ export default {
           "12月"
         ]
       },
-
       yAxis: [
         // 双y坐标轴
         {
@@ -100,7 +102,7 @@ export default {
             show: false
           },
           min: 0,
-          max: 200, // growing rate upper limit
+          max: 300, // growing rate upper limit
           type: "value",
           //top:10,
           inverse: false,
@@ -111,10 +113,9 @@ export default {
           }
         }
       ],
-
       series: [
         {
-          name: "2018年",
+          name: (this.yearNow-1) + "年",
           type: "bar",
           color: "#33CCFF",
           //stack: '总量',
@@ -127,10 +128,11 @@ export default {
           markLine: {
             data: [{ type: "average", name: "平均值" }]
           },
-          data: [174, 277, 174, 143, 163, 147, 177, 192, 260, 33, 364, 249]
+          //data: [174, 277, 174, 143, 163, 147, 177, 192, 260, 33, 364, 249]
+          data:this.$store.state.sjmx.datas_0
         },
         {
-          name: "2019年",
+          name: this.yearNow + "年",
           type: "bar",
           color: "#33CC99",
           //stack: '总量',
@@ -143,7 +145,8 @@ export default {
           markLine: {
             data: [{ type: "average", name: "平均值" }]
           },
-          data: [260, 116, 294, 87, 211, 50, 391, 91.1, 76, 138, 401, 144]
+          //data: [260, 116, 294, 87, 211, 50, 391, 91.1, 76, 138, 401, 144]
+          data:this.$store.state.sjmx.datas_1
         },
         {
           name: "GR",
@@ -157,30 +160,26 @@ export default {
               //{type : 'min', name : '最小值'}
             ]
           },
-          data: [
-            49.8,
-            19,
-            68.9,
-            61.6,
-            12.6,
-            50.1,
-            31.1,
-            92.1,
-            77.7,
-            38.1,
-            75.5,
-            99.7
-          ]
+          data:this.$store.state.sjmx.datas_2
         }
       ]
     };
-
     this.$nextTick(() => {
       this.dom = echarts.init(this.$refs.dom);
       this.dom.setOption(option);
       on(window, "resize", this.resize);
-    });
+    });      
+    },    
+    resize() {
+      this.dom.resize();
+    }
   },
+  mounted() {    
+  },
+  async created() {    
+    this.getStatsData();    
+    //alert(this.$store.state.sjmx.datas_2)
+  },  
   beforeDestroy() {
     off(window, "resize", this.resize);
   }

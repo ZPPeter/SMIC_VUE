@@ -88,7 +88,7 @@
           <language-list v-if="$config.useI18n" style="margin-right: 10px;" :lang="local"></language-list>
           <!-- v-if="isAdminUser" -->
           <error-store
-            v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader"
+            v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader && !$config.plugin['error-store'].developmentOff"
             :has-read="hasReadErrorPage"
             :count="errorCount"
             style="margin-right: 15px;"

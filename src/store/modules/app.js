@@ -57,27 +57,37 @@ class AppModule {
             setTagsList(state, list) {
                 state.tagsList.push(...list);
             },
-            updateMenulist(state) {
+            updateMenulist(state) { //菜单级别权限，控制是否显示该菜单
                 let menuList = [];
                 appRouters.forEach((item, index) => {
+                    //console.log( JSON.stringify(item) )
                     if (item.permission !== undefined) {
                         let hasPermissionMenuArr = [];
-                        hasPermissionMenuArr = item.children.filter(child => {
-                            if (child.permission !== undefined) {
-                                if (Util.abp.auth.hasPermission(child.permission)) {
+                        // 根据父菜单控制子菜单
+                        if (item.permission==='' || Util.abp.auth.hasPermission(item.permission)) {
+                            hasPermissionMenuArr = item.children.filter(child => {
+                                if (child.permission !== undefined) {
+                                    if (Util.abp.auth.hasPermission(child.permission)) {
+                                        //这是 Children 子菜单的权限alert('app.js:' + child.permission)
+                                        // children: [
+                                        //    { path: 'tenant', icon: 'ios-people', permission: 'Pages.Tenants', meta: { title: '多租户' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') },                                        
+                                        // ]
+                                        return child;
+                                    }
+                                }
+                                else {
                                     return child;
                                 }
-                            }
-                            else {
-                                return child;
-                            }
-                        });
+                            });
+                        }
+                        //console.log( JSON.stringify(item) )
+                        //console.log(item.permission)
                         if (hasPermissionMenuArr.length > 0) {
                             item.children = hasPermissionMenuArr;
                             menuList.push(item);
                         }
                     }
-                    else {
+                    else { // permission undefined
                         if (item.children.length === 1) {
                             menuList.push(item);
                         }
@@ -223,8 +233,7 @@ class AppModule {
                 //const { user: { token, userId, userName } } = rootState.session                
                 //alert(JSON.stringify(rootState.session))
 
-                if (Object.prototype.toString.call(info).toLowerCase() === '[object object]')
-                {
+                if (Object.prototype.toString.call(info).toLowerCase() === '[object object]') {
                     const { user: { id, surname, userName } } = rootState.session
                     let data = {
                         ...info,
@@ -239,8 +248,8 @@ class AppModule {
                     saveErrorLogger(data).then(() => {
                         commit('addError', data) // 显示在主页 错误收集按钮
                     })
-                }                    
-                else{
+                }
+                else {
                     saveErrorLoggerInfo(info);
                 }
             }
@@ -262,7 +271,7 @@ export const saveErrorLogger = info => {
 export const saveErrorLoggerInfo = info => {
     let errorInfo = {
         Detail: ''
-    };    
+    };
     errorInfo.Detail = info;
     return ajax.post("/api/services/save_error_logger/VueErrorLog/LoggerErr", errorInfo);
 }

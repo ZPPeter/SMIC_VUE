@@ -32,8 +32,8 @@ export default {
   plugin: {
     'error-store': {
       showInHeader: true,   // 设为false后不会在顶部显示错误日志徽标,隐藏一般用户查看日志入口
-      developmentOff: true // 设为true后在开发环境不会收集错误信息，方便开发中排查错误,false 打开错误收集器
-      //developmentOff: false // 设为true后在开发环境不会收集错误信息，方便开发中排查错误,false 打开错误收集器
+      //developmentOff: true // 设为true后在开发环境不会收集错误信息，方便开发中排查错误,false 打开错误收集器
+      developmentOff: false // 设为true后在开发环境不会收集错误信息，方便开发中排查错误,false 打开错误收集器
       // 若死循环关闭错误收集
     }
   }

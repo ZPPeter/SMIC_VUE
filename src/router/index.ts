@@ -40,6 +40,7 @@ router.beforeEach((to, from, next) => {
         else {            
             const curRouterObj = Util.getRouterObjByName([otherRouters, ...appRouters], to.name);            
             if (curRouterObj && curRouterObj.permission) {
+                //检查有无权限                
                 if (window.abp.auth.hasPermission(curRouterObj.permission)) {
                     Util.toDefaultPage([otherRouters, ...appRouters], to.name, router, next);
                 }

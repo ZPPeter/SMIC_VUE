@@ -10,8 +10,9 @@
       >
         <div v-on:click="showChart(i)" style="height: 120px;">
           <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">
-            <count-to :end="statsData[i*2]" count-class="count-style" />
-            <p class="total-style">T:{{ statsData[i*2+1] }}</p>
+            <!-- count-to :end="statsData[i*2+1]" count-class="count-style" / -->
+            <p class="count-style">{{ statsData[i*2+1] }}</p>
+            <p class="total-style">T:{{ statsData[i*2] }}</p>
             <p>{{ infor.title }}</p>
           </infor-card>
         </div>
@@ -31,32 +32,32 @@ export default {
     return {
       inforCardData: [
         {
-          title: "È«Õ¾ÒÇ",
+          title: "å…¨ç«™ä»ª",
           icon: "md-locate",
           count: 803,
           color: "#2d8cf0"
         },
         {
-          title: "GPS½ÓÊÕ»ú",
+          title: "GPSæ¥æ”¶æœº",
           icon: "_yiqixinxisvg",
           count: 232,
           color: "#19be6b"
         },
         {
-          title: "¾­Î³ÒÇ",
+          title: "ç»çº¬ä»ª",
           icon: "_theodolite",
           count: 142,
           color: "#ff9900"
         },
-        { title: "Ë®×¼ÒÇ", icon: "ios-swap", count: 657, color: "#ed3f14" },
+        { title: "æ°´å‡†ä»ª", icon: "ios-swap", count: 657, color: "#ed3f14" },
         {
-          title: "ÊÖ³Ö²â¾àÒÇ",
+          title: "æ‰‹æŒæµ‹è·ä»ª",
           icon: "_distance",
           count: 12,
           color: "#E46CBB"
         },
         {
-          title: "ÆäËüÒÇÆ÷",
+          title: "å…¶å®ƒç±»ä»ªå™¨",
           icon: "ios-apps-outline",
           count: 14,
           color: "#9A66E4"
@@ -69,16 +70,17 @@ export default {
         this.$emit('showChart',i)
     },
     async getStatsData() {
-      //await this.$store.dispatch({
-      //  type: "sjmx/getStatsData"
-      //});
+      await this.$store.dispatch({
+        type: "sjmx/getStatsData"
+      });
     }
   },
   computed: {
     statsData() {
       //alert("2-5");
-      //return this.$store.state.user.list;
-      return [1,2,3,4,5,6,7,8,9,10,11,12]
+      //alert(this.$store.state.sjmx.datas)
+      return this.$store.state.sjmx.datas
+      //return [1,2,3,4,5,6,7,8,9,10,11,12]
     }
   },
   mounted() {
@@ -86,7 +88,7 @@ export default {
   },
   async created() {
     //alert("1");
-    //this.getStatsData();
+    this.getStatsData();
   }
 };
 </script>

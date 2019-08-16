@@ -13,7 +13,7 @@ class Util {
         //let appname=this.abp.localization.localize('AppName',appconst.localization.defaultLocalizationSourceName);
         let page = this.abp.localization.localize(title, appconst.localization.defaultLocalizationSourceName);
         //window.document.title = appname+'--'+page;
-        window.document.title = '仪器检定数据处理系统' + ' - ' + page;
+        window.document.title = '测绘仪器检定数据处理系统' + ' - ' + page;
     }
     inOf(arr, targetArr) {
         let res = true;

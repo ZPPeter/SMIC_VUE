@@ -27,6 +27,4 @@ developmentOff: false 死循环继续调试
 
 主页缓存：1、VUE缓存  keep-alive
          2、后台数据库变化再刷新(cache - entity)
-真实统计数字
-
-home 统计拿出来写组件
+首页正在加载...

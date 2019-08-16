@@ -2,7 +2,7 @@
   <div>
     <Card dis-hover :shadow="shadow" :padding="padding">
       <Row slot="title" style="display: flex;align-items: center;">
-        <Col span="12"><Icon size="21" type="md-apps"></Icon>近期送检单位： </Col>
+        <Col span="12"><Icon size="21" type="md-apps"></Icon>送检单位列表： </Col>
         <Col span="12" style="text-align: right;">
         <Input @on-search="search" search v-model="q" placeholder="委托单号/委托单位" style="width:210px;" />
         </Col>
