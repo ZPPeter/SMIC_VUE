@@ -25,6 +25,9 @@ E:\JLMISIII\Examples\iview-admin-master\iview-admin-master\src\view\single-page\
 
 developmentOff: false 死循环继续调试
 
-主页缓存：1、VUE缓存  keep-alive
-         2、后台数据库变化再刷新(cache - entity)
-首页正在加载...
+角色不同，主页内容不同
+-------------------------------------------------------
+
+角色修改权限失败 - 升级？重写？
+
+主页箭头不工作？ tags-page-opened.vue

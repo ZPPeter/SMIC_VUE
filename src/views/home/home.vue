@@ -69,15 +69,14 @@ export default {
     }
   },
   computed: {
-      //alert('4')      
   },
   mounted () {    
-    //alert('5')
   },
   async created() {    
-    //alert('1')
-    //this.getpage();
-    //alert('3')
+    //alert('created.')
+  },
+  activated(){
+    //alert('actived.')
   }    
 };
 </script>

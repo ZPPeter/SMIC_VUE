@@ -49,6 +49,7 @@
         save(){
             (this.$refs.roleForm as any).validate(async (valid:boolean)=>{
                 if(valid){
+                    //alert(JSON.stringify(this.role))
                     await this.$store.dispatch({
                         type:'role/update',
                         data:this.role

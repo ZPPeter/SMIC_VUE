@@ -317,11 +317,14 @@ export default class Users extends AbpBase {
     }
   ];
   async created() {
-    //alert('1')
+    //alert('1:created.')
     this.getpage();
     await this.$store.dispatch({
       type: "user/getRoles"
     });
+  }  
+  activated(){
+    //alert('actived.');
   }
 }
 </script>

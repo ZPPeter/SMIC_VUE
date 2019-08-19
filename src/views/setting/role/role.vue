@@ -153,5 +153,8 @@
                 type:'role/getAllPermissions'
             })
         }
+        activated(){
+            //alert('activated.')
+        }
     }
 </script>

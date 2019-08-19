@@ -27,6 +27,7 @@ class RoleModule extends ListModule {
                 await Ajax.post('/api/services/app/Role/Create', payload.data);
             },
             async update(context, payload) {
+                //alert(JSON.stringify(payload.data))
                 await Ajax.put('/api/services/app/Role/Update', payload.data);
             },
             async delete(context, payload) {

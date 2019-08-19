@@ -69,8 +69,8 @@ export const appRouters = [
     icon: 'ios-construct-outline',
     component: main,
     children: [
-      { path: 'user', icon: 'md-contacts', permission: 'Pages.Users', meta: { title: '系统用户管理' }, name: 'user', component: () => import('../views/setting/user/user.vue') },
-      { path: 'role', icon: 'ios-contacts', permission: 'Pages.Roles', meta: { title: '系统角色管理' }, name: 'role', component: () => import('../views/setting/role/role.vue') },
+      { path: 'user', icon: 'md-contacts', permission: 'Pages.Users', meta: { title: '系统用户管理' }, name: 'Users', component: () => import('../views/setting/user/user.vue') },
+      { path: 'role', icon: 'ios-contacts', permission: 'Pages.Roles', meta: { title: '系统角色管理' }, name: 'Roles', component: () => import('../views/setting/role/role.vue') },
       { path: 'error_store_test', icon: 'ios-bug',  meta: { title: '错误收集测试' }, name: 'error_store_page', component: () => import('../views/error-store/error-store.vue') },
     ]
   },

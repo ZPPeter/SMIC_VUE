@@ -137,7 +137,7 @@ export default class TagsPageOpened extends AbpBase {
     }
   }
   handlescroll(e: any) {
-    var type = e.type;
+    var type = e.type;    
     let delta = 0;
     if (type === "DOMMouseScroll" || type === "mousewheel") {
       delta = e.wheelDelta ? e.wheelDelta : -(e.detail || 0) * 40;
@@ -167,10 +167,14 @@ export default class TagsPageOpened extends AbpBase {
     this.tagBodyLeft = left;
   }
   handleScroll(offset: number) {
-    let scrollOuter = this.$refs.scrollOuter as any;
+    let scrollOuter = this.$refs.scrollOuter as HTMLSpanElement;// any;
     const outerWidth = scrollOuter.offsetWidth;
-    let scrollBody = this.$refs.scrollBody as any;
+    let scrollBody = this.$refs.scrollBody as HTMLSpanElement;// any;
     const bodyWidth = scrollBody.offsetWidth;
+    //const bodyWidth = document.body.offsetWidth;
+    //console.log(outerWidth + "," + bodyWidth)
+    //alert(outerWidth + '-' + bodyWidth)
+    
     if (offset > 0) {
       this.tagBodyLeft = Math.min(0, this.tagBodyLeft + offset);
     } else {
@@ -186,7 +190,7 @@ export default class TagsPageOpened extends AbpBase {
       } else {
         this.tagBodyLeft = 0;
       }
-    }
+    }  
   }
   handleTagsOption(type: any) {
     if (type === "clearAll") {

@@ -16,6 +16,7 @@
       <li v-for="(item, key) of menuList" @click="handleTagsOption(key)" :key="key">{{item}}</li>
     </ul>
     <!--右侧 x 号，下拉菜单 结束-->
+    <!-- 左右箭头 -->
     <div class="btn-con left-btn">
       <Button type="text" @click="handleScroll(240)">
         <Icon :size="18" type="ios-arrow-back" />
@@ -87,7 +88,7 @@ export default {
     }
   },
   methods: {
-    handlescroll (e) {
+    handlescroll (e) {      
       var type = e.type
       let delta = 0
       if (type === 'DOMMouseScroll' || type === 'mousewheel') {

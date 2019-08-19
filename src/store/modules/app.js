@@ -10,7 +10,7 @@ class AppModule {
     constructor() {
         this.namespaced = true;
         this.state = {
-            cachePage: [],
+            cachePage: ['home'],
             lang: '',
             isFullScreen: false,
             openedSubmenuArr: [],
@@ -157,6 +157,7 @@ class AppModule {
             clearAllTags(state) {
                 state.pageOpenedList.splice(1);
                 state.cachePage.length = 0;
+                state.cachePage = ['home'],                
                 localStorage.pageOpenedList = JSON.stringify(state.pageOpenedList);
             },
             clearOtherTags(state, vm) {

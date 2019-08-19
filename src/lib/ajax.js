@@ -11,21 +11,21 @@ const ajax = axios.create({
 });
 
 // Ajax 错误收集
-const addErrorLog = errorInfo => {    
+const addErrorLog = errorInfo => {
     const { statusText, status, request: { responseURL } } = errorInfo
     let info = {
-      type: 'ajax',
-      code: status,
-      mes: statusText,
-      url: responseURL
-    } 
+        type: 'ajax',
+        code: status,
+        mes: statusText,
+        url: responseURL
+    }
     //if (!responseURL.includes('save_error_logger')){
-    if (responseURL && !responseURL.includes('save_error_logger')){    
+    if (responseURL && !responseURL.includes('save_error_logger')) {
         store.dispatch('app/addErrorLog', info);
     }
-    if (!responseURL){  // for IE
+    if (!responseURL) {  // for IE
         store.dispatch('app/addErrorLog', info);
-    }    
+    }
 }
 
 // axios interceptors 拦截器中添加headers 属性
@@ -50,10 +50,10 @@ ajax.interceptors.response.use((respon) => {
         vm.$Modal.error({ title: error.response.data.error.message, content: error.response.data.error.details });
     }
     else if (!!error.response && !!error.response.data.error && !!error.response.data.error.message) {
-        vm.$Modal.error({ 
+        vm.$Modal.error({
             //title: window.abp.localization.localize("LoginFailed"), 
-            title: '发生错误', 
-            content: error.response.data.error.message 
+            title: '发生错误',
+            content: error.response.data.error.message
         });
     }
     else if (!error.response) {
@@ -62,23 +62,31 @@ ajax.interceptors.response.use((respon) => {
     setTimeout(() => {
         vm.$Message.destroy();
     }, 1000);
-    
+
     //alert((error.response.status===404));
-    if(error.response.status===404){
+    if (error.response.status === 404) {
         vm.$Modal.error({
             title: '404 错误',
             content: '请求的服务器资源不存在！'
-        });       
+        });
     }
-    if(error.response.status===500){
-        vm.$Modal.error({
-            title: '500 错误',
-            content: '未知错误！'
-        });       
+    if (error.response.status === 500) {
+        if (error.response.config.url.includes('/api/TokenAuth/Authenticate')) {
+            vm.$Modal.error({
+                title: '登录失败',
+                content: '用户名或者密码错误！'
+            });
+        }
+        else {
+            vm.$Modal.error({
+                title: '500 错误',
+                content: '未知错误！'
+            });
+        }
     }
     else
-        addErrorLog(error.response);    
-    
+        addErrorLog(error.response);
+
     return Promise.reject(error);
 });
 export default ajax;

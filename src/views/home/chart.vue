@@ -1,5 +1,7 @@
 <template>
-  <component :is="chartType" :type="chartName"/>
+  <keep-alive>
+    <component :is="chartType" :type="chartName" />
+  </keep-alive>
 </template>
 
 <script>
@@ -8,12 +10,12 @@
 icon-font icon-earth2 -> type =_earth
 前缀 icon-font icon- 自动加上
 */
-import Qzy from './qzy.vue'
-import Qty from './qty.vue'
-import Gps from './gps.vue'
+import Qzy from "./qzy.vue";
+import Qty from "./qty.vue";
+import Gps from "./gps.vue";
 export default {
-  name: 'MyChart',
-  components: { Qzy,Qty,Gps },
+  name: "MyChart",
+  components: { Qzy, Qty, Gps },
   props: {
     type: {
       type: String,
@@ -21,19 +23,16 @@ export default {
     }
   },
   computed: {
-    chartType () {
+    chartType() {
       return this.chartName;
     },
-    chartName () {      
-      return this.type
+    chartName() {
+      return this.type;
     }
   },
-  methods: {
-
-  }
-}
+  methods: {}
+};
 </script>
 
 <style>
-
 </style>
