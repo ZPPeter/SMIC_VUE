@@ -105,7 +105,8 @@
       <Content class="main-content-con">
         <Layout class="main-layout-con">
           <div class="tag-nav-wrapper">
-            <tags-page-opened :pageTagsList="pageTagsList"></tags-page-opened>
+            <!-- tags-page-opened :pageTagsList="pageTagsList"></tags-page-opened -->
+            <tags-nav :value="$route" @input="handleClick" :list="pageTagsList" @on-close="handleCloseTag"/>
           </div>
           <div class="single-page-con" :style="{left: shrink?'80px':'210px'}">
             <Content class="content-wrapper">
@@ -123,7 +124,10 @@
 <script lang="ts">
 import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
 import shrinkableMenu from "../components/shrinkable-menu/shrinkable-menu.vue";
-import tagsPageOpened from "../components/tags-nav/tags-page-opened.vue";
+
+//import tagsPageOpened from "../components/tags-nav/tags-page-opened.vue";
+  import tagsNav from "../components/tags-nav/tags-nav.vue";
+
 import HeaderBar from "../components/header-bar.vue";
 //import siderTrigger from "../components/sider-trigger/sider-trigger.vue";
 //import customBreadCrumb from "../components/custom-bread-crumb/custom-bread-crumb.vue";
@@ -150,7 +154,8 @@ import config from "@/config";
     ErrorStore,
     User,
     HeaderBar,
-    tagsPageOpened,
+    //tagsPageOpened,
+    tagsNav,
     //breadcrumbNav,
     fullScreen,
     lockScreen,
@@ -323,25 +328,28 @@ export default class Main extends AbpBase {
   }
   handleCollapsedChange(state) {
     this.shrink = state;
-  }
-  handleCloseTag(res, type, route) {
-    /*
+  }  
+  handleCloseTag(res, type, route) {    
+      /*
+      tags-nav.vue
+      handleTagsOption (type) {
+      this.$emit('on-close', res, 'all')
+      */
+alert(type)
       if (type !== 'others') {
         if (type === 'all') {
           this.turnToPage(config.homeName)
         } else {
-          if (routeEqual(this.$route, route)) {
-            this.closeTag(route)
-          }
+          //if (routeEqual(this.$route, route)) {
+          //  this.closeTag(route)
+          //}
         }
       }
-      this.setTagNavList(res)
-      */
+      //this.setTagNavList(res)      
   }
   handleClick(item) {
     this.turnToPage(item);
   }
-
   @Watch("$route")
   routeChange(to: any) {
     this.$store.commit("app/setCurrentPageName", to.name);

@@ -182,6 +182,10 @@ export default {
   },  
   beforeDestroy() {
     off(window, "resize", this.resize);
+  },
+  activated(){
+    this.dom = echarts.init(this.$refs.dom);
+    this.dom.resize();
   }
 };
 </script>

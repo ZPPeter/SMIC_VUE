@@ -115,7 +115,11 @@
                             marginRight:'5px'
                         },
                         on:{
-                            click:()=>{
+                            click:async ()=>{
+                                await this.$store.dispatch({
+                                    type:'role/getGrantedPermissions',
+                                    data:params.row
+                                })                                
                                 this.$store.commit('role/edit',params.row);
                                 this.edit();
                             }

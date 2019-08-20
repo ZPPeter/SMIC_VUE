@@ -12,9 +12,11 @@
         </DropdownMenu>
       </Dropdown>
     </div>
-    <ul v-show="visible" :style="{left: contextMenuLeft + 'px', top: contextMenuTop + 'px'}" class="contextmenu">
+    <!-- Tags右键关闭菜单，关闭所有不能关闭当前非 home 页面  -->
+    <!--ul v-show="visible" :style="{left: contextMenuLeft + 'px', top: contextMenuTop + 'px'}" class="contextmenu">
       <li v-for="(item, key) of menuList" @click="handleTagsOption(key)" :key="key">{{item}}</li>
-    </ul>
+    </ul-->
+
     <!--右侧 x 号，下拉菜单 结束-->
     <!-- 左右箭头 -->
     <div class="btn-con left-btn">
@@ -151,7 +153,7 @@ export default {
     showTitleInside (item) {
       return showTitle(item, this)
     },
-    handleTagsOption (type) {
+    handleTagsOption (type) { // 当前选中的不是 home ，关闭所有不能关闭 当前所选
         if (type === 'clearAll') {
             this.$store.commit('app/clearAllTags');
             this.$router.push({
@@ -162,7 +164,7 @@ export default {
         }
         this.tagBodyLeft = 0;
     },
-    handleTagsOption_1 (type) {
+    handleTagsOption_1 (type) { // main.vue @on-close -> handleCloseTag
       if (type.includes('all')) {
         // 关闭所有，除了home
         let res = this.list.filter(item => item.name === this.$config.homeName)
@@ -232,6 +234,7 @@ export default {
     }
   },
   mounted () {
+    //alert(JSON.stringify(this.list[0].name))
     setTimeout(() => {
       this.getTagElementByRoute(this.$route)
     }, 200)

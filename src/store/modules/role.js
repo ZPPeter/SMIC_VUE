@@ -11,7 +11,8 @@ class RoleModule extends ListModule {
             list: new Array(),
             loading: false,
             editRole: new Role(),
-            permissions: new Array()
+            permissions: new Array(),
+            grantedpermissions: new Array()
         };
         this.actions = {
             async getAll(context, payload) {
@@ -41,7 +42,14 @@ class RoleModule extends ListModule {
                 let reponse = await Ajax.get('/api/services/app/Role/getAllPermissions');
                 context.state.permissions = reponse.data.result.items;
                 //console.log(context.state.permissions)
-            }
+            },
+            async getGrantedPermissions(context, payload) {
+                //alert(payload.data.permissions)
+                let reponse = await Ajax.get('/api/services/app/Role/GetGrantedPermissions?Id='+payload.data.id);
+                context.state.grantedpermissions = reponse.data.result;
+                //payload.data.permissions = context.state.grantedpermissions;
+                //alert(payload.data.permissions)
+            }            
         };
         this.mutations = {
             setCurrentPage(state, page) {
@@ -51,6 +59,9 @@ class RoleModule extends ListModule {
                 state.pageSize = pagesize;
             },
             edit(state, role) {
+                //alert(role.permissions);
+                role.permissions = state.grantedpermissions;  // 去掉  granted = 0 的记录!!!
+                //alert(role.permissions);
                 state.editRole = role;
             }
         };
