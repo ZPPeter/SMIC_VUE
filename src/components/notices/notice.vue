@@ -1,22 +1,25 @@
 <template>
   <div class="notice-avatar-dropdown">
     <Poptip placement="bottom-end" v-model="visible" @on-popper-show="getNotices">
-      <Tooltip content="最新通知" placement="bottom">
+      <Tooltip content="通知消息" placement="bottom">
         <Badge dot :count="unreadCount">
           <Icon type="ios-chatbubbles" size="24" />          
         </Badge>
       </Tooltip>
       <div slot="content" class="content">
         <Row>
-          <Col span="16">{{noticeLabel}}
+          <Col span="14">
+          <a href="javascript:;" @click="handleClick('details')">
+          {{noticeLabel}}
+          </a>
           </Col>
-          <Col span="8">
+          <Col span="10">
             <Button
               v-if="totalCount"
               type="info"
               icon="ios-book-outline"
-              @click="handleClick('details')"
-            >&nbsp;查看详情</Button>
+              @click="handleClick('hasread')"
+            >标记所有为已读</Button>
           </Col>
         </Row>
         <hr />
@@ -114,9 +117,9 @@ export default class Notice extends AbpBase {
     return this.$store.state.ur_notice.currentPage;
   }
   get noticeLabel() {
-    let name = "最新通知";
+    let name = "通知消息";
     if (this.totalCount > 0) {
-      return `${name}(${this.totalCount})`;
+      return `${name}【${this.totalCount}】`;
     } else {
       return name;
     }
@@ -136,13 +139,15 @@ export default class Notice extends AbpBase {
     this.close();
     switch (name) {
       case "details":
-        this.$store.state.session.user.readLastNoticeTime = new Date();
+        //this.$store.state.session.user.readLastNoticeTime = new Date();
         this.$router.push({
           name: "notices"
         });
         break;
-      /*case "——":          
-          break;*/
+      case "hasread":
+        this.$store.dispatch("ur_notice/setReadLastNoticeTime");
+        this.$store.state.ur_notice.unreadCount = 0;
+        break;
     }
   }
 }

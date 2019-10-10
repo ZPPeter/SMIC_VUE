@@ -17,7 +17,7 @@ class AppModule {
             menuTheme: 'dark', //light
             themeColor: '',
             //avatarImgPath: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png',
-            avatarImgPath: url + 'images/logo_', //.png
+            avatarImgPath: url + '/images/logo_', //.png
             pageOpenedList: [{
                 meta: { title: '主页' },
                 path: '',

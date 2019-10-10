@@ -80,7 +80,6 @@
         <header-bar :collapsed="shrink" @on-coll-change="toggleClick">
           <lock-screen v-if="$config.showLock"></lock-screen>
           <user
-            :message-unread-count="unreadCount"
             :user-avatar="avatarPath"
             :user-surename="userSurename"
             :user-roles="userRoles"
@@ -99,8 +98,7 @@
             @on-change="fullscreenChange"
             style="margin-right: 15px;"
           ></full-screen>
-          <notice           
-          :unread-count="unreadCount" v-if="$config.showNotice" style="margin-right: 20px;"></notice>
+          <notice :unread-count="unreadNoticeCount()" v-if="$config.showNotice" style="margin-right: 20px;"></notice>
         </header-bar>
       </Header>
 
@@ -168,7 +166,13 @@ import config from "@/config";
 })
 export default class Main extends AbpBase {
   shrink: boolean = false;
-  unreadCount:Number = 0;
+  isFullScreen: boolean = false;
+  messageCount: string = "0";
+  //unreadCount:Number = this.$store.state.session.unreadNoticeCount;
+  //errorCount: Number = 0;
+  //collapsed: boolean = false;
+  //minLogo: any = require("../assets/images/logo-min.png");
+  //maxLogo: any = require("../assets/images/logo.png");  
   get userSurename() {
     return this.$store.state.session.user
       ? this.$store.state.session.user.surname
@@ -189,12 +193,6 @@ export default class Main extends AbpBase {
       ? this.$store.state.session.user.userName
       : "";
   }
-  isFullScreen: boolean = false;
-  messageCount: string = "0";
-  //errorCount: Number = 0;
-  //collapsed: boolean = false;
-  //minLogo: any = require("../assets/images/logo-min.png");
-  //maxLogo: any = require("../assets/images/logo.png");
   get openedSubmenuArr() {
     return this.$store.state.app.openedSubmenuArr;
   }
@@ -223,15 +221,14 @@ export default class Main extends AbpBase {
     //alert(this.$store.state.app.avatarImgPath + this.$store.state.session.user.id + '.png'); //Error id is null
     //return localStorage.avatarImgPath;
     //picStr = "http://localhost:21021/images/logo.png?t="+(+new Date());
+    var picStr = "";
     if (this.$store.state.session.user) {
-      var picStr =
+      picStr =
         this.$store.state.app.avatarImgPath +
         this.$store.state.session.user.id +
-        ".png?t="+(+new Date());
-      return picStr;
-    } else {
-      return "";
+        ".png?t="+(+new Date());      
     }
+    return picStr;
   }
   get cachePage() {    
     return this.$store.state.app.cachePage;
@@ -260,6 +257,11 @@ export default class Main extends AbpBase {
   get local() {
     return this.$store.state.app.local;
   }
+  // methods
+  unreadNoticeCount()
+  {
+    return this.$store.state.ur_notice.unreadCount;
+  }
   async init() {
     let pathArr = util.setCurrentPath(this, this.$route.name as string);
     this.$store.commit("app/updateMenulist");
@@ -271,7 +273,7 @@ export default class Main extends AbpBase {
     
     await this.$store.dispatch('ur_notice/getUnreadCount'); //未读消息列表
     
-    this.unreadCount = this.$store.state.ur_notice.unreadCount;
+    //this.unreadCount = this.$store.state.ur_notice.unreadCount;
     
     this.checkTag(this.$route.name);
   }

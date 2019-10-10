@@ -44,7 +44,7 @@
           ></Page>          
         </div>
         <div style="text-align: right;margin-right:10px;">
-        最近查看时间：{{(new Date(this.lastReadTime)).Format('yyyy年MM月dd日 hh:mm:ss')}}    
+        最近查看时间：{{(new Date(this.lastReadTime())).Format('yyyy年MM月dd日 hh:mm:ss')}}    
         </div>
       </div>
     </Card>
@@ -76,7 +76,9 @@ export default class notices extends AbpBase {
   pagerequest: PageNoticeRequest = new PageNoticeRequest();
   createModalShow: boolean = false;
   editModalShow: boolean = false;
-  get lastReadTime(){
+  lastReadTime(){
+    // 刷新页面 http://localhost:8080/#/main/notice 可能 user 还没有更新信息，user = null
+    if(this.$store.state.session.user)
     return this.$store.state.session.user.readLastNoticeTime;
   }
   get list() {
@@ -217,8 +219,9 @@ export default class notices extends AbpBase {
     this.isAdmin = this.$store.state.session.user.roles.includes('ADMIN');
     if(!this.isAdmin)
       this.columns.splice(this.columns.length-1,1);
+    this.$store.state.ur_notice.unreadCount = 0;
   }
-  activated() {
+  activated() {    
   }  
 }
 </script>

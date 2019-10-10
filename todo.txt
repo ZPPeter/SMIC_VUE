@@ -34,6 +34,10 @@ main.vue 缓存 - 路由 -> 不缓存页面每次 actived 都要刷新页面,比
 app.js
  dontCache: ['notices'], ... 下次打开历史，未启用
 -------------------------------------------------------    
+通知服务系统
+https://www.cnblogs.com/wer-ltm/p/6826476.html
+https://blog.csdn.net/WuLex/article/details/78454598
+-------------------------------------------------------    
 ToDo：
 角色不同，主页内容不同
 -------------------------------------------------------    
@@ -41,13 +45,6 @@ ToDo：
 管理员维护通知消息
 Create / Edit
 
-小红点显示/隐藏 - signalr
-https://www.cnblogs.com/wer-ltm/p/6826476.html
-https://blog.csdn.net/WuLex/article/details/78454598
-https://blog.csdn.net/wulex/article/details/78454613
-https://blog.csdn.net/weixin_33716941/article/details/85965210
-https://blog.csdn.net/sinat_29009169/article/details/100922533
+我不看
 
-https://aspnetboilerplate.com/Pages/Documents/SignalR-AspNetCore-Integration
-https://www.cnblogs.com/farb/p/ABPSignalRIntegration.html
-https://docs.microsoft.com/zh-cn/aspnet/core/tutorials/signalr?tabs=visual-studio&view=aspnetcore-2.2
+升级

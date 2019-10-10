@@ -8,11 +8,9 @@ class SignalRAspNetCoreHelper {
             connect: undefined,
             hubs: undefined,
             qs: AppConsts.authorization.encrptedAuthTokenName + "=" + encodeURIComponent(encryptedAuthToken),
-            url: AppConsts.remoteServiceBaseUrl + '/signalr'
-        };
-        //console.log(JSON.stringify(Util.abp.signalr))
+            url: AppConsts.remoteServiceBaseUrl + '/signalr'  // 不能用自己的 signalr-myChatHub
+        };        
         Util.loadScript(AppConsts.appBaseUrl + '/dist/abp.signalr-client.js');
     }
 }
 export default new SignalRAspNetCoreHelper();
-//# sourceMappingURL=SignalRAspNetCoreHelper.js.map
