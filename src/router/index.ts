@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { routers } from './router';
-import iView from 'iview';
+import iView from 'view-design';
 import Util from '../lib/util';
 import Cookies from 'js-cookie';
 import { appRouters, otherRouters } from './router';
-import { LoadingBar } from 'iview';
+import { LoadingBar } from 'view-design';
 Vue.use(VueRouter);
 const RouterConfig = {
     // mode: 'history',

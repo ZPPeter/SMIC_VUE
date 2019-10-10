@@ -8,8 +8,8 @@ Vue.use(VueI18n);
 /**
  * 导入iview自带语言包
  */
-import zh from 'iview/dist/locale/zh-CN';
-import en from 'iview/dist/locale/en-US';
+import zh from 'view-design/dist/locale/zh-CN';
+import en from 'view-design/dist/locale/en-US';
 
 /**
  * 导入APP json语言包

@@ -1,7 +1,7 @@
 //import 'babel-polyfill';
 import Vue from 'vue';
 import App from './app.vue';
-import iView from 'iview';
+import iView from 'view-design';
 import config from '@/config'
 import installPlugins from '@/plugin'
 import { router } from './router/index';

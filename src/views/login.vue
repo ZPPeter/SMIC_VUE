@@ -18,7 +18,7 @@
 import { Component, Vue,Inject } from 'vue-property-decorator';
 import LoginForm from '../components/login-form'
 import Footer from '../components/Footer'
-import iView from 'iview';
+import iView from 'view-design';
 import AbpBase from '../lib/abpbase'
 @Component({
   components:{Footer,LoginForm}

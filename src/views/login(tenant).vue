@@ -48,7 +48,7 @@ import { Component, Vue,Inject } from 'vue-property-decorator';
 import Footer from '../components/Footer.vue'
 import TenantSwitch from '../components/tenant-switch.vue'
 import LanguageSwitch from '../components/language-switch.vue'
-import iView from 'iview';
+import iView from 'view-design';
 import AbpBase from '../lib/abpbase'
 @Component({
   components:{Footer,TenantSwitch,LanguageSwitch}
