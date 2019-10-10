@@ -83,6 +83,7 @@
             :message-unread-count="unreadCount"
             :user-avatar="avatarPath"
             :user-surename="userSurename"
+            :user-roles="userRoles"
             style="margin-right: 5px;"
           />
           <language-list v-if="$config.useI18n" style="margin-right: 10px;" :lang="local"></language-list>
@@ -98,7 +99,8 @@
             @on-change="fullscreenChange"
             style="margin-right: 15px;"
           ></full-screen>
-          <notice v-if="$config.showNotice" style="margin-right: 20px;"></notice>
+          <notice           
+          :unread-count="unreadCount" v-if="$config.showNotice" style="margin-right: 20px;"></notice>
         </header-bar>
       </Header>
 
@@ -126,7 +128,7 @@ import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
 import shrinkableMenu from "../components/shrinkable-menu/shrinkable-menu.vue";
 
 //import tagsPageOpened from "../components/tags-nav/tags-page-opened.vue";
-  import tagsNav from "../components/tags-nav/tags-nav.vue";
+import tagsNav from "../components/tags-nav/tags-nav.vue";
 
 import HeaderBar from "../components/header-bar.vue";
 //import siderTrigger from "../components/sider-trigger/sider-trigger.vue";
@@ -166,13 +168,21 @@ import config from "@/config";
 })
 export default class Main extends AbpBase {
   shrink: boolean = false;
+  unreadCount:Number = 0;
   get userSurename() {
     return this.$store.state.session.user
       ? this.$store.state.session.user.surname
       : "";
   }
+  get userRoles() {
+    //alert(JSON.stringify(this.$store.state.session.user))
+    return this.$store.state.session.user
+      ? '角色：'+this.$store.state.session.user.roles
+      : "角色：未定义";
+  }  
   get isAdminUser() {
-    return this.userName === "admin";
+    //return this.userName === "admin";
+    return this.$store.state.session.user.roles.includes('ADMIN');
   }
   get userName() {
     return this.$store.state.session.user
@@ -180,7 +190,7 @@ export default class Main extends AbpBase {
       : "";
   }
   isFullScreen: boolean = false;
-  messageCount: string = "10";
+  messageCount: string = "0";
   //errorCount: Number = 0;
   //collapsed: boolean = false;
   //minLogo: any = require("../assets/images/logo-min.png");
@@ -223,7 +233,7 @@ export default class Main extends AbpBase {
       return "";
     }
   }
-  get cachePage() {
+  get cachePage() {    
     return this.$store.state.app.cachePage;
   }
   get menuTheme() {
@@ -244,20 +254,25 @@ export default class Main extends AbpBase {
   get errorCount() {
     return this.$store.state.app.errorCount;
   }
-  get unreadCount() {
-    return this.$store.state.user.unreadCount;
-  }
+  //get unreadCount() {
+  //  return this.$store.state.user.unreadCount;
+  //}
   get local() {
     return this.$store.state.app.local;
   }
-  init() {
+  async init() {
     let pathArr = util.setCurrentPath(this, this.$route.name as string);
     this.$store.commit("app/updateMenulist");
     if (pathArr.length >= 2) {
       this.$store.commit("app/addOpenSubmenu", pathArr[1].name);
     }
-    let messageCount = 3;
-    this.messageCount = messageCount.toString();
+    let messageCount = 0;
+    this.messageCount = messageCount.toString();  
+    
+    await this.$store.dispatch('ur_notice/getUnreadCount'); //未读消息列表
+    
+    this.unreadCount = this.$store.state.ur_notice.unreadCount;
+    
     this.checkTag(this.$route.name);
   }
   toggleClick() {

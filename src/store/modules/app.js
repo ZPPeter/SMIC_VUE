@@ -39,7 +39,7 @@ class AppModule {
             ],
             tagsList: [...otherRouters.children],
             messageCount: 0,
-            dontCache: [],
+            dontCache: ['notices'],
             version: '版本:1.00',
             noticeList: [{ read: false, type: 0, title: 'First notice', description: 'One day ago' }, { read: false, type: 1 }, { read: false, type: 0, title: 'Second notice', description: 'One month ago' }],
             errorList: [],
@@ -193,8 +193,10 @@ class AppModule {
             clearOpenedSubmenu(state) {
                 state.openedSubmenuArr.length = 0;
             },
-            increateTag(state, tagObj) {
-                if (!Util.oneOf(tagObj.name, state.dontCache)) {
+            increateTag(state, tagObj) {                
+                //console.log(localStorage.cachePage);
+                //console.log(Util.oneOf(tagObj.name, state.dontCache));
+                if (!Util.oneOf(tagObj.name, state.dontCache) && !Util.oneOf(tagObj.name, state.cachePage) ) {
                     state.cachePage.push(tagObj.name);
                     localStorage.cachePage = JSON.stringify(state.cachePage);
                 }

@@ -27,7 +27,7 @@ export const otherRouters = {
       path: 'error_logger_page',
       name: 'error_logger_page',
       meta: {
-        hideInBread: true, // 有作用??
+        hideInBread: true, 
         icon: 'ios-bug',
         title: '错误日志'
       },
@@ -72,6 +72,7 @@ export const appRouters = [
       { path: 'user', icon: 'md-contacts', permission: 'Pages.Users', meta: { title: '系统用户管理' }, name: 'Users', component: () => import('../views/setting/user/user.vue') },
       { path: 'role', icon: 'ios-contacts', permission: 'Pages.Roles', meta: { title: '系统角色管理' }, name: 'Roles', component: () => import('../views/setting/role/role.vue') },
       { path: 'error_store_test', icon: 'ios-bug',  meta: { title: '错误收集测试' }, name: 'error_store_page', component: () => import('../views/error-store/error-store.vue') },
+      { path: 'notice', icon: 'md-information-circle', meta: { title: '通知消息管理' }, name: 'notices', component: () => import('../views/home/notice/notice.vue') },
     ]
   },
 ];

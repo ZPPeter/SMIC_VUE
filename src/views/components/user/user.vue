@@ -4,21 +4,36 @@
       <Poptip trigger="hover" placement="top-start" v-model="visible" style="cursor:auto;">
         <Avatar :src="userAvatar" />
         <Icon :size="18" type="md-arrow-dropdown"></Icon>
-        <div slot="content" class="content">        
-          <Avatar :src="userAvatar" id="avatar" />&nbsp;
-          {{userSurename}}        
+        <div slot="content" class="content">
+          <Tooltip
+            max-width="200"
+            :content="userRoles"
+          >
+            <Avatar :src="userAvatar" id="avatar" />
+          </Tooltip>
+          &nbsp;
+          {{userSurename}}
           <hr />
-          <hr style="height:15px;border:0px;" />          
-          <a href='javascript:;' @click="changePwdModelShow=true" style="color:rgb(100, 100, 100);">
-            <Icon type="md-key" size="21"/>&nbsp;&nbsp;&nbsp;修改密码</a>
+          <hr style="height:15px;border:0px;" />
+          <a href="javascript:;" @click="changePwdModelShow=true">
+            <Icon type="md-key" size="21" />&nbsp;&nbsp;&nbsp;修改密码
+          </a>
           <!-- 
             <Button type="text" @click="changePwdModelShow=true">修改密码</Button>
-            <Button type="primary" @click="handleClick('changePassword')">修改密码</Button> -->
+          <Button type="primary" @click="handleClick('changePassword')">修改密码</Button>-->
           <br />
-          <a href='javascript:;' @click="changeAwatarModelShow=true" style="color:rgb(100, 100, 100);">
-            <Icon type="md-person" size="21"/>&nbsp;&nbsp;&nbsp;修改头像</a>
+          <a href="javascript:;" @click="changeAwatarModelShow=true">
+            <Icon type="md-person" size="21" />&nbsp;&nbsp;&nbsp;修改头像
+          </a>
           <br />
-          <Button size="large" shape="circle" icon="md-exit" @click="handleClick('logout')">注销</Button>
+          <div style="text-align: center;">
+            <Button
+              size="large"
+              shape="circle"
+              icon="md-exit"
+              @click="handleClick('logout')"
+            >&nbsp;退出系统</Button>
+          </div>
         </div>
       </Poptip>
     </div>
@@ -47,6 +62,10 @@ export default {
       type: String,
       default: ""
     },
+    userRoles:{
+      type:String,
+      default: ""
+    }
   },
   data() {
     return {
@@ -60,8 +79,8 @@ export default {
     close() {
       this.visible = false;
     },
-    reload_(){      
-      location.reload();  //this.reload() 无效
+    reload_() {
+      location.reload(); //this.reload() 无效
     },
     logout() {
       this.$store.commit("app/logout", this);
@@ -97,14 +116,25 @@ export default {
           break;*/
       }
     },
-    created() {
-    },
-  },
+    created() {}
+  }
 };
 </script>
 
 <!-- scoped 不起作用??? -->
 <style scoped>
+a:link {
+  color: black;
+} /* 未访问的链接 */
+a:visited {
+  color: black;
+} /* 已访问的链接 */
+a:hover {
+  color: rgb(6, 155, 248);
+} /* 当有鼠标悬停在链接上 */
+a:active {
+  color: black;
+} /* 被选择的链接 */
 .ivu-poptip-body {
   padding: 2px 2px;
 }
@@ -114,12 +144,15 @@ export default {
 }
 </style>
 <style>
-.content {  
-  width:158px;
+a:hover {
+  color: #ff00ff;
+}
+.content {
+  width: 158px;
   cursor: auto;
   padding: 0px;
   line-height: 50px;
   margin: 0px;
-  font-size: 14px;    
+  font-size: 14px;
 }
 </style>

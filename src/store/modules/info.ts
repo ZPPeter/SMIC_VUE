@@ -19,10 +19,12 @@ class InfoModule extends ListModule<InfoState,any,Info>{
     }
     actions={
         async update(context, payload) {
+            //console.log(payload.data);
             await Ajax.put('/api/services/app/HomeInfo/Update', payload.data);
         },
         async getInfoData(context:ActionContext<InfoState,any>){            
-            let reponse=await Ajax.get('/api/services/app/HomeInfo/GetById?Id=1');
+            //let reponse=await Ajax.get('/api/services/app/HomeInfo/GetById?Id=1');
+            let reponse=await Ajax.get('/api/services/app/HomeInfo/GetFirst');            
             //console.log(reponse.data.result);
             context.state.infoDetail= reponse.data.result;
             //{title:'消息',description:"<span style='font-size:14px;color:red;'>Hello,欢迎使用本系统，在使用过程中有什么问题请联系管理员。</span>"}

@@ -141,7 +141,6 @@ export default class Users extends AbpBase {
     if (this.creationTime.length > 1) {
       this.pagerequest.to = this.creationTime[1];
     }
-
     await this.$store.dispatch({
       // update -> this.$store.state.user.list
       type: "user/getAll",

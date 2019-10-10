@@ -1,242 +1,254 @@
 <template>
-    <div class="notice-avatar-dropdown">        
-        <Poptip placement="bottom-end" @on-popper-show="getNotices">
-            <Tooltip content="用户消息和任务" placement="bottom">
-                <Badge :count="unReadCount" dot>
-                    <Icon type="md-alert" size="24" />
-                </Badge>
-            </Tooltip>
-            <div slot="content" class="content">
-                <Tabs value="notice">
-                        <TabPane :label="noticeLabel" name="notice">
-                            <div class="noFound" v-if="!noticeCount">
-                                <Icon type="ios-chatbubbles-outline" size="36" />
-                                <div class="noTitle">{{L('NoNotice')}}</div>
-                            </div>
-                            <div v-if="noticeCount">
-                                <div class="list">
-                                    <Spin size="large" fix v-if="noticeSpinShow"></Spin>
-                                    <div class="list-item" v-for="(notice,index) in noticeArray" :key="index">
-                                        <div class="list-item-meta">
-                                            <div class="list-item-meta-content">
-                                                <h4 class="list-item-meta-title">
-                                                    <div class="title">{{notice.title}}</div>
-                                                </h4>
-                                                <div class="list-item-meta-description">
-                                                    <div class="description">{{notice.description}}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </TabPane>
-                        <TabPane :label="messageLabel" name="message">
-                            <div class="noFound" v-if="!messageCount">
-                                <Icon type="ios-chatbubbles-outline" size="36" />
-                                <div class="noTitle">{{L('NoMessage')}}</div>
-                            </div>
-                            <div  v-if="messageCount">
-                                <Spin size="large" fix v-if="noticeSpinShow"></Spin>
-                                    <div class="list-item" v-for="(message,index) in messageArray" :key="index">
-                                        <div class="list-item-meta">
-                                            <div class="list-item-meta-content">
-                                                <h4 class="list-item-meta-title">
-                                                    <div class="title">{{message.title}}</div>
-                                                </h4>
-                                                <div class="list-item-meta-description">
-                                                    <div class="description">{{message.description}}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </TabPane>
-                        <TabPane :label="taskLabel" name="task">
-                            <div class="noFound" v-if="!taskCount">
-                                <Icon type="ios-chatbubbles-outline" size="36" />
-                                <div class="noTitle">{{L('NoTask')}}</div>
-                            </div>
-                            <div  v-if="taskCount">
-                                <Spin size="large" fix v-if="noticeSpinShow"></Spin>
-                                    <div class="list-item" v-for="(task,index) in taskArray" :key="index">
-                                        <div class="list-item-meta">
-                                            <div class="list-item-meta-content">
-                                                <h4 class="list-item-meta-title">
-                                                    <div class="title">{{task.title}}</div>
-                                                </h4>
-                                                <div class="list-item-meta-description">
-                                                    <div class="description">{{task.description}}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </TabPane>
-                </Tabs>
+  <div class="notice-avatar-dropdown">
+    <Poptip placement="bottom-end" v-model="visible" @on-popper-show="getNotices">
+      <Tooltip content="最新通知" placement="bottom">
+        <Badge dot :count="unreadCount">
+          <Icon type="ios-chatbubbles" size="24" />          
+        </Badge>
+      </Tooltip>
+      <div slot="content" class="content">
+        <Row>
+          <Col span="16">{{noticeLabel}}
+          </Col>
+          <Col span="8">
+            <Button
+              v-if="totalCount"
+              type="info"
+              icon="ios-book-outline"
+              @click="handleClick('details')"
+            >&nbsp;查看详情</Button>
+          </Col>
+        </Row>
+        <hr />
+        <div class="noFound" v-if="!totalCount">
+          <Icon type="ios-chatbubbles-outline" size="36" />
+          <div class="noTitle">没有新消息</div>
+        </div>
+        <div v-if="totalCount">
+          <div class="list">
+            <Spin size="large" fix v-if="noticeSpinShow"></Spin>
+            <div class="list-item" v-for="(notice,index) in list" :key="index">
+              <div class="list-item-meta">
+                <div class="list-item-meta-content">
+                  <h4 class="list-item-meta-title">
+                    <div class="title">{{notice.title}}</div>
+                  </h4>
+                  <div class="list-item-meta-description">
+                    <div class="description">{{Desc(notice.description)}}</div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </Poptip>
-    </div>
+            <div class="page">
+            <Page
+              class-name="fengpage"
+              :total="totalCount"
+              class="margin-top-10"
+              @on-change="pageChange"
+              :page-size="pageSize"
+              :current="currentPage"
+              simple
+            ></Page>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Poptip>
+  </div>
 </template>
 <script lang="ts">
-import './notice.less'
-import { Component, Vue,Inject, Prop,Watch } from 'vue-property-decorator';
-import AbpBase from '../../lib/abpbase'
-@Component
-export default class Notice extends AbpBase{
-    noticeSpinShow:boolean=true;
-    get noticeList():Array<any>{
-        return this.$store.state.app.noticeList;
+import "./notice.less";
+import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
+import AbpBase from "../../lib/abpbase";
+import utils from "../../lib/util.js";
+import PageRequest from "@/store/entities/page-request";
+class PageNoticeRequest extends PageRequest {
+  LastDate: null;
+}
+@Component({
+  props: {
+    unreadCount: {
+      type: Number,
+      default: 0
     }
-    get unReadCount(){
-        return this.noticeList.filter(n=>n.read==false).length
+  }
+})
+//@Component
+export default class Notice extends AbpBase {  
+  visible: boolean = false;
+  noticeSpinShow: boolean = true;
+  //unreadCount:Number = 9;
+  pagerequest: PageNoticeRequest = new PageNoticeRequest();
+  // get noticeList(): Array<any> {
+  get list() {
+    //console.log(this.$store.state.notice.list);
+    return this.$store.state.ur_notice.list;
+  }
+  pageChange(page: number) {
+    this.$store.commit("ur_notice/setCurrentPage", page);
+    this.getpage();
+  }
+  async getpage() {
+    this.pagerequest.maxResultCount = this.pageSize;
+    this.pagerequest.skipCount = (this.currentPage - 1) * this.pageSize;
+    this.pagerequest.LastDate = this.$store.state.session.user.readLastNoticeTime;
+    //alert(JSON.stringify(this.pagerequest));
+    await this.$store.dispatch({
+      type: "ur_notice/getAll", //未读消息列表
+      data: this.pagerequest
+    });
+  }
+  Desc(str){
+    if(str.length>25)
+      return str.substring(0,25) + ' ...';
+    else
+      return str;
+  }
+  get pageSize() {
+    return this.$store.state.ur_notice.pageSize;
+  }
+  get totalCount() {    
+    return this.$store.state.ur_notice.totalCount;
+  }
+  get currentPage() {
+    return this.$store.state.ur_notice.currentPage;
+  }
+  get noticeLabel() {
+    let name = "最新通知";
+    if (this.totalCount > 0) {
+      return `${name}(${this.totalCount})`;
+    } else {
+      return name;
     }
-    get noticeArray(){
-        return this.noticeList.filter(n=>n.read==false&&n.type===0)
+  }
+  async getNotices() {
+    this.getpage();
+    setTimeout(() => {
+      this.noticeSpinShow = false;
+    }, 1000);
+    //  this.noticeSpinShow = this.$store.state.ur_notice.loading;    
+    // await this.$store.dispatch("ur_notice/setReadLastNoticeTime");
+  }
+  close() {
+    this.visible = false;
+  }
+  async handleClick(name) {
+    this.close();
+    switch (name) {
+      case "details":
+        this.$store.state.session.user.readLastNoticeTime = new Date();
+        this.$router.push({
+          name: "notices"
+        });
+        break;
+      /*case "——":          
+          break;*/
     }
-    get noticeCount(){
-        return this.noticeList.filter(n=>n.read==false&&n.type===0).length
-    }
-    get messageArray(){
-        return this.noticeList.filter(n=>n.read==false&&n.type===1)
-    }
-    get messageCount(){
-        return this.noticeList.filter(n=>n.read==false&&n.type===1).length
-    }
-    get taskArray(){
-        return this.noticeList.filter(n=>n.read==false&&n.type===2)
-    }
-    get taskCount(){
-        return this.noticeList.filter(n=>n.read==false&&n.type===2).length
-    }
-    get noticeLabel(){
-        let name=this.L('Notice');
-        if(this.noticeCount>0){
-            return `${name}(${this.noticeCount})`
-        }else{
-            return name
-        }
-    }
-    get messageLabel(){
-        let name=this.L('Message');
-        if(this.messageCount>0){
-            return `${name}(${this.messageCount})`
-        }else{
-            return name
-        }
-    }
-    get taskLabel(){
-        let name=this.L('Task')
-        if(this.taskCount>0){
-            return `${name}(${this.taskCount})`
-        }else{
-            return name
-        }
-    }
-    getNotices(){
-        setTimeout(()=>{
-            this.noticeSpinShow=false;
-        },2000)
-    }
+  }
 }
 </script>
 <style scoped>
-    .content{
-        padding:-8px -16px;
-    }
-    .noFound{
-        text-align: center;
-        padding: 73px 0 88px;
-        color: rgba(0,0,0,.45);
-    }
-    .noFound .iconfont{
-        font-size: 40px;
-        margin-bottom: 15px;
-    }
-    .noTitle{
-        font-size: 14px;
-    }
-    .list{
-        max-height: 400px;
-        overflow: auto;
-        font-family: "Monospaced Number","Chinese Quote",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 14px;
-        line-height: 1.5;
-        color: rgba(0,0,0,.65);
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        position: relative;
-    }
-    .list * {
-        outline: none;
-    }
-    .list-item {
-        border-bottom: 1px solid #e8e8e8;
-    }
-    .list-item {
-        -ms-flex-align: center;
-        align-items: center;
-        display: -ms-flexbox;
-        display: flex;
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
-    .list-item:hover{
-        background: #e6f7ff;
-    }
-    .list-item-meta{
-        -ms-flex-align: start;
-        align-items: flex-start;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex: 1 1 0%;
-        flex: 1 1 0%;
-        font-size: 0;
-        width: 100%
-    }
-    .list-item-meta-avatar {
-        margin-right: 16px;
-    } 
-    .ant-list-item-meta-content {
-        -ms-flex: 1 0 0%;
-        flex: 1 0 0%;
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 0%;
-    } 
-    .list-item-meta-title {
-        color: rgba(0,0,0,.65);
-        margin-bottom: 4px;
-        font-size: 14px;
-        line-height: 22px;
-    } 
-    .list-item-meta-title .title{
-        font-weight: normal;
-        margin-bottom: 8px;
-        text-align: left;
-    }
-    .list-item-meta-title .extra{
-        float: right;
-        color: rgba(0,0,0,.45);
-        font-weight: normal;
-        margin-right: 0;
-        margin-top: -1.5px
-    }
-    .list-item-meta-description {
-        color: rgba(0,0,0,.45);
-        font-size: 14px;
-        line-height: 22px;
-    }
-    .list-item-meta-description .description{
-        font-size: 12px;
-        line-height: 1.5;
-        text-align: left;
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+.page{
+    text-align: center;
+}
+.content {
+  padding: -8px -16px;
+  width: 360px;
+}
+.noFound {
+  text-align: center;
+  padding: 73px 0 88px;
+  color: rgba(0, 0, 0, 0.45);
+}
+.noFound .iconfont {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+.noTitle {
+  font-size: 14px;
+}
+.list {
+  max-height: 400px;
+  overflow: auto;
+  font-family: "Monospaced Number", "Chinese Quote", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.65);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+.list * {
+  outline: none;
+}
+.list-item {
+  border-bottom: 1px solid #e8e8e8;
+}
+.list-item {
+  -ms-flex-align: center;
+  align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.list-item:hover {
+  background: #e6f7ff;
+}
+.list-item-meta {
+  -ms-flex-align: start;
+  align-items: flex-start;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1 1 0%;
+  flex: 1 1 0%;
+  font-size: 0;
+  width: 100%;
+}
+.list-item-meta-avatar {
+  margin-right: 16px;
+}
+.ant-list-item-meta-content {
+  -ms-flex: 1 0 0%;
+  flex: 1 0 0%;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 0%;
+}
+.list-item-meta-title {
+  color: rgba(0, 0, 0, 0.65);
+  margin-bottom: 4px;
+  font-size: 14px;
+  line-height: 22px;
+}
+.list-item-meta-title .title {
+  font-weight: normal;
+  margin-bottom: 8px;
+  text-align: left;
+}
+.list-item-meta-title .extra {
+  float: right;
+  color: rgba(0, 0, 0, 0.45);
+  font-weight: normal;
+  margin-right: 0;
+  margin-top: -1.5px;
+}
+.list-item-meta-description {
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px;
+  line-height: 22px;
+}
+.list-item-meta-description .description {
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: left;
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+}
 </style>
-

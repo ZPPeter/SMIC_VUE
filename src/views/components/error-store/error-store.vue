@@ -1,11 +1,11 @@
 <template>
-  <div class="error-store">
+  <div class="notice-avatar-dropdown">
     <Tooltip content="查看错误信息" placement="bottom">
     <Badge dot :count="countComputed">
-      <Button type="text" @click="openErrorLoggerPage">
-        <Icon :size="20" type="ios-bug"/>
-      </Button>
-    </Badge>
+      <!-- Button type="text" @click="openErrorLoggerPage" -->
+        <Icon :size="20" type="ios-bug" @click="openErrorLoggerPage"/>
+      <!-- /Button -->
+    </Badge>            
   </Tooltip>
   </div>
 </template>
@@ -40,7 +40,21 @@ export default {
 </script>
 
 <style lang="less">
+.notice{
+    &-avatar-dropdown{
+      cursor: pointer;
+      display: inline-block;
+      // height: 64px;
+      vertical-align: middle;
+      // line-height: 64px;
+      .ivu-badge-dot{
+        top: 16px;
+      }
+    }
+  }
 .error-store{
+  cursor: pointer;
+  display: inline-block;  
   margin-right: 12px;
   .ivu-badge-dot{
     top: 20px;

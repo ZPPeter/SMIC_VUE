@@ -74,7 +74,16 @@ Ajax.get('/AbpUserConfiguration/GetAll').then(data=>{
       })
       if(!!this.$store.state.session.user&&this.$store.state.session.application.features['SignalR']){
         if (this.$store.state.session.application.features['SignalR.AspNetCore']) {
-            SignalRAspNetCoreHelper.initSignalR();
+          SignalRAspNetCoreHelper.initSignalR(); // 初始化
+          var _this = this;          
+          window.abp.event.on('abp.notifications.received', function(userNotification) {//监听消息接收事件
+            //这里写事件触发后需要执行的方法
+            alert('userNotification1');
+          });
+          window.abp.event.on('abp.signalr.connected', function() { //为连接事件注册
+            console.log("Hi everybody, I'm connected to the chat!"); //给服务器发送信息
+            alert(JSON.stringify(window.abp.signalr));
+          });          
         }
       }
       this.$store.commit('app/initCachepage');

@@ -115,12 +115,13 @@ export default {
         }
       }
     },
-    closePage (event, name) {
+    closePage (event, name) {      
         this.$store.commit('app/removeTag', name);
         this.$store.commit('app/closePage', name);
         let pageOpenedList = this.$store.state.app.pageOpenedList;
-        localStorage.pageOpenedList = JSON.stringify(pageOpenedList);
-        if (this.currentPageName === name) {
+        //console.log(this.currentPageName + ',' + name);
+        localStorage.pageOpenedList = JSON.stringify(pageOpenedList);        
+        //if (this.currentPageName === name) {
             let lastPageName = '';
             if (pageOpenedList.length > 1) {
                 lastPageName = pageOpenedList[1].name;
@@ -130,9 +131,9 @@ export default {
             this.$router.push({
                 name: lastPageName
             });
-        }
+        //}
     },    
-    handleClose (current) {
+    handleClose (current) {      
       if (current.meta && current.meta.beforeCloseName && current.meta.beforeCloseName in beforeClose) {
         new Promise(beforeClose[current.meta.beforeCloseName]).then(close => {
           if (close) {
@@ -143,7 +144,7 @@ export default {
         this.close(current)
       }
     },
-    close (route) {
+    close (route) {      
       let res = this.list.filter(item => !routeEqual(route, item))
       this.$emit('on-close', res, undefined, route)
     },

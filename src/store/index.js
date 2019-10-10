@@ -12,6 +12,8 @@ import sjmx from './modules/sjmx';
 import info from './modules/info';
 import role from './modules/role';
 import tenant from './modules/tenant';
+import notice from './modules/notice';
+import ur_notice from './modules/ur_notice';
 const store = new Vuex.Store({
     state: {
     //
@@ -31,7 +33,9 @@ const store = new Vuex.Store({
         vw_sjmx,
         wtd,
         sjmx,
-        info
+        info,
+        notice,
+        ur_notice
     }
 });
 export default store;

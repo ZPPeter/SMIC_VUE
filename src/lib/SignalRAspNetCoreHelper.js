@@ -2,7 +2,7 @@ import AppConsts from './appconst';
 import Util from './util';
 class SignalRAspNetCoreHelper {
     initSignalR() {
-        var encryptedAuthToken = Util.abp.utils.getCookieValue(AppConsts.authorization.encrptedAuthTokenName);
+        var encryptedAuthToken = Util.abp.utils.getCookieValue(AppConsts.authorization.encrptedAuthTokenName);        
         Util.abp.signalr = {
             autoConnect: true,
             connect: undefined,
@@ -10,6 +10,7 @@ class SignalRAspNetCoreHelper {
             qs: AppConsts.authorization.encrptedAuthTokenName + "=" + encodeURIComponent(encryptedAuthToken),
             url: AppConsts.remoteServiceBaseUrl + '/signalr'
         };
+        //console.log(JSON.stringify(Util.abp.signalr))
         Util.loadScript(AppConsts.appBaseUrl + '/dist/abp.signalr-client.js');
     }
 }

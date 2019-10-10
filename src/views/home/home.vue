@@ -12,7 +12,7 @@
       <stats @showChart="showChart"></stats>
     </Row>
     <Row>
-      <chart :type="type" style="height: 310px;width:100%;margin-top:10px;" />
+      <chart :type="type" style="height: 310px;width:100%;margin-top:10px;padding-right:18px;" />
     </Row>
     <Row>
       <div style="height:5px;"></div>
