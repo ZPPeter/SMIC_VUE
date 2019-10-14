@@ -83,7 +83,7 @@
             :user-avatar="avatarPath"
             :user-surename="userSurename"
             :user-roles="userRoles"
-            style="margin-right: 5px;"
+            style="margin-right: 5px;margin-top: -8px;"
           />
           <language-list v-if="$config.useI18n" style="margin-right: 10px;" :lang="local"></language-list>
           <!-- v-if="isAdminUser" -->
@@ -180,9 +180,15 @@ export default class Main extends AbpBase {
   }
   get userRoles() {
     //alert(JSON.stringify(this.$store.state.session.user))
-    return this.$store.state.session.user
-      ? '角色：'+this.$store.state.session.user.roles
-      : "角色：未定义";
+    //return this.$store.state.session.user
+    //  ? '角色：'+this.$store.state.session.user.roles
+    //  : "角色：未定义";
+    let ret = "角色：访客"
+    if(this.$store.state.session.user){
+      if(this.$store.state.session.user.roles.length>0)
+        ret = '角色：'+this.$store.state.session.user.roles;
+    }
+    return ret;
   }  
   get isAdminUser() {
     //return this.userName === "admin";

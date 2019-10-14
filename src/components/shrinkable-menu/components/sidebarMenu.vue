@@ -42,7 +42,7 @@ li.div4.ivu-menu-item.ivu-menu-item-active.ivu-menu-item-selected {
 <div>
     <div style="text-align:center;padding:10px;border-bottom: solid 2px;border-bottom-color: lightgrey;">
         <Icon type="md-planet" size="48" style="color:#0080FF;" class="all"/>
-        <span style="color:#0080FF;font-size:28px;vertical-align:middle;font-family:cambria;font-weight:800;">SMIC&nbsp;&nbsp;&nbsp;</span>
+        <span style="color:#0080FF;font-size:38px;font-family:cambria;font-weight:800;">SMIC&nbsp;&nbsp;</span>
     </div>
     <Menu ref="sideMenu" accordion :active-name="$route.name" :open-names="openNames" :theme="menuTheme" width="auto" @on-select="changeMenu">
         <template v-for="item in menuList">

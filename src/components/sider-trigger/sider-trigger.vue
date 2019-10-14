@@ -1,5 +1,7 @@
 <template>
-  <a @click="handleChange" type="text" :class="['sider-trigger-a', collapsed ? 'collapsed' : '']"><Icon :type="icon" :size="size" /></a>
+  <a @click="handleChange" type="text" :class="['sider-trigger-a', collapsed ? 'collapsed' : '']">
+    <Icon :type="icon" :size="size" />
+  </a>
 </template>
 <script>
 export default {
@@ -12,7 +14,7 @@ export default {
     },
     size: {
       type: Number,
-      default: 26
+      default: 25
     }
   },
   methods: {

@@ -8,12 +8,12 @@
       </Tooltip>
       <div slot="content" class="content">
         <Row>
-          <Col span="14">
+          <Col span="13">
           <a href="javascript:;" @click="handleClick('details')">
           {{noticeLabel}}
           </a>
           </Col>
-          <Col span="10">
+          <Col span="11">
             <Button
               v-if="totalCount"
               type="info"

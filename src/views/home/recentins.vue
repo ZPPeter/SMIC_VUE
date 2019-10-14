@@ -53,7 +53,7 @@ export default {
           key: "djrq",
           width: 180,
           render: (h, params) => {
-            return h("span", new Date(params.row.djrq).toLocaleString());
+            return h("span", new Date(params.row.djrq).toLocaleDateString()); // toLocaleString()
           }
         }
       ],

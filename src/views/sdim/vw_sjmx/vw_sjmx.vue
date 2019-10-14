@@ -112,7 +112,7 @@
         {
             title: "ID", 
             key: "id",
-            width: 110
+            width: 120
         },{  
             title:'送检单号',
             key:'送检单号',

@@ -77,37 +77,52 @@ Ajax.get('/AbpUserConfiguration/GetAll').then(data => {
         if (this.$store.state.session.application.features['SignalR.AspNetCore']) {
           SignalRAspNetCoreHelper.initSignalR(); // 初始化
           var _this = this;
-          // 已经启用 signalR，忽略下面错误提示
+          const signalR = require("@aspnet/signalr");
           var connection = new signalR.HubConnectionBuilder().withUrl(AppConsts.remoteServiceBaseUrl + '/signalr-myChatHub').build();
           // function (user, message) {
           connection.on('getMessage', function (message) { // Register for incoming messages
+            _this.$store.state.ur_notice.unreadCount = 1;
+            //alert(message);
             //console.log('received message: ' + message);
           });
-
-          connection.start().then(function () {            
+          connection.start().then(function () {
             //abp.log.debug('Connected to myChatHub server!');
             //abp.event.trigger('myChatHub.connected');
           }).catch(function (err) {
             return console.error(err.toString());
           });
-
           abp.event.on('abp.notifications.received', function (userNotification) {//监听消息接收事件
             //这里写事件触发后需要执行的方法
             //alert('abp.notifications.received');
-          });
-          abp.event.on('Notice.new', function (userid,notice) { // Register for connect event
+          });          
+          abp.event.on('Notice.new', function (userid, notice) { // Register for connect event
             // Send a message to the server
-            // var message = "Hi everybody, I'm connected to the chat...";
-            //connection.invoke("SendMessage", message).catch(function (err) {
-            //  return console.error(err.toString());
-            //});           
+            var message = '新消息：' + notice;
+            connection.invoke("SendMessage", message).catch(function (err) {
+              return console.error(err.toString());
+            });           
+            /*
             _this.$Message.info({
-              content: '新消息：' + userid + notice,
+              content: '新消息：' + notice,
               duration: 10,
               closable: true
-          });            
-
+            });*/
           });
+
+          abp.event.on('Notice.update', function (userid, notice) { // Register for connect event
+            var message = '修改消息：' + notice;
+            connection.invoke("SendMessage", message).catch(function (err) {
+              return console.error(err.toString());
+            });           
+            /*
+            _this.$Message.info({
+              content: '修改消息：' + notice,
+              duration: 10,
+              closable: true
+            });
+            */
+          });
+
           window.abp.event.on('abp.signalr.connected', function () { //为连接事件注册
             //alert("Hi everybody, I'm connected to the chat!"); //给服务器发送信息            
           });

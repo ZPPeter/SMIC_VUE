@@ -44,7 +44,7 @@
           ></Page>          
         </div>
         <div style="text-align: right;margin-right:10px;">
-        最近查看时间：{{(new Date(this.lastReadTime())).Format('yyyy年MM月dd日 hh:mm:ss')}}    
+        上次查看时间：{{ this.lastReadTime()?(new Date(this.lastReadTime())).Format('yyyy年MM月dd日 hh:mm:ss'):'-'}}
         </div>
       </div>
     </Card>
@@ -78,8 +78,10 @@ export default class notices extends AbpBase {
   editModalShow: boolean = false;
   lastReadTime(){
     // 刷新页面 http://localhost:8080/#/main/notice 可能 user 还没有更新信息，user = null
+    let t:string = '';
     if(this.$store.state.session.user)
-    return this.$store.state.session.user.readLastNoticeTime;
+      t = this.$store.state.session.user.readLastNoticeTime;
+    return t;      
   }
   get list() {
     //console.log(this.$store.state.notice.list);
@@ -131,7 +133,7 @@ export default class notices extends AbpBase {
       title: "标题",
       key: "title",
       render: (h: any, params: any) => {
-        return h('span',new Date(params.row.creationTime)>new Date(this.lastReadTime)?
+        return h('span',new Date(params.row.creationTime)>new Date(this.lastReadTime())?
         {style: {color:'red'}}:{style: {color:'#515A6E'}},
         params.row.title       
         );
@@ -141,17 +143,17 @@ export default class notices extends AbpBase {
       title: "内容",
       key: "description",
       render: (h: any, params: any) => {
-        return h('span',new Date(params.row.creationTime)>new Date(this.lastReadTime)?
+        return h('span',new Date(params.row.creationTime)>new Date(this.lastReadTime())?
         {style: {color:'red'}}:{style: {color:'#515A6E'}},
         params.row.description
         );
       }      
     },
     {
-      title: "创建时间",
+      title: "创建/修改时间",
       key: "creationTime",
       render: (h: any, params: any) => {
-        return h('span',new Date(params.row.creationTime)>new Date(this.lastReadTime)?
+        return h('span',new Date(params.row.creationTime)>new Date(this.lastReadTime())?
         {style: {color:'red'}}:{style: {color:'#515A6E'}},
           new Date(params.row.creationTime).toLocaleString()
         );

@@ -48,7 +48,7 @@ export default {
           key: "sjrq",
           width: 180,
           render: (h, params) => {
-            return h("span", new Date(params.row.sjrq).toLocaleString());
+            return h("span", new Date(params.row.sjrq).toLocaleDateString());// toLocaleString()
           }
         }
       ],

@@ -1,6 +1,6 @@
 <template>
     <div class="sysname">
-        测绘仪器检定数据处理系统
+        <!-- 测绘仪器检定数据处理系统 -->
     </div>
 </template>
 <script>

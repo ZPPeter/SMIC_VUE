@@ -1,6 +1,6 @@
 {
-  "name": "iview",
-  "version": "4.3.0",
+  "name": "smic",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

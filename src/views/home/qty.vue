@@ -129,7 +129,7 @@ export default {
             data: [{ type: "average", name: "平均值" }]
           },
           //data: [174, 277, 174, 143, 163, 147, 177, 192, 260, 33, 364, 249]
-          data:this.$store.state.sjmx.datas_0
+          data:this.$store.state.sjmx.datas_1
         },
         {
           name: this.yearNow + "年",
@@ -146,7 +146,7 @@ export default {
             data: [{ type: "average", name: "平均值" }]
           },
           //data: [260, 116, 294, 87, 211, 50, 391, 91.1, 76, 138, 401, 144]
-          data:this.$store.state.sjmx.datas_1
+          data:this.$store.state.sjmx.datas_0
         },
         {
           name: "GR",

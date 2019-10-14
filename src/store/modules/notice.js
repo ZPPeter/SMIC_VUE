@@ -23,11 +23,13 @@ class NoticeModule extends ListModule {
                 context.state.list = page.items;
             },
             async create(context, payload) {
-                await Ajax.post('/api/services/app/HomeInfo/CreateOrUpdate', payload.data);
+                await Ajax.post('/api/services/app/HomeInfo/Create', payload.data);
             },
             async update(context, payload) {
+                //console.log(payload.data);
+                //修改日期
                 await Ajax.put('/api/services/app/HomeInfo/Update', payload.data);
-            },
+            },            
             async delete(context, payload) {
                 await Ajax.delete('/api/services/app/HomeInfo/Delete?Id=' + payload.data.id);
             },
