@@ -10,6 +10,7 @@ class SignalRAspNetCoreHelper {
             qs: AppConsts.authorization.encrptedAuthTokenName + "=" + encodeURIComponent(encryptedAuthToken),
             url: AppConsts.remoteServiceBaseUrl + '/signalr'  // 不能用自己的 signalr-myChatHub
         };        
+        //alert(AppConsts.appBaseUrl + '/dist/abp.signalr-client.js')
         Util.loadScript(AppConsts.appBaseUrl + '/dist/abp.signalr-client.js');
     }
 }

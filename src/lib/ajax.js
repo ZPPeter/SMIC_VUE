@@ -35,6 +35,7 @@ ajax.interceptors.request.use(function (config) {
     }
     config.headers.common[".AspNetCore.Culture"] = window.abp.utils.getCookieValue("Abp.Localization.CultureName");
     config.headers.common["Abp.TenantId"] = window.abp.multiTenancy.getTenantIdCookie();
+    console.log(JSON.stringify(config));
     return config;
 }, function (error) {
     return Promise.reject(error);
