@@ -1,3 +1,4 @@
+import api from "@/config/api";
 export default {
   /**
    * @description 配置显示在浏览器标签的title
@@ -29,6 +30,7 @@ export default {
   /**
    * @description 需要加载的插件
    */
+  API:api,
   plugin: {
     'error-store': {
       showInHeader: true,   // 设为false后不会在顶部显示错误日志徽标,隐藏一般用户查看日志入口

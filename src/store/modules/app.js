@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import ajax from '../../lib/ajax';
 import appconst from '../../lib/appconst';
-import url from '../../lib/url';
+import url from '@/config/url';
 Vue.use(Vuex);
 class AppModule {
     constructor() {

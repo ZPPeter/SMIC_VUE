@@ -80,27 +80,15 @@ Ajax.get('/AbpUserConfiguration/GetAll').then(data => {
           const signalR = require("@aspnet/signalr");
           var connection = new signalR.HubConnectionBuilder().withUrl(AppConsts.remoteServiceBaseUrl + '/signalr-myChatHub').build();
           //console.log(connection);
+
           var userName = store.state.session.user.surname;
-          connection.on('receiveMessage', function (message) { // Register for incoming messages            
-            //alert(message);
-            if (JSON.parse(message).MessageType == 2) {
-                _this.$store.state.ur_notice.unreadCount = 1; // 新通知
-            }
-            else 	if (JSON.parse(message).MessageType == 98) {
-              if (JSON.parse(message).MessageBody.replace('[PC]', '').replace('[App]', '').trim()!=userName) {
-                _this.$Message.info({
-                  content: '用户: ' + JSON.parse(message).MessageBody + ' 上线了',
-                  duration: 10,
-                  closable: true
-                });
-              }
-            }
-          });
+          var userID = Util.abp.session.userId; 
+
           connection.start().then(function () {
             //abp.log.debug('Connected to myChatHub server!');
             //abp.event.trigger('myChatHub.connected');
             var msg = {
-              messageType: 1, //消息类型 1.发送连接消息 2.普通内容消息 98.连接回执消息
+              messageType: 1, 
               sendUserId: userName + " [PC]", //消息发送人(登录用户ID)
               messageBody: 'online' //消息内容
             };
@@ -110,46 +98,55 @@ Ajax.get('/AbpUserConfiguration/GetAll').then(data => {
           }).catch(function (err) {
             return console.error(err.toString());
           });
+
+          // MessageType 消息类型 1.发送连接消息 2.新消息通知 3.未定义 90.首页数字刷新 98.连接回执消息
+          connection.on('receiveMessage', function (message) { // Register for incoming messages            
+            //alert(message);
+            var msg = JSON.parse(message);
+            if (msg.MessageType == 2) { // 新消息通知    
+               _this.$store.state.ur_notice.unreadCount = 1;           
+            }
+            else if (msg.MessageType == 90) {
+              // 任务列表数据刷新
+            }
+            else if (msg.MessageType == 98) {
+              if (msg.MessageBody.replace('[PC]', '').replace('[App]', '').trim()!=userName) {
+                _this.$Message.info({
+                  content: '用户: ' + msg.MessageBody + ' 上线了',
+                  duration: 10,
+                  closable: true
+                });
+              }
+              else{
+                // 数据刷新
+              }
+            }
+          }); 
+
           abp.event.on('abp.notifications.received', function (userNotification) {//监听消息接收事件
             //这里写事件触发后需要执行的方法
             //alert('abp.notifications.received');
           });
-          abp.event.on('Notice.new', function (userid, notice) { // Register for connect event
-            // Send a message to the server
-            var message = '新消息：' + notice;
-            var msg = {
-              messageType: 2, //消息类型 1.发送连接消息 2.普通内容消息 98.连接回执消息
-              sendUserId: '1', //消息发送人(登录用户ID)
-              messageBody: message //消息内容
-            };
-            connection.invoke("SendMessage", JSON.stringify(msg)).catch(function (err) {
-              return console.error(err.toString());
-            });
-            /*
-            _this.$Message.info({
-              content: '新消息：' + notice,
-              duration: 10,
-              closable: true
-            });*/
-          });
 
-          abp.event.on('Notice.update', function (userid, notice) { // Register for connect event
-            var message = '修改消息：' + notice;
+          abp.event.on('Notice.Prompt', function (userid, notice) { // Register for connect event
+            // Send a message to the server            
             var msg = {
-              messageType: 2, //消息类型 1.发送连接消息 2.普通内容消息 98.连接回执消息
-              sendUserId: '1', //消息发送人(登录用户ID)
-              messageBody: message //消息内容
+              messageType: 2, 
+              sendUserId: userid, //消息发送人(登录用户ID)
+              messageBody: notice //消息内容
             };
             connection.invoke("SendMessage", JSON.stringify(msg)).catch(function (err) {
               return console.error(err.toString());
-            });
-          });
+            });            
+          });          
 
           window.abp.event.on('abp.signalr.connected', function () { //为连接事件注册
             //alert("Hi everybody, I'm connected to the chat!"); //给服务器发送信息            
           });
+
         }
       }
+
       this.$store.commit('app/initCachepage');
       this.$store.commit('app/updateMenulist');
       Ajax.get('/api/services/app/Session/GetCurrentLoginInformations').then(data => {

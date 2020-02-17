@@ -203,7 +203,7 @@ export default class Main extends AbpBase {
     return this.$store.state.app.openedSubmenuArr;
   }
   get copyRight() {
-    var dt = parseInt(new Date("YYYY").toString());
+    var dt = new Date().getFullYear();    
     var dc = dt > 2019 ? "2019-" + dt.toString() : "2019";
     return "© " + dc + " SMIC"; // 不写此句则来自服务器多语言配置 © 2019 SMIC
   }
@@ -409,7 +409,7 @@ alert(type)
   }
   .header-con {
     background: #fff;
-    padding: 0 0px;
+    padding: 0 20px;
     width: 100%;
   }
   .main-layout-con {

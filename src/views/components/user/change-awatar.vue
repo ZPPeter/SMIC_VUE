@@ -22,7 +22,7 @@
               :max-size="32"
               :on-format-error="handleFormatError"
               :on-exceeded-size="handleMaxSize"
-              action= "http://localhost:21021/api/services/app/UploadAvatar/UploadFile"
+              action= config.API.UploadFile
               style="display: inline-block;width:58px;"
             >            
               <Button icon="ios-camera-outline" type="info" size="small">新头像</Button>
@@ -57,7 +57,8 @@ import { Component, Vue, Inject, Prop, Watch } from "vue-property-decorator";
 import Util from "../../../lib/util";
 import AbpBase from "../../../lib/abpbase";
 import Ajax from "../../../lib/ajax";
-import url from '../../../lib/url';
+import url from '@/config/url';
+import config from "@/config";
 let Base64 = require("js-base64").Base64;
 @Component
 export default class ChangeAwatar extends AbpBase {
@@ -74,7 +75,7 @@ export default class ChangeAwatar extends AbpBase {
   SetDisabled(v){
     //alert(url); // OK
     //alert(this.isdisabled);
-    this.isdisabled = v;
+    this.isdisabled = v;    
     //return; 
   }
   get nowAvatar() {

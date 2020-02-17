@@ -37,8 +37,8 @@
                         type:'notice/create',
                         data:this.notice
                     });            
-                    this.$store.state.ur_notice.unreadCount = 1;
-                    abp.event.trigger('Notice.new',1,this.notice.title);
+                    //this.$store.state.ur_notice.unreadCount = 1;
+                    abp.event.trigger('Notice.Prompt',Util.abp.session.userId,this.notice.title);
                     (this.$refs.noticeForm as any).resetFields();
                     this.$emit('save-success');
                     this.$emit('input',false);

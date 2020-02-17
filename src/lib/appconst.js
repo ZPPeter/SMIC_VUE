@@ -1,4 +1,4 @@
-import url from './url';
+import url from '@/config/url';
 const AppConsts = {
     userManagement: {
         defaultAdminUserName: 'admin'
@@ -9,7 +9,7 @@ const AppConsts = {
     authorization: {
         encrptedAuthTokenName: 'enc_auth_token'
     },
-    appBaseUrl: "http://localhost:8081",
+    appBaseUrl: 'http://10.168.1.221:8080/', 
     remoteServiceBaseUrl: url
 };
 export default AppConsts;
