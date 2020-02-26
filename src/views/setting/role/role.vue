@@ -51,6 +51,7 @@
         createModalShow:boolean=false;
         editModalShow:boolean=false;
         get list(){
+            //console.log(this.$store.state.role.list);
             return this.$store.state.role.list;
         };
         get loading(){

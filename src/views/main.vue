@@ -138,7 +138,7 @@ import User from "./components/user";
 import ErrorStore from "./components/error-store";
 import notice from "../components/notices/notice.vue";
 import util from "../lib/util";
-import copyfooter from "../components/Footer.vue";
+//import copyfooter from "../components/Footer.vue";
 import LanguageList from "./components/language";
 import AbpBase from "../lib/abpbase";
 import config from "@/config";
@@ -160,7 +160,7 @@ import config from "@/config";
     fullScreen,
     lockScreen,
     notice,
-    copyfooter,
+    //copyfooter,
     LanguageList
   }
 })

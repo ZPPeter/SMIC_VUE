@@ -1,0 +1,56 @@
+name: "Pages.Users"
+displayName: "用户"
+name: "Pages.Roles"
+displayName: "角色"
+name: "Pages.Tenants"
+displayName: "租户"
+name: "Pages.ChangeAvatar"
+displayName: "修改头像"
+name: "Pages"
+displayName: "页面"
+name: "Pages.Administration"
+displayName: "管理"
+
+------------------------------------------------------------------
+AppService 权限设置
+PermissionNames 权限名称
+
+      public const string Pages_Tenants = "Pages.Tenants";
+      public const string Pages_Users = "Pages.Users";
+      public const string Pages_Roles = "Pages.Roles";
+      public const string Pages_ChangeAvatar = "Pages.ChangeAvatar";
+
+      context.CreatePermission(PermissionNames.Pages_Users, L("Users"));
+      context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
+      context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
+      context.CreatePermission(PermissionNames.Pages_ChangeAvatar, L("ChangeAvatar"));     
+
+      对应于 AppService 权限设置
+      [AbpAuthorize(PermissionNames.Pages_ChangeAvatar)]
+      public class UploadAvatarAppService : SMICAppServiceBase 
+
+DomainService 领域层权限设置 
+Core 针对于每个实体设置权限 CRUD
+      SMIC.Authorization
+      public class AppPermissions
+      {
+        public const string Pages = "Pages";
+        public const string Pages_Administration = "Pages.Administration";
+      }
+
+      AuthorizationProvider
+      public override void SetPermissions(IPermissionDefinitionContext context)
+		{
+			// 在这里配置了HomeInfo 的权限。
+			var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
+			var administration = pages.Children.FirstOrDefault(p => p.Name == AppPermissions.Pages_Administration) ?? pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
+			var entityPermission = administration.CreateChildPermission(HomeInfoPermissions.Node , L("HomeInfo"));
+			entityPermission.CreateChildPermission(HomeInfoPermissions.Query, L("QueryHomeInfo"));
+			entityPermission.CreateChildPermission(HomeInfoPermissions.Create, L("CreateHomeInfo"));
+			entityPermission.CreateChildPermission(HomeInfoPermissions.Edit, L("EditHomeInfo"));
+			entityPermission.CreateChildPermission(HomeInfoPermissions.Delete, L("DeleteHomeInfo"));
+			entityPermission.CreateChildPermission(HomeInfoPermissions.BatchDelete, L("BatchDeleteHomeInfo"));
+			entityPermission.CreateChildPermission(HomeInfoPermissions.ExportExcel, L("ExportExcelHomeInfo"));
+		}
+
+○●★☆◎◆◇△■※▲□        

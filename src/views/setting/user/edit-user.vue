@@ -24,7 +24,7 @@
                     </TabPane>
                     <TabPane :label="L('UserRoles')" name="roles">
                         <CheckboxGroup v-model="user.roleNames">
-                            <Checkbox :label="role.normalizedName" v-for="role in roles" :key="role.id"><span>{{role.name}}</span></Checkbox>
+                            <Checkbox :label="role.normalizedName" v-for="role in roles" :key="role.id"><span>{{role.displayName}}</span></Checkbox>
                         </CheckboxGroup>
                     </TabPane>
                 </Tabs>

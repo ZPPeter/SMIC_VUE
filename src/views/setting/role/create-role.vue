@@ -44,7 +44,8 @@
         role:Role=new Role();
         selectFirst:string = 'detail';
         get permissions(){
-            return this.$store.state.role.permissions
+            //console.log(this.$store.state.role.permissions);
+            return this.$store.state.role.permissions;
         }
         save(){
             (this.$refs.roleForm as any).validate(async (valid:boolean)=>{
