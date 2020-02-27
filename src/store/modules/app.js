@@ -217,7 +217,7 @@ class AppModule {
             //async login(content: ActionContext<AppState, any>, payload: any) {
             async login(state, payload) {
                 //alert(JSON.stringify(payload.data));
-                let rep = await ajax.post("/api/TokenAuth/Authenticate", payload.data);
+                let rep = await ajax.post("/api/TokenAuth/AuthenticateEx", payload.data);
                 //alert("Here?:"+JSON.stringify(rep));
                 var tokenExpireDate = payload.data.rememberMe ? (new Date(new Date().getTime() + 1000 * rep.data.result.expireInSeconds)) : undefined;
                 Util.abp.auth.setToken(rep.data.result.accessToken, tokenExpireDate);
